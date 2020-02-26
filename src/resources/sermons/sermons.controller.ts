@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 
 import { SermonsService } from './sermons.service';
 
@@ -7,7 +7,12 @@ export class SermonsController {
   constructor(private sermonsService: SermonsService) { }
 
   @Get()
-  loadSermons() {
-      return this.sermonsService.getSermons();
+  loadSermonFolders() {
+      return this.sermonsService.getFolders();
   }
+
+  @Get(':folderId')
+  loadSermons(@Param('folderId') id) {
+    return this.sermonsService.getFolderDetails(id);
+  }   
 }

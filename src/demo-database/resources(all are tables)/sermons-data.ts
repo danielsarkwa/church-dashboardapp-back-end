@@ -1,31 +1,49 @@
-import { Article } from '../data-info/presenter-info/article-pret';
+import { Sermon } from '../../data-info/presenter-info/sermon-pret';
 
-export const articles: Article[] = [
+export const sermons: Sermon[] = [
     {
-        articleId: 'sdfdsd6a8d',
-        title: 'Learning the Bible',
-        folder: 'Folder Name',
-        coverImg: 'https://thisisalinkto the cover image',
-        content: 'this is a content of the article',
+        sermonId: '1212hj343dfd',
+        title: 'Love of God',
+        folderId: 'Agapa Love',
+        audioUrl: 'https://thisisalink.com.ex',
+        coverImg: 'https://thisisalinktothecoverimage.com',
         details: {
-            autuor: {
-                _id: '454trdfs',
-                name: 'Daniel Yeboah',
-                avatarUrl: 'https://thisisalinktotheavatar.image'
-            },
-            desc: 'This is a nice description',
-            media: [
-                { 
-                    heading: 'this is a heading', 
-                    link: 'this is the media link' 
+            bibleTxts: [
+                {
+                    text: 'Jhon 3:16', 
+                    scripture: 'this is the holy scriptures'
+                },
+                {
+                    text: 'Jhon 3:16', 
+                    scripture: 'this is the holy scriptures'
+                },
+                {
+                    text: 'Jhon 3:16', 
+                    scripture: 'this is the holy scriptures'
+                }
+            ],
+            speaker: 'Pas.Emmanuel',
+            desc: 'this is  cool description',
+            points: [
+                {
+                    heading: 'God love you most', 
+                    body: 'this is the body of the point'
+                },
+                {
+                    heading: 'God love you most', 
+                    body: 'this is the body of the point'
+                },
+                {
+                    heading: 'God love you most', 
+                    body: 'this is the body of the point'
                 }
             ],
             attachments: [
-                { 
-                    heading: 'this is a heading', 
-                    body: 'this is the attachments link' 
+                {
+                    heading: 'simple pdf',
+                    body: 'https://www.thisisalinktodownloadit.com'
                 }
-            ],
+            ]
         },
         createdAt: 'Mon Feb 24 2020 00:35:07 GMT+0000 (Greenwich Mean Time)',
         stats: {
@@ -67,52 +85,70 @@ export const articles: Article[] = [
                 }
             ]
         },
-        relatedArticles: [
+        relatedSermons: [
             {
-                articleId: 'sdhbkhdgs78',
+                sermonId: 'dfd6sdads',
                 title: 'love over mercy',
-                folder: 'Agape love',
+                folderId: 'Agape love',
                 coverImg: 'https://thisisalsoanotherlinktothe.com'
             },
             {
-                articleId: 'hksad78ssd',
+                sermonId: 'dfd6sdads',
                 title: 'love over mercy',
-                folder: 'Agape love',
+                folderId: 'Agape love',
                 coverImg: 'https://thisisalsoanotherlinktothe.com'
             },
             {
-                articleId: 'jhioasd987a8ds',
+                sermonId: 'dfd6sdads',
                 title: 'love over mercy',
-                folder: 'Agape love',
+                folderId: 'Agape love',
                 coverImg: 'https://thisisalsoanotherlinktothe.com'
             },
         ]
     },
     {
-        articleId: 'sdfdsd6a8d',
-        title: 'Learning the Bible',
-        folder: 'Folder Name',
+        sermonId: '1212hj343dfd',
+        title: 'Love of God',
+        folderId: 'Agapa Love',
+        audioUrl: 'https//:thisisalink.com.ex',
         coverImg: 'https://thisisalinkto the cover image',
-        content: 'this is a content of the article',
         details: {
-            autuor: {
-                _id: '454trdfs',
-                name: 'Daniel Yeboah',
-                avatarUrl: 'https://thisisalinktotheavatar.image'
-            },
-            desc: 'This is a nice description',
-            media: [
-                { 
-                    heading: 'this is a heading', 
-                    link: 'this is the media link' 
+            bibleTxts: [
+                {
+                    text: 'Jhon 3:16', 
+                    scripture: 'this is the holy scriptures'
+                },
+                {
+                    text: 'Jhon 3:16', 
+                    scripture: 'this is the holy scriptures'
+                },
+                {
+                    text: 'Jhon 3:16', 
+                    scripture: 'this is the holy scriptures'
+                }
+            ],
+            speaker: 'Pas.Emmanuel',
+            desc: 'this is  cool description',
+            points: [
+                {
+                    heading: 'God love you most', 
+                    body: 'this is the body of the point'
+                },
+                {
+                    heading: 'God love you most', 
+                    body: 'this is the body of the point'
+                },
+                {
+                    heading: 'God love you most', 
+                    body: 'this is the body of the point'
                 }
             ],
             attachments: [
-                { 
-                    heading: 'this is a heading', 
-                    body: 'this is the attachments link' 
+                {
+                    heading: 'simple pdf',
+                    body: 'https://www.thisisalinktodownloadit.com'
                 }
-            ],
+            ]
         },
         createdAt: 'Mon Feb 24 2020 00:35:07 GMT+0000 (Greenwich Mean Time)',
         stats: {
@@ -154,52 +190,70 @@ export const articles: Article[] = [
                 }
             ]
         },
-        relatedArticles: [
+        relatedSermons: [
             {
-                articleId: 'sdhbkhdgs78',
+                sermonId: 'dfd6sdads',
                 title: 'love over mercy',
-                folder: 'Agape love',
+                folderId: 'Agape love',
                 coverImg: 'https://thisisalsoanotherlinktothe.com'
             },
             {
-                articleId: 'hksad78ssd',
+                sermonId: 'dfd6sdads',
                 title: 'love over mercy',
-                folder: 'Agape love',
+                folderId: 'Agape love',
                 coverImg: 'https://thisisalsoanotherlinktothe.com'
             },
             {
-                articleId: 'jhioasd987a8ds',
+                sermonId: 'dfd6sdads',
                 title: 'love over mercy',
-                folder: 'Agape love',
+                folderId: 'Agape love',
                 coverImg: 'https://thisisalsoanotherlinktothe.com'
             },
         ]
     },
     {
-        articleId: 'sdfdsd6a8d',
-        title: 'Learning the Bible',
-        folder: 'Folder Name',
+        sermonId: '1212hj343dfd',
+        title: 'Love of God',
+        folderId: 'Agapa Love',
+        audioUrl: 'https//:thisisalink.com.ex',
         coverImg: 'https://thisisalinkto the cover image',
-        content: 'this is a content of the article',
         details: {
-            autuor: {
-                _id: '454trdfs',
-                name: 'Daniel Yeboah',
-                avatarUrl: 'https://thisisalinktotheavatar.image'
-            },
-            desc: 'This is a nice description',
-            media: [
-                { 
-                    heading: 'this is a heading', 
-                    link: 'this is the media link' 
+            bibleTxts: [
+                {
+                    text: 'Jhon 3:16', 
+                    scripture: 'this is the holy scriptures'
+                },
+                {
+                    text: 'Jhon 3:16', 
+                    scripture: 'this is the holy scriptures'
+                },
+                {
+                    text: 'Jhon 3:16', 
+                    scripture: 'this is the holy scriptures'
+                }
+            ],
+            speaker: 'Pas.Emmanuel',
+            desc: 'this is  cool description',
+            points: [
+                {
+                    heading: 'God love you most', 
+                    body: 'this is the body of the point'
+                },
+                {
+                    heading: 'God love you most', 
+                    body: 'this is the body of the point'
+                },
+                {
+                    heading: 'God love you most', 
+                    body: 'this is the body of the point'
                 }
             ],
             attachments: [
-                { 
-                    heading: 'this is a heading', 
-                    body: 'this is the attachments link' 
+                {
+                    heading: 'simple pdf',
+                    body: 'https://www.thisisalinktodownloadit.com'
                 }
-            ],
+            ]
         },
         createdAt: 'Mon Feb 24 2020 00:35:07 GMT+0000 (Greenwich Mean Time)',
         stats: {
@@ -241,25 +295,47 @@ export const articles: Article[] = [
                 }
             ]
         },
-        relatedArticles: [
+        relatedSermons: [
             {
-                articleId: 'sdhbkhdgs78',
+                sermonId: 'dfd6sdads',
                 title: 'love over mercy',
-                folder: 'Agape love',
+                folderId: 'Agape love',
                 coverImg: 'https://thisisalsoanotherlinktothe.com'
             },
             {
-                articleId: 'hksad78ssd',
+                sermonId: 'dfd6sdads',
                 title: 'love over mercy',
-                folder: 'Agape love',
+                folderId: 'Agape love',
                 coverImg: 'https://thisisalsoanotherlinktothe.com'
             },
             {
-                articleId: 'jhioasd987a8ds',
+                sermonId: 'dfd6sdads',
                 title: 'love over mercy',
-                folder: 'Agape love',
+                folderId: 'Agape love',
                 coverImg: 'https://thisisalsoanotherlinktothe.com'
             },
         ]
-    }
+    },
 ];
+
+// repliesData: {
+                    //     totalRlys: 2,
+                    //     replies: [
+                    //         {
+                    //             user: {
+                    //                 _id: '45466xs655j',
+                    //                 name: 'Evans Yeboah',
+                    //                 avatarUrl: 'https://thisaurltotheprofilepic.com.ex'
+                    //             },
+                    //             comentMsg: 'this is a comment message'
+                    //         },
+                    //         {
+                    //             user: {
+                    //                 _id: '45466xs655j',
+                    //                 name: 'Evans Yeboah',
+                    //                 avatarUrl: 'https://thisaurltotheprofilepic.com.ex'
+                    //             },
+                    //             comentMsg: 'this is another comment message'
+                    //         }
+                    //     ]
+                    // }

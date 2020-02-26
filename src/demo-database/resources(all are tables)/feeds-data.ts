@@ -1,37 +1,29 @@
-import { Announcement } from '../data-info/presenter-info/announcement-pret';
+import { Feed } from '../../data-info/presenter-info/feeds-pret';
 
-export const announcements: Announcement[] = [
+export const feeds: Feed[] = [
     {
-        announcementId: 'sddy87sfdsf',
-        title: 'Youth Meeting',
-        tags: ['year planning', 'discussions'],
-        desc: 'this is a description',
-        coverImg: 'https://5thiisisacover.image',
+        feedId: 'sdfdsd6a8d',
+        title: 'Spices and roses',
+        coverImg: 'https://thisisalinkto the cover image',
         details: {
             autuor: {
-                _id: 'dfdfs7d8dd',
+                _id: '454trdfs',
                 name: 'Daniel Yeboah',
-                avatarUrl: 'https://5thiisisaprofile.image'
+                avatarUrl: 'https://thisisalinktotheavatar.image'
             },
-            from: 'Church Sect',
-            to: 'All church members',
-            content: 'this is the content of the announcement',
+            desc: 'This is a nice description',
+            to: 'this is to all church members',
+            content: 'this is the text content of the feed',
             media: [
-                {
-                    heading: 'this is heading',
-                    link: 'this is the link of the media'
-                }
-            ],
-            reminders: [
-                {
-                    date: 'Mon Feb 24 2020',
-                    time: '10:35:07 GMT+0000 (Greenwich Mean Time)'
+                { 
+                    heading: 'this is a heading', 
+                    link: 'this is the media link' 
                 }
             ],
             attachments: [
-                {
-                    heading: 'this is the heading',
-                    body: 'this is the attachment body'
+                { 
+                    heading: 'this is a heading', 
+                    body: 'this is the attachments link' 
                 }
             ],
         },
@@ -74,39 +66,31 @@ export const announcements: Announcement[] = [
                   }
                 }
             ]
-        }
+        },
     },
     {
-        announcementId: 'sddy87sfdsf',
-        title: 'Youth Meeting',
-        tags: ['year planning', 'discussions'],
-        desc: 'this is a description',
-        coverImg: 'https://5thiisisacover.image',
+        feedId: 'sdfdsd6a8d',
+        title: 'Spices and roses',
+        coverImg: 'https://thisisalinkto the cover image',
         details: {
             autuor: {
-                _id: 'dfdfs7d8dd',
+                _id: '454trdfs',
                 name: 'Daniel Yeboah',
-                avatarUrl: 'https://5thiisisaprofile.image'
+                avatarUrl: 'https://thisisalinktotheavatar.image'
             },
-            from: 'Church Sect',
-            to: 'All church members',
-            content: 'this is the content of the announcement',
+            desc: 'This is a nice description',
+            to: 'this is to all church members',
+            content: 'this is the text content of the feed',
             media: [
-                {
-                    heading: 'this is heading',
-                    link: 'this is the link of the media'
-                }
-            ],
-            reminders: [
-                {
-                    date: 'Mon Feb 24 2020',
-                    time: '10:35:07 GMT+0000 (Greenwich Mean Time)'
+                { 
+                    heading: 'this is a heading', 
+                    link: 'this is the media link' 
                 }
             ],
             attachments: [
-                {
-                    heading: 'this is the heading',
-                    body: 'this is the attachment body'
+                { 
+                    heading: 'this is a heading', 
+                    body: 'this is the attachments link' 
                 }
             ],
         },
@@ -149,39 +133,31 @@ export const announcements: Announcement[] = [
                   }
                 }
             ]
-        }
+        },
     },
     {
-        announcementId: 'sddy87sfdsf',
-        title: 'Youth Meeting',
-        tags: ['year planning', 'discussions'],
-        desc: 'this is a description',
-        coverImg: 'https://5thiisisacover.image',
+        feedId: 'sdfdsd6a8d',
+        title: 'Spices and roses',
+        coverImg: 'https://thisisalinkto the cover image',
         details: {
             autuor: {
-                _id: 'dfdfs7d8dd',
+                _id: '454trdfs',
                 name: 'Daniel Yeboah',
-                avatarUrl: 'https://5thiisisaprofile.image'
+                avatarUrl: 'https://thisisalinktotheavatar.image'
             },
-            from: 'Church Sect',
-            to: 'All church members',
-            content: 'this is the content of the announcement',
+            desc: 'This is a nice description',
+            to: 'this is to all church members',
+            content: 'this is the text content of the feed',
             media: [
-                {
-                    heading: 'this is heading',
-                    link: 'this is the link of the media'
-                }
-            ],
-            reminders: [
-                {
-                    date: 'Mon Feb 24 2020',
-                    time: '10:35:07 GMT+0000 (Greenwich Mean Time)'
+                { 
+                    heading: 'this is a heading', 
+                    link: 'this is the media link' 
                 }
             ],
             attachments: [
-                {
-                    heading: 'this is the heading',
-                    body: 'this is the attachment body'
+                { 
+                    heading: 'this is a heading', 
+                    body: 'this is the attachments link' 
                 }
             ],
         },
@@ -224,39 +200,31 @@ export const announcements: Announcement[] = [
                   }
                 }
             ]
-        }
+        },
     },
     {
-        announcementId: 'sddy87sfdsf',
-        title: 'Youth Meeting',
-        tags: ['year planning', 'discussions'],
-        desc: 'this is a description',
-        coverImg: 'https://5thiisisacover.image',
+        feedId: 'sdfdsd6a8d',
+        title: 'Spices and roses',
+        coverImg: 'https://thisisalinkto the cover image',
         details: {
             autuor: {
-                _id: 'dfdfs7d8dd',
+                _id: '454trdfs',
                 name: 'Daniel Yeboah',
-                avatarUrl: 'https://5thiisisaprofile.image'
+                avatarUrl: 'https://thisisalinktotheavatar.image'
             },
-            from: 'Church Sect',
-            to: 'All church members',
-            content: 'this is the content of the announcement',
+            desc: 'This is a nice description',
+            to: 'this is to all church members',
+            content: 'this is the text content of the feed',
             media: [
-                {
-                    heading: 'this is heading',
-                    link: 'this is the link of the media'
-                }
-            ],
-            reminders: [
-                {
-                    date: 'Mon Feb 24 2020',
-                    time: '10:35:07 GMT+0000 (Greenwich Mean Time)'
+                { 
+                    heading: 'this is a heading', 
+                    link: 'this is the media link' 
                 }
             ],
             attachments: [
-                {
-                    heading: 'this is the heading',
-                    body: 'this is the attachment body'
+                { 
+                    heading: 'this is a heading', 
+                    body: 'this is the attachments link' 
                 }
             ],
         },
@@ -299,6 +267,6 @@ export const announcements: Announcement[] = [
                   }
                 }
             ]
-        }
+        },
     },
 ];

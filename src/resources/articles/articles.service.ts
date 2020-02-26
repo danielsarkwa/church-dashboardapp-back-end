@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import { articles } from '../../demo-database/articles-data';
+import { articles } from '../../demo-database/resources(all are tables)/articles-data';
 
 @Injectable()
 export class ArticlesService {

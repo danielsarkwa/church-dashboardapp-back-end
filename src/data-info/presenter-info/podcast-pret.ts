@@ -2,7 +2,7 @@
 export class Podcast {
     podcastId: string;
     title: string;
-    folder: string;
+    folderId: string;
     audioUrl: string;
     coverImg: string;
     podcastGroup: string;
@@ -55,7 +55,7 @@ export class Podcast {
     relatedPodcasts: { // query only 5-6 and rest is loaded as more
         podcastId: string,
         title: string,
-        folder: string,
+        folderId: string,
         coverImg: string
     }[];
 };

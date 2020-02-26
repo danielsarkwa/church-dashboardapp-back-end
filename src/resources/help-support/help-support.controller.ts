@@ -14,4 +14,9 @@ export class HelpSupportController {
     loadSuggestedFeatures() {
         return this.helpSupportService.getSuggestedFeatures();
     }
+
+    @Get('faqs')
+    loadFaqs() {
+        return this.helpSupportService.getFaqs();
+    }
 }

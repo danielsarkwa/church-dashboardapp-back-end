@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import { feeds } from '../../demo-database/feeds-data';
+import { feeds } from '../../demo-database/resources(all are tables)/feeds-data';
 
 @Injectable()
 export class FeedsService {

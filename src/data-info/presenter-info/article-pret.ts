@@ -2,7 +2,7 @@
 export class Article {
     articleId: string;
     title: string;
-    folder: string;
+    folderId: string;
     coverImg: string;
     content: string;
     details: {

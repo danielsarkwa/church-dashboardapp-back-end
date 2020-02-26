@@ -1,4 +1,4 @@
-import { Event } from '../data-info/presenter-info/events-pret';
+import { Event } from '../../data-info/presenter-info/events-pret';
 
 export const events: Event[] = [
     {

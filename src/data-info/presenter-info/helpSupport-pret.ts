@@ -45,5 +45,21 @@ export class SuggestedFeatures {
 };
 
 // FAQs / usability articles
+export class Faq {
+    faqId: string;
+    title: string;
+    desc: string; // topic and will be an option on the front-end to choose from
+    content: string;
+    media: { heading: string, link: string }[];
+    createdAt: string;
+    feedback: {
+        helpful: number,
+        notHelpful: number
+    };
+    relatedFaqs: {
+        faqId: string;
+        title: string;
+    }[]
+}
 
 // Terms & Conditions and Privacy Policy

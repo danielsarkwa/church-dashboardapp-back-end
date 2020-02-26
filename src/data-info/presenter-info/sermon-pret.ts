@@ -2,7 +2,7 @@
 export class Sermon {
     sermonId: string;
     title: string;
-    folder: string;
+    folderId: string;
     audioUrl: string;
     coverImg: string;
     details: {
@@ -51,7 +51,7 @@ export class Sermon {
     relatedSermons: { // query only 5-6 and rest is loaded as more
         sermonId: string,
         title: string,
-        folder: string,
+        folderId: string,
         coverImg: string
     }[];
 };

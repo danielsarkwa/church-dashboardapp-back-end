@@ -1,7 +1,7 @@
 
 export class CreatePodcastDto {
     title: string;
-    folder: string;
+    folderId: string;
     audioUrl: string;
     details: {
       bibleTxts?: {text: string, body}[],

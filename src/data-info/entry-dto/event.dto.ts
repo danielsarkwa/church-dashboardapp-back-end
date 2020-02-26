@@ -11,6 +11,6 @@ export class CreateEventDto {
         more?: { heading: string, body: string }[]; // guest // mc // host // activities
         reminders: { date: string, time: string }[]; // this is set to 2hrs - 3hrs before the time
         attachments?: {heading: string, body: string}[];
-        mediaUrls: {heading: string, link: string}[]; // videos and images links
+        media: {heading: string, link: string}[]; // videos and images links
     };
 }

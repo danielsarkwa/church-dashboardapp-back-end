@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import { usersFeedbacks, suggestions } from '../../demo-database/helpSupport-data';
+import { usersFeedbacks, suggestions, faqs } from '../../demo-database/resources(all are tables)/helpSupport-data';
 
 @Injectable()
 export class HelpSupportService {
@@ -10,5 +10,9 @@ export class HelpSupportService {
 
     getSuggestedFeatures() {
         return suggestions;
+    }
+
+    getFaqs() {
+        return faqs;
     }
 }

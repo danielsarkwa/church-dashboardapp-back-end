@@ -1,7 +1,7 @@
 
 export class CreateArticleDto {
     title: string;
-    folder: string;
+    folderId: string;
     desc: string;
     content: string;
     autuor: { _id: string, name: string, avatarUrl: string };

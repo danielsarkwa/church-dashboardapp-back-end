@@ -1,4 +1,4 @@
-import { UserFeedback, SuggestedFeatures } from '../data-info/presenter-info/helpSupport-pret';
+import { UserFeedback, SuggestedFeatures, Faq } from '../../data-info/presenter-info/helpSupport-pret';
 
 export const usersFeedbacks: UserFeedback[] = [
     {
@@ -78,6 +78,19 @@ export const usersFeedbacks: UserFeedback[] = [
         ]
     },
 ];
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -183,5 +196,130 @@ export const suggestions: SuggestedFeatures[] = [
                 }
             ]
         }
+    },
+];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export const faqs: Faq[] = [
+    {
+        faqId: 'dfdsfu7889as',
+        title: 'Downloading the app and installing on ios',
+        desc: 'Downloading',
+        content: 'this is the content of the faq',
+        media: [
+            {
+            heading: 'playstore image',
+            link: 'this is the media link'
+            }
+        ],
+        createdAt: 'Mon Feb 24 2020 00:35:07 GMT+0000 (Greenwich Mean Time)',
+        feedback: {
+            helpful: 23,
+            notHelpful: 5
+        },
+        relatedFaqs: [
+            {
+                faqId: 'sdshdoei454',
+                title: 'Installing on android'
+            },
+            {
+                faqId: 'sdas78',
+                title: 'Installing on android'
+            }
+        ]
+    },
+    {
+        faqId: 'dfdsfu7889as',
+        title: 'Downloading the app and installing on ios',
+        desc: 'Downloading',
+        content: 'this is the content of the faq',
+        media: [
+            {
+            heading: 'playstore image',
+            link: 'this is the media link'
+            }
+        ],
+        createdAt: 'Mon Feb 24 2020 00:35:07 GMT+0000 (Greenwich Mean Time)',
+        feedback: {
+            helpful: 23,
+            notHelpful: 5
+        },
+        relatedFaqs: [
+            {
+                faqId: 'sdshdoei454',
+                title: 'Installing on android'
+            },
+            {
+                faqId: 'sdas78',
+                title: 'Installing on android'
+            }
+        ]
+    },
+    {
+        faqId: 'dfdsfu7889as',
+        title: 'Downloading the app and installing on ios',
+        desc: 'Downloading',
+        content: 'this is the content of the faq',
+        media: [
+            {
+            heading: 'playstore image',
+            link: 'this is the media link'
+            }
+        ],
+        createdAt: 'Mon Feb 24 2020 00:35:07 GMT+0000 (Greenwich Mean Time)',
+        feedback: {
+            helpful: 23,
+            notHelpful: 5
+        },
+        relatedFaqs: [
+            {
+                faqId: 'sdshdoei454',
+                title: 'Installing on android'
+            },
+            {
+                faqId: 'sdas78',
+                title: 'Installing on android'
+            }
+        ]
+    },
+    {
+        faqId: 'dfdsfu7889as',
+        title: 'Downloading the app and installing on ios',
+        desc: 'Downloading',
+        content: 'this is the content of the faq',
+        media: [
+            {
+            heading: 'playstore image',
+            link: 'this is the media link'
+            }
+        ],
+        createdAt: 'Mon Feb 24 2020 00:35:07 GMT+0000 (Greenwich Mean Time)',
+        feedback: {
+            helpful: 23,
+            notHelpful: 5
+        },
+        relatedFaqs: [
+            {
+                faqId: 'sdshdoei454',
+                title: 'Installing on android'
+            },
+            {
+                faqId: 'sdas78',
+                title: 'Installing on android'
+            }
+        ]
     },
 ];
