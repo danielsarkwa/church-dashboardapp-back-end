@@ -1,13 +1,18 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 
 import { ArticlesService } from './articles.service';
 
 @Controller('articles')
 export class ArticlesController {
   constructor(private articlesService: ArticlesService) { }
-  
+
   @Get()
-  loadArticles() {
-    return this.articlesService.getArticles();
+  loadArticlesFolders() {
+      return this.articlesService.getFolders();
+  }
+
+  @Get(':folderId')
+  loadArticlesFolder(@Param('folderId') id) {
+    return this.articlesService.getFolderDetails(id);
   }
 }

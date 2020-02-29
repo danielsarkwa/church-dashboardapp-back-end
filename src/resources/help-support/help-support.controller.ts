@@ -5,12 +5,12 @@ import { HelpSupportService } from './helpSupport.service';
 @Controller('helpSupport')
 export class HelpSupportController {
     constructor(private helpSupportService: HelpSupportService) { }
-    @Get('feedback')
+    @Get('feedbacks')
     loadUserFeedbacks() {
         return this.helpSupportService.getUsersFeedbacks();
     }
 
-    @Get('suggestFeature')
+    @Get('suggestFeatures')
     loadSuggestedFeatures() {
         return this.helpSupportService.getSuggestedFeatures();
     }

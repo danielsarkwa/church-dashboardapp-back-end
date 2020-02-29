@@ -3,6 +3,25 @@ export class Feed {
     feedId: string;
     title: string;
     coverImg: string; // this is set by the front-end
+    autuor: { 
+        _id: string, 
+        name: string, 
+        avatarUrl: string 
+    };
+    desc: string;
+    to: string; // default to everyone by front-end and can't be empty
+    stats: {
+        views: number,
+        likes: number,
+        shares: number
+        downloads: number
+    };
+}
+
+export class FeedDetails {
+    feedId: string;
+    title: string;
+    coverImg: string; // this is set by the front-end
     details: {
         autuor: { _id: string, name: string, avatarUrl: string },
         desc: string,

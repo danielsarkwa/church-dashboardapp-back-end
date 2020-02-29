@@ -1,9 +1,26 @@
 import { Folder, FolderDetail } from '../../data-info/presenter-info/folder-pret';
 
-export const podcastFolders: Folder[] = [ // this folders are channels or groups
+export const podcastFolders: Folder[] = [ // these folders are channels or groups // therefore the items will be spliced from up to ten at a time
     {
         folderId: 'dsjso89xz9c87z',
-        title: 'Agape Love',
+        title: 'Podcast channel name 1',
+        coverImg: 'https:thisthilink.com',
+        belongsTo: 'sermon',
+        numberOfFiles: 0,
+        totalTime: 3000,
+        files: [ // these are podcasts list
+            'sdadsadfcve5',
+            'dfdsvdxxd',
+            'shc9xujaaac',
+            'dcas9yuidas',
+            'shc9xujaaac',
+            'dcas9yuidas'
+        ],
+        createdAt: 'Created data'
+    },
+    {
+        folderId: 'rtryerds',
+        title: 'Podcast channel name 2',
         coverImg: 'https:thisthilink.com',
         belongsTo: 'sermon',
         numberOfFiles: 0,
@@ -18,7 +35,7 @@ export const podcastFolders: Folder[] = [ // this folders are channels or groups
     },
     {
         folderId: 'rtryerds',
-        title: 'Agape Love',
+        title: 'Podcast channel name 3',
         coverImg: 'https:thisthilink.com',
         belongsTo: 'sermon',
         numberOfFiles: 0,
@@ -36,9 +53,9 @@ export const podcastFolders: Folder[] = [ // this folders are channels or groups
 
 
 
-export const podcastDetails: FolderDetail = { // this is channel's or group's shows
+export const podcastDetails: FolderDetail = { // this is channel's or group's details
     folderId: 'dsjso89xz9c87z',
-    title: 'Agape Love',
+    title: 'Podcast channel name 1',
     coverImg: 'https:thisthilink.com',
     belongsTo: 'sermon',
     numberOfFiles: 0,
@@ -46,6 +63,7 @@ export const podcastDetails: FolderDetail = { // this is channel's or group's sh
     files: [
         {
             id: 'sdadsadfcve5',
+            folderId: 'dsjso89xz9c87z',
             title: 'Love of God',
             audioUrl: 'https://thisisalink.com.ex',
             coverImg: 'https://thisisalinktothecoverimage.com',
@@ -59,6 +77,7 @@ export const podcastDetails: FolderDetail = { // this is channel's or group's sh
         },
         {
             id: 'adsadajnc',
+            folderId: 'dsjso89xz9c87z',
             title: 'Love of God',
             audioUrl: 'https://thisisalink.com.ex',
             coverImg: 'https://thisisalinktothecoverimage.com',
@@ -72,6 +91,7 @@ export const podcastDetails: FolderDetail = { // this is channel's or group's sh
         },
         {
             id: '7890909sd0jhk',
+            folderId: 'dsjso89xz9c87z',
             title: 'Love of God',
             audioUrl: 'https://thisisalink.com.ex',
             coverImg: 'https://thisisalinktothecoverimage.com',
@@ -85,6 +105,7 @@ export const podcastDetails: FolderDetail = { // this is channel's or group's sh
         },
         {
             id: 'sdsscxzakodsai9',
+            folderId: 'dsjso89xz9c87z',
             title: 'Love of God',
             audioUrl: 'https://thisisalink.com.ex',
             coverImg: 'https://thisisalinktothecoverimage.com',

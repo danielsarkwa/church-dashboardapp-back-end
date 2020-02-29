@@ -12,7 +12,7 @@ export class SermonsController {
   }
 
   @Get(':folderId')
-  loadSermons(@Param('folderId') id) {
+  loadSermonsFolder(@Param('folderId') id) {
     return this.sermonsService.getFolderDetails(id);
-  }   
+  }
 }

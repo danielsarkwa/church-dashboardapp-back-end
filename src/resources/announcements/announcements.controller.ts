@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 
 import { AnnouncementsService } from './announcement.service';
 
@@ -9,5 +9,10 @@ export class AnnouncementsController {
   @Get()
   loadAnnouncements() {
      return this.announcementsService.getAnnouncements();
+  }
+
+  @Get(':announcementId')
+  loadAnnouncementDetails(@Param('announcementId') id) {
+     return this.announcementsService.getAnnouncementDetail(id);
   }
 }

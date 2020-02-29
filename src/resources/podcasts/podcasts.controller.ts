@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 
 import { PodcastsService } from './podcasts.service';
 
@@ -7,7 +7,12 @@ export class PodcastsController {
   constructor(private podcastsService: PodcastsService) { }
 
   @Get()
-  loadPodcasts() {
-      return this.podcastsService.getPodcasts();
+  loadPodcastFolders() {
+      return this.podcastsService.getFolders();
+  }
+
+  @Get(':folderId')
+  loadPodcastFolder(@Param('folderId') id) {
+    return this.podcastsService.getFolderDetails(id);
   }
 }

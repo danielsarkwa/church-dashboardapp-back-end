@@ -10,7 +10,7 @@ export class SermonsService {
         return sermonFolders;
     }
 
-    getFolderDetails(folderId) { // this will return only the sermon / files
+    getFolderDetails(folderId) { // this will return only the sermon / files from the a folder
         return sermonDetails;
     }
 }

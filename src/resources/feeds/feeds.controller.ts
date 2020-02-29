@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 
 import { FeedsService } from './feeds.service';
 
@@ -9,6 +9,11 @@ export class FeedsController {
   @Get()
   loadFeeds() {
     return this.feedsService.getFeeds();
+  }
+  
+  @Get(':feedId')
+  loadFeedDetails(@Param('feedId') id ) {
+    return this.feedsService.getFeedDetails(id);
   }
   
 }

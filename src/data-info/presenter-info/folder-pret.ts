@@ -19,6 +19,7 @@ export class FolderDetail {
     totalTime?: number;
     files: {
         id: string,
+        folderId: string;
         title: string,
         audioUrl: string,
         coverImg: string,

@@ -6,6 +6,21 @@ export class Event {
     time: string;
     desc: string;
     tags: string[];
+    coverImg: string;
+    autuor: { 
+        _id: string, 
+        name: string,
+        avatarUrl: string 
+    };
+}
+
+export class EventDetails {
+    eventId: string;
+    title: string;
+    date: string;
+    time: string;
+    desc: string;
+    tags: string[];
     content: string;
     coverImg: string;
     details: {

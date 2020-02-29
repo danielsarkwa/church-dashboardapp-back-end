@@ -5,6 +5,17 @@ export class Announcement {
     tags: string[];
     desc: string;
     coverImg: string;
+    autuor: { _id: string, name: string, avatarUrl: string };
+    from: string;
+    to: string;
+}
+
+export class AnnouncementDetails {
+    announcementId: string;
+    title: string;
+    tags: string[];
+    desc: string;
+    coverImg: string;
     details: {
         autuor: { _id: string, name: string, avatarUrl: string },
         from: string,

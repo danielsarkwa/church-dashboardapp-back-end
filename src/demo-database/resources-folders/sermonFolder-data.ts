@@ -30,6 +30,36 @@ export const sermonFolders: Folder[] = [
             'dcas9yuidas'
         ],
         createdAt: 'Created data'
+    },
+    {
+        folderId: 'rtryerds',
+        title: 'Agape Love',
+        coverImg: 'https:thisthilink.com',
+        belongsTo: 'sermon',
+        numberOfFiles: 0,
+        totalTime: 3000,
+        files: [
+            'sdadsadfcve5',
+            'dfdsvdxxd',
+            'shc9xujaaac',
+            'dcas9yuidas'
+        ],
+        createdAt: 'Created data'
+    },
+    {
+        folderId: 'rtryerds',
+        title: 'Agape Love',
+        coverImg: 'https:thisthilink.com',
+        belongsTo: 'sermon',
+        numberOfFiles: 0,
+        totalTime: 3000,
+        files: [
+            'sdadsadfcve5',
+            'dfdsvdxxd',
+            'shc9xujaaac',
+            'dcas9yuidas'
+        ],
+        createdAt: 'Created data'
     }
 ];
 
@@ -38,7 +68,7 @@ export const sermonFolders: Folder[] = [
 
 
 
-export const sermonDetails: FolderDetail = {
+export const sermonDetails: FolderDetail = { // this is opening one of the folders
     folderId: 'dsjso89xz9c87z',
     title: 'Agape Love',
     coverImg: 'https:thisthilink.com',
@@ -48,6 +78,7 @@ export const sermonDetails: FolderDetail = {
     files: [
         {
             id: 'sdadsadfcve5',
+            folderId: 'dsjso89xz9c87z',
             title: 'Love of God',
             audioUrl: 'https://thisisalink.com.ex',
             coverImg: 'https://thisisalinktothecoverimage.com',
@@ -61,6 +92,7 @@ export const sermonDetails: FolderDetail = {
         },
         {
             id: 'adsadajnc',
+            folderId: 'dsjso89xz9c87z',
             title: 'Love of God',
             audioUrl: 'https://thisisalink.com.ex',
             coverImg: 'https://thisisalinktothecoverimage.com',
@@ -74,6 +106,7 @@ export const sermonDetails: FolderDetail = {
         },
         {
             id: '7890909sd0jhk',
+            folderId: 'dsjso89xz9c87z',
             title: 'Love of God',
             audioUrl: 'https://thisisalink.com.ex',
             coverImg: 'https://thisisalinktothecoverimage.com',
@@ -87,6 +120,7 @@ export const sermonDetails: FolderDetail = {
         },
         {
             id: 'sdsscxzakodsai9',
+            folderId: 'dsjso89xz9c87z',
             title: 'Love of God',
             audioUrl: 'https://thisisalink.com.ex',
             coverImg: 'https://thisisalinktothecoverimage.com',
