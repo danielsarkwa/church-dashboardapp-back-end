@@ -2,7 +2,7 @@ import { Podcast } from '../../data-info/presenter-info/podcast-pret';
 
 export const podcasts: Podcast[] = [
     {
-        podcastId: 'dsdfdsa7689sds',
+        podcastId: 'asdafsasdsfea',
         title: 'Marriage',
         folderId: 'Agapa Love',
         audioUrl: 'https//:thisisalink.com.ex',

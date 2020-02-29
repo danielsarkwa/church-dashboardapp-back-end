@@ -11,6 +11,11 @@ export class PodcastsController {
       return this.podcastsService.getFolders();
   }
 
+  @Get('one/:podcastId')
+  loadSermon(@Param('podcastId') id) {
+    return this.podcastsService.getPodcast(id);
+  }
+
   @Get(':folderId')
   loadPodcastFolder(@Param('folderId') id) {
     return this.podcastsService.getFolderDetails(id);

@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, Post } from '@nestjs/common';
 
 import { SermonsService } from './sermons.service';
 
@@ -15,4 +15,15 @@ export class SermonsController {
   loadSermonsFolder(@Param('folderId') id) {
     return this.sermonsService.getFolderDetails(id);
   }
+
+  @Get('one/:sermonId')
+  loadSermon(@Param('sermonId') id) {
+    return this.sermonsService.getSermon(id);
+  }
+
+  @Post()
+  addSermon() { // work on later
+    return this.sermonsService.addSermon('data');
+  }
+
 }

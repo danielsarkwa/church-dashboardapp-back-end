@@ -5,6 +5,18 @@ export class UserFeedback {
     autuor: {
         _id: string,
         name: string, 
+        avatarUrl: string
+    };
+    subject: string;
+    tag: string[];
+    createdAt: string;
+};
+
+export class UserFeedbackDetails {
+    feedbackId: string;
+    autuor: {
+        _id: string,
+        name: string, 
         avatarUrl: string,
         email: string,
     };
@@ -16,7 +28,19 @@ export class UserFeedback {
 };
 
 // User feature suggests
-export class SuggestedFeatures {
+export class SuggestedFeature {
+    suggestionId: string;
+    autuor: {
+        _id: string,
+        name: string, 
+        avatarUrl: string
+    };
+    subject: string;
+    createdAt: string;
+    likes: number;
+};
+
+export class SuggestedFeatureDetails {
     suggestionId: string;
     autuor: {
         _id: string,
@@ -46,6 +70,16 @@ export class SuggestedFeatures {
 
 // FAQs / usability articles
 export class Faq {
+    faqId: string;
+    title: string;
+    createdAt: string;
+    feedback: {
+        helpful: number,
+        notHelpful: number
+    };
+}
+
+export class FaqDetails {
     faqId: string;
     title: string;
     desc: string; // topic and will be an option on the front-end to choose from

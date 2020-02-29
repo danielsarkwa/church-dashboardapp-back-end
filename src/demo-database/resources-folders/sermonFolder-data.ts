@@ -24,7 +24,7 @@ export const sermonFolders: Folder[] = [
         numberOfFiles: 0,
         totalTime: 3000,
         files: [
-            'sdadsadfcve5',
+            'ssdsasaaew',
             'dfdsvdxxd',
             'shc9xujaaac',
             'dcas9yuidas'
@@ -32,14 +32,14 @@ export const sermonFolders: Folder[] = [
         createdAt: 'Created data'
     },
     {
-        folderId: 'rtryerds',
+        folderId: 'auoacjzx',
         title: 'Agape Love',
         coverImg: 'https:thisthilink.com',
         belongsTo: 'sermon',
         numberOfFiles: 0,
         totalTime: 3000,
         files: [
-            'sdadsadfcve5',
+            'sdwefd',
             'dfdsvdxxd',
             'shc9xujaaac',
             'dcas9yuidas'
@@ -47,14 +47,14 @@ export const sermonFolders: Folder[] = [
         createdAt: 'Created data'
     },
     {
-        folderId: 'rtryerds',
+        folderId: 'sa0jxpa09s',
         title: 'Agape Love',
         coverImg: 'https:thisthilink.com',
         belongsTo: 'sermon',
         numberOfFiles: 0,
         totalTime: 3000,
         files: [
-            'sdadsadfcve5',
+            'vdfdE',
             'dfdsvdxxd',
             'shc9xujaaac',
             'dcas9yuidas'
@@ -78,7 +78,7 @@ export const sermonDetails: FolderDetail = { // this is opening one of the folde
     files: [
         {
             id: 'sdadsadfcve5',
-            folderId: 'dsjso89xz9c87z',
+            folderId: 'dfsdfsdcxz',
             title: 'Love of God',
             audioUrl: 'https://thisisalink.com.ex',
             coverImg: 'https://thisisalinktothecoverimage.com',

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import { usersFeedbacks, suggestions, faqs } from '../../demo-database/resources(all are tables)/helpSupport-data';
+import { usersFeedbacks, userFeedbackDetails, suggestions, suggestionDetails, faqs, faqDetails } from '../../demo-database/resources(all are tables)/helpSupport-data';
 
 @Injectable()
 export class HelpSupportService {
@@ -8,11 +8,23 @@ export class HelpSupportService {
         return usersFeedbacks;
     }
 
+    getUserFeedback(id) {
+        return userFeedbackDetails;
+    }
+
     getSuggestedFeatures() {
         return suggestions;
     }
 
+    getSuggestedFeature(id) {
+        return suggestionDetails
+    }
+
     getFaqs() {
         return faqs;
+    }
+
+    getFaq(id) {
+        return faqDetails
     }
 }

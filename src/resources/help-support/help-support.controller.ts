@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 
 import { HelpSupportService } from './helpSupport.service';
 
@@ -10,13 +10,28 @@ export class HelpSupportController {
         return this.helpSupportService.getUsersFeedbacks();
     }
 
+    @Get('one/feedback/:feedbackId')
+    loadFeedback(@Param('feedbackId') id) {
+        return this.helpSupportService.getUserFeedback(id);
+    }
+
     @Get('suggestFeatures')
     loadSuggestedFeatures() {
         return this.helpSupportService.getSuggestedFeatures();
     }
 
+    @Get('one/suggestFeatures/:suggestFeatureId')
+    loadSuggestedFeature(@Param('suggestFeatureId') id) {
+        return this.helpSupportService.getSuggestedFeature(id);
+    }
+
     @Get('faqs')
     loadFaqs() {
         return this.helpSupportService.getFaqs();
+    }
+
+    @Get('one/faqs/:faqId')
+    loadFaq(@Param('sermonId') id) {
+        return this.helpSupportService.getFaq(id);
     }
 }

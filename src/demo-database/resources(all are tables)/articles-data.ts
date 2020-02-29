@@ -2,7 +2,7 @@ import { ArticleDetails, Article } from '../../data-info/presenter-info/article-
 
 export const articles: Article[] = [
     {
-        articleId: 'sdsdc89sacse',
+        articleId: 'ddasdefs',
         title: 'Learning the Bible',
         folderId: 'Folder Name',
         coverImg: 'https://thisisalinkto the cover image',
@@ -20,7 +20,7 @@ export const articles: Article[] = [
         }
     },
     {
-        articleId: 'sdsdc89sacse',
+        articleId: 'asmdnandksa',
         title: 'Learning the Bible',
         folderId: 'Folder Name',
         coverImg: 'https://thisisalinkto the cover image',
@@ -38,43 +38,7 @@ export const articles: Article[] = [
         }
     },
     {
-        articleId: 'sdsdc89sacse',
-        title: 'Learning the Bible',
-        folderId: 'Folder Name',
-        coverImg: 'https://thisisalinkto the cover image',
-        autuor: {
-            _id: '454trdfs',
-            name: 'Daniel Yeboah',
-            avatarUrl: 'https://thisisalinktotheavatar.image'
-        },
-        desc: 'This is a nice description',
-        stats: {
-            views: 17,
-            likes: 12,
-            shares: 15,
-            downloads: 9
-        }
-    },
-    {
-        articleId: 'sdsdc89sacse',
-        title: 'Learning the Bible',
-        folderId: 'Folder Name',
-        coverImg: 'https://thisisalinkto the cover image',
-        autuor: {
-            _id: '454trdfs',
-            name: 'Daniel Yeboah',
-            avatarUrl: 'https://thisisalinktotheavatar.image'
-        },
-        desc: 'This is a nice description',
-        stats: {
-            views: 17,
-            likes: 12,
-            shares: 15,
-            downloads: 9
-        }
-    },
-    {
-        articleId: 'sdsdc89sacse',
+        articleId: 'sdsdc89sasdacse',
         title: 'Learning the Bible',
         folderId: 'Folder Name',
         coverImg: 'https://thisisalinkto the cover image',
@@ -130,7 +94,7 @@ export const articles: Article[] = [
 ];
 
 
-export const articleDetail: ArticleDetails = {
+export const articleDetails: ArticleDetails = {
     articleId: 'sdfdsd6a8d',
     title: 'Learning the Bible',
     folderId: 'Folder Name',

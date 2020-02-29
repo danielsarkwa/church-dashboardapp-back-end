@@ -15,4 +15,10 @@ export class ArticlesController {
   loadArticlesFolder(@Param('folderId') id) {
     return this.articlesService.getFolderDetails(id);
   }
+
+  @Get('one/:articleId')
+  loadSermon(@Param('articleId') id) {
+    return this.articlesService.getArticle(id);
+  }
+
 }
