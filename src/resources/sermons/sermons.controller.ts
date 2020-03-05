@@ -1,10 +1,12 @@
-import { Controller, Get, Param, Post } from '@nestjs/common';
+import { Controller, Get, Param, Post, Body, Put, Delete } from '@nestjs/common';
+
+import { CreateSermonDto } from '../../data-info/entry-dto/sermon.dto';
 
 import { SermonsService } from './sermons.service';
 
 @Controller('sermons')
 export class SermonsController {
-  constructor(private sermonsService: SermonsService) { }
+  constructor(private readonly sermonsService: SermonsService) { }
 
   @Get()
   loadSermonFolders() {
@@ -22,8 +24,21 @@ export class SermonsController {
   }
 
   @Post()
-  addSermon() { // work on later
-    return this.sermonsService.addSermon('data');
+  addSermon(@Body() createSermonDto: CreateSermonDto) {
+    return this.sermonsService.addSermon(createSermonDto);
+  }
+
+  @Put(':id')
+  editSermon(
+    @Param('id') id,
+    @Body() updateSermonDto: CreateSermonDto
+  ) {
+    return this.sermonsService.updateSermon(id, updateSermonDto);
+  }
+
+  @Delete(':id')
+  deleteSermon(@Param('sermonId') id) {
+    return this.sermonsService.deleteSermon(id);
   }
 
 }

@@ -1,13 +1,22 @@
 
 export class CreateSermonDto {
-    title: string;
-    folderId: string;
-    audioUrl: string;
-    details: {
-      bibleTxts?: { text: string, body }[],
-      desc: string,
-      speaker: string,
-      points?: {heading: string, body: string}[],
-      attachments?: {heading: string, body: string}[];
-    };
+    readonly title?: string;
+    readonly folderId?: string;
+    readonly audioUrl?: string;
+    readonly details?: {
+            bibleTxts?: { 
+              txt: string, 
+              scripture: string  
+            }[],
+            desc?: string,
+            speaker: string,
+            points?: {
+              heading: string, 
+              body: string
+            }[],
+            attachments?: {
+              heading: string, 
+              body: string
+            }[];
+          };
 }

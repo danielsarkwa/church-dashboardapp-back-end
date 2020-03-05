@@ -1,4 +1,6 @@
-import { Podcast } from '../../data-info/presenter-info/podcast-pret';
+// @TODO -- add the podcast list data and the podcast details data
+
+import { Podcast } from '../../data-info/presenter-info/podcasts-pret';
 
 export const podcasts: Podcast[] = [
     {

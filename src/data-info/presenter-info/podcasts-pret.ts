@@ -1,4 +1,6 @@
 
+// @TODO -- add the podcast list class and the podcast details class
+
 export class Podcast {
     podcastId: string;
     title: string;

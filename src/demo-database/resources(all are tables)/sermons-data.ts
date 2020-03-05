@@ -1,10 +1,12 @@
-import { Sermon } from '../../data-info/presenter-info/sermon-pret';
+// @TODO -- add the sermon list data and the sermon details data
+
+import { Sermon } from '../../data-info/presenter-info/sermons-pret';
 
 export const sermons: Sermon[] = [
     {
         sermonId: '1212hj343dfd',
         title: 'Love of God',
-        folderId: 'Agapa Love',
+        folderId: 'dfpsidf0si3',
         audioUrl: 'https://thisisalink.com.ex',
         coverImg: 'https://thisisalinktothecoverimage.com',
         details: {

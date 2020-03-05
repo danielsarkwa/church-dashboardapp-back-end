@@ -1,4 +1,6 @@
 
+// @TODO -- add the sermon list class and the sermon details class
+
 export class Sermon {
     sermonId: string;
     title: string;
