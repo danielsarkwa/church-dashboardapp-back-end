@@ -69,6 +69,8 @@ $ npm run test:cov
         * Implement the Put
             - make all the entry dto classes optional which will be required by the front-end
             - creat the algorithm that builds the object of the data to be updated to send to the dataDriver to communicate with the database
+        
+        * Implement the Delete
 
 
 ## TODO - 2 (Drivers)
@@ -105,3 +107,5 @@ $ npm run test:cov
 ## TODO -3 (Documentation)
     - Creata a personal documentation for future projects
     - Create a business documentation for this application
+
+## TODO - 4 (Cloud Functions)
