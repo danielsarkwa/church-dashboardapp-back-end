@@ -36,11 +36,6 @@ $ npm run test:cov
 
 
 ## TODO - 1 (Use case and entity)
-    - Implement the basic structure for the USERS and ADMINS
-        * Create the entry class
-        * Create the details presenter classes (for the list and for the details)
-        * Create the CONTROLLERS and SERVICES to communicate with the outside entities (use the cli)
-
     - Edit the PODCAST and SERMON presenters to have the list view and the details view
         * Create the CONTROLLERS and SERVICES methods to handle the requests of getting the list of PODCAST and SERMON
         * Make sure the CONTROLLERS and SERVICE methods for getting the details of the PODCAST and SERMON works

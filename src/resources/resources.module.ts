@@ -21,6 +21,12 @@ import { AnnouncementsService } from './announcements/announcement.service';
 import { HelpSupportController } from './help-support/help-support.controller';
 import { HelpSupportService } from './help-support/helpSupport.service';
 
+import { UsersController } from './users/users.controller';
+import { UsersService } from './users/users.service';
+
+import { AdminsController } from './admins/admins.controller';
+import { AdminsService } from './admins/admins.service';
+
 @Module({
     imports: [],
     controllers: [
@@ -30,7 +36,9 @@ import { HelpSupportService } from './help-support/helpSupport.service';
       EventsController, 
       AnnouncementsController, 
       HelpSupportController,
-      ArticlesController
+      ArticlesController,
+      UsersController,
+      AdminsController
     ],
     providers: [
       FeedsService,
@@ -39,7 +47,9 @@ import { HelpSupportService } from './help-support/helpSupport.service';
       ArticlesService,
       EventsService,
       AnnouncementsService,
-      HelpSupportService
+      HelpSupportService,
+      UsersService,
+      AdminsService
     ]
 })
 export class ResourcesModule { }
