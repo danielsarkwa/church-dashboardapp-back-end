@@ -177,17 +177,19 @@ export const announcementDetails: AnnouncementDetails = {
         downloads: 9
     },
     commentsData: {
-        totalCmts: 10,
+        totalCmts: 3,
         comments: [
             {
-                user: {
-                    _id: '45454hjgj4j54',
+                commentId: '8934cvuitgs',
+                commentMsg: 'this is an amazing comment',
+                autuor: {
+                    _id: 'rwuef9u',
                     name: 'Daniel Yeboah',
                     avatarUrl: 'https://thisaurltotheprofilepic.com.ex'
                 },
-                comentMsg: 'this is an amazing comment',
                 createdAt: 'Tue Feb 25 2020 17:22:25 GMT+0000 (Greenwich Mean Time)',
-                cmtLikes: 5
+                cmtLikes: 5,
+                commentType: 'comment'
             }
         ]
     },
@@ -195,17 +197,15 @@ export const announcementDetails: AnnouncementDetails = {
         totalMsg: 15,
         messages: [
             {
-                user: {
+                messageId: '4545ne4mb45',
+                autuor: {
                     _id: '34343fgfddfd',
-                    name: 'Daniel Yeboah',
+                    name: 'Lane Lich',
                     avatarUrl: 'https://thisisanimageurl.com'
                 },
-                message: 'this is the message and it is for Pastor',
-                msgDetails: {
-                    _id: '4545ne4mb45',
-                    createdAt: 'Tue Feb 25 2020 17:22:25 GMT+0000 (Greenwich Mean Time)',
-                    attachments: ['link to some s3 buckets', 'another link to some s3 buckets']
-                }
+                messageContent: 'this is the message and it is for Pastor',
+                createdAt: 'Tue Feb 25 2020 17:22:25 GMT+0000 (Greenwich Mean Time)',
+                attachments: ['link to some s3 buckets', 'another link to some s3 buckets']
             }
         ]
     }

@@ -1,7 +1,43 @@
-/**
- * this is the class for unpredictable length of items from the database that belongs to major entities
- */
 
-// add the message presenter class
+export class Message {
+    messageId: string;
+    autuor: {
+        _id: string,
+        name: string,
+        avatarUrl: string
+    };
+    messageContent: string;
+    createdAt: string;
+    attachments?: string[]
+};
 
-// add the comment presenter class
+export class Comment {
+    commentId: string;
+    commentMsg: string;
+    autuor: {
+        _id: string,
+        name: string,
+        avatarUrl: string
+    };
+    createdAt: string;
+    cmtLikes: number;
+    commentType: 'comment' | 'reply';
+    replys?: {
+        replyId: string,
+        replyMsg: string,
+        autuor: {
+            _id: string,
+            name: string,
+            avatarUrl: string
+        },
+        createdAt: string,
+        replyLikes: number   
+    }[]
+};
+
+export class RelatedItem {
+    _id: string;
+    title: string;
+    folderId: string;
+    coverImg: string;
+};

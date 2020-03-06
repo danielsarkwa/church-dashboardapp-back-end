@@ -1,6 +1,8 @@
 
 // @TODO -- add the podcast list class and the podcast details class
 
+import { Message, Comment, RelatedItem } from './indent-pret';
+
 export class Podcast {
     podcastId: string;
     title: string;
@@ -25,39 +27,13 @@ export class Podcast {
         shares: number
         downloads: number
     };
-    commentsData: { 
+    commentsData: { // query only 15 and rest is loaded as more
         totalCmts: number,
-        comments?: { // query only 10 and rest is loaded as more
-            user: {
-                _id: string,
-                name: string,
-                avatarUrl: string
-            },
-            comentMsg: string,
-            createdAt: string,
-            cmtLikes?: number
-            }[]
+        comments?: Comment[]
     };
-    messagesData: { // query only 10 and rest is loaded as more
+    messagesData: { // query only 12 and rest is loaded as more
         totalMsg: number,
-        messages: {
-            user: {
-                _id: string,
-                name: string,
-                avatarUrl: string
-            },
-            message: string;
-            msgDetails: {
-                _id: string,
-                createdAt: string,
-                attachments?: string[]
-            }
-        }[]
+        messages?: Message[]
     };
-    relatedPodcasts: { // query only 5-6 and rest is loaded as more
-        podcastId: string,
-        title: string,
-        folderId: string,
-        coverImg: string
-    }[];
+    relatedPodcasts: RelatedItem[]
 };

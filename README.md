@@ -36,10 +36,6 @@ $ npm run test:cov
 
 
 ## TODO - 1 (Use case and entity)
-    - Implment the presenter class for Indents.
-        * add the class
-        * update all the entites that uses them
-
     - Implement the basic structure for the USERS and ADMINS
         * Create the entry class
         * Create the details presenter classes (for the list and for the details)

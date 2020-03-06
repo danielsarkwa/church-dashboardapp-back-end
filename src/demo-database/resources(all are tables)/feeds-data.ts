@@ -156,17 +156,43 @@ export const feedDetails: FeedDetails =  {
         downloads: 9
     },
     commentsData: {
-        totalCmts: 10,
+        totalCmts: 3,
         comments: [
             {
-                user: {
-                    _id: '45454hjgj4j54',
+                commentId: '8934cvuitgs',
+                commentMsg: 'this is an amazing comment',
+                autuor: {
+                    _id: 'rwuef9u',
                     name: 'Daniel Yeboah',
                     avatarUrl: 'https://thisaurltotheprofilepic.com.ex'
                 },
-                comentMsg: 'this is an amazing comment',
                 createdAt: 'Tue Feb 25 2020 17:22:25 GMT+0000 (Greenwich Mean Time)',
-                cmtLikes: 5
+                cmtLikes: 5,
+                commentType: 'comment',
+                replys: [
+                    {
+                        replyId: 'u9wfbdsa',
+                        replyMsg: 'this is cool',
+                        autuor: {
+                            _id: 'sufish',
+                            name: 'Lily Anoao',
+                            avatarUrl: 'https://thi.com'
+                        },
+                        createdAt: 'Tue Feb 25 2020 17:22:25 GMT+0000 (Greenwich Mean Time)',
+                        replyLikes: 20
+                    },
+                    {
+                        replyId: 'uifsdf',
+                        replyMsg: 'this is not cool at all',
+                        autuor: {
+                            _id: 'oufdsk',
+                            name: 'Gnah Anoao',
+                            avatarUrl: 'https://thi.com'
+                        },
+                        createdAt: 'Fri Feb 25 2020 17:22:25 GMT+0000 (Greenwich Mean Time)',
+                        replyLikes: 10
+                    }
+                ]
             }
         ]
     },
@@ -174,18 +200,16 @@ export const feedDetails: FeedDetails =  {
         totalMsg: 15,
         messages: [
             {
-              user: {
-                  _id: '34343fgfddfd',
-                  name: 'Daniel Yeboah',
-                  avatarUrl: 'https://thisisanimageurl.com'
-              },
-              message: 'this is the message and it is for Pastor',
-              msgDetails: {
-                  _id: '4545ne4mb45',
-                  createdAt: 'Tue Feb 25 2020 17:22:25 GMT+0000 (Greenwich Mean Time)',
-                  attachments: ['link to some s3 buckets', 'another link to some s3 buckets']
-              }
+                messageId: '4545ne4mb45',
+                autuor: {
+                    _id: '34343fgfddfd',
+                    name: 'Lane Lich',
+                    avatarUrl: 'https://thisisanimageurl.com'
+                },
+                messageContent: 'this is the message and it is for Pastor',
+                createdAt: 'Tue Feb 25 2020 17:22:25 GMT+0000 (Greenwich Mean Time)',
+                attachments: ['link to some s3 buckets', 'another link to some s3 buckets']
             }
         ]
-    },
+    }
 };

@@ -1,3 +1,4 @@
+import { Message, Comment, RelatedItem } from './indent-pret';
 
 export class Article { // this is for the list of articles
     articleId: string;
@@ -37,39 +38,13 @@ export class ArticleDetails { // this is the full detail of an article
         shares: number
         downloads: number
     };
-    commentsData: { 
+    commentsData: { // query only 15 and rest is loaded as more
         totalCmts: number,
-        comments?: { // query only 10 and rest is loaded as more
-            user: {
-                _id: string,
-                name: string,
-                avatarUrl: string
-            },
-            comentMsg: string,
-            createdAt: string,
-            cmtLikes?: number
-            }[]
+        comments?: Comment[]
     };
-    messagesData: { // query only 10 and rest is loaded as more
+    messagesData: { // query only 12 and rest is loaded as more
         totalMsg: number,
-        messages: {
-            user: {
-                _id: string,
-                name: string,
-                avatarUrl: string
-            },
-            message: string;
-            msgDetails: {
-                _id: string,
-                createdAt: string,
-                attachments?: string[]
-            }
-        }[]
+        messages?: Message[]
     };
-    relatedArticles: { // query only 5-6 and rest is loaded as more
-        articleId: string,
-        title: string,
-        folder: string,
-        coverImg: string
-    }[];
+    relatedArticles: RelatedItem[]
 }
