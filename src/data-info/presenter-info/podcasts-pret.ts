@@ -1,9 +1,6 @@
-
-// @TODO -- add the podcast list class and the podcast details class
-
 import { Message, Comment, RelatedItem } from './indent-pret';
 
-export class Podcast {
+export class PodcastDetails {
     podcastId: string;
     title: string;
     folderId: string;

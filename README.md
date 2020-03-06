@@ -36,10 +36,6 @@ $ npm run test:cov
 
 
 ## TODO - 1 (Use case and entity)
-    - Edit the PODCAST and SERMON presenters to have the list view and the details view
-        * Create the CONTROLLERS and SERVICES methods to handle the requests of getting the list of PODCAST and SERMON
-        * Make sure the CONTROLLERS and SERVICE methods for getting the details of the PODCAST and SERMON works
-    
     - Implement the full requests handling endpoints for the use cases
         * Implement the POST
             - make all the entry dto classes optional which will be required by the front-end

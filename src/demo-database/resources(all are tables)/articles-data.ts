@@ -1,96 +1,64 @@
-import { ArticleDetails, Article } from '../../data-info/presenter-info/article-pret';
+import { ArticleDetails } from '../../data-info/presenter-info/article-pret';
 
-export const articles: Article[] = [
+import { FolderItemList } from 'src/data-info/presenter-info/folder-pret';
+
+export const articlesFolderItems: FolderItemList[] = [
     {
-        articleId: 'ddasdefs',
-        title: 'Learning the Bible',
-        folderId: 'Folder Name',
-        coverImg: 'https://thisisalinkto the cover image',
-        autuor: {
-            _id: '454trdfs',
-            name: 'Daniel Yeboah',
-            avatarUrl: 'https://thisisalinktotheavatar.image'
-        },
-        desc: 'This is a nice description',
+        _id: '1212hj343dfd',
+        title: 'Love of God',
+        folderId: 'dfpsidf0si3',
+        coverImg: 'https://thisisalinktothecoverimage.com',
         stats: {
             views: 17,
             likes: 12,
             shares: 15,
-            downloads: 9
+            downloads: 9,
+            comments: 23,
+            messages: 45
         }
     },
     {
-        articleId: 'asmdnandksa',
-        title: 'Learning the Bible',
-        folderId: 'Folder Name',
-        coverImg: 'https://thisisalinkto the cover image',
-        autuor: {
-            _id: '454trdfs',
-            name: 'Daniel Yeboah',
-            avatarUrl: 'https://thisisalinktotheavatar.image'
-        },
-        desc: 'This is a nice description',
+        _id: '1212hj343dfd',
+        title: 'Love of God',
+        folderId: 'dfpsidf0si3',
+        coverImg: 'https://thisisalinktothecoverimage.com',
         stats: {
             views: 17,
             likes: 12,
             shares: 15,
-            downloads: 9
+            downloads: 9,
+            comments: 23,
+            messages: 45
         }
     },
     {
-        articleId: 'sdsdc89sasdacse',
-        title: 'Learning the Bible',
-        folderId: 'Folder Name',
-        coverImg: 'https://thisisalinkto the cover image',
-        autuor: {
-            _id: '454trdfs',
-            name: 'Daniel Yeboah',
-            avatarUrl: 'https://thisisalinktotheavatar.image'
-        },
-        desc: 'This is a nice description',
+        _id: '1212hj343dfd',
+        title: 'Love of God',
+        folderId: 'dfpsidf0si3',
+        coverImg: 'https://thisisalinktothecoverimage.com',
         stats: {
             views: 17,
             likes: 12,
             shares: 15,
-            downloads: 9
+            downloads: 9,
+            comments: 23,
+            messages: 45
         }
     },
     {
-        articleId: 'sdsdc89sacse',
-        title: 'Learning the Bible',
-        folderId: 'Folder Name',
-        coverImg: 'https://thisisalinkto the cover image',
-        autuor: {
-            _id: '454trdfs',
-            name: 'Daniel Yeboah',
-            avatarUrl: 'https://thisisalinktotheavatar.image'
-        },
-        desc: 'This is a nice description',
+        _id: '1212hj343dfd',
+        title: 'Love of God',
+        folderId: 'dfpsidf0si3',
+        coverImg: 'https://thisisalinktothecoverimage.com',
         stats: {
             views: 17,
             likes: 12,
             shares: 15,
-            downloads: 9
+            downloads: 9,
+            comments: 23,
+            messages: 45
         }
-    },
-    {
-        articleId: 'sdsdc89sacse',
-        title: 'Learning the Bible',
-        folderId: 'Folder Name',
-        coverImg: 'https://thisisalinkto the cover image',
-        autuor: {
-            _id: '454trdfs',
-            name: 'Daniel Yeboah',
-            avatarUrl: 'https://thisisalinktotheavatar.image'
-        },
-        desc: 'This is a nice description',
-        stats: {
-            views: 17,
-            likes: 12,
-            shares: 15,
-            downloads: 9
-        }
-    },
+    }
 ];
 
 

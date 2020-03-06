@@ -10,7 +10,7 @@ export class SermonsController {
 
   @Get()
   loadSermonFolders() {
-      return this.sermonsService.getFolders();
+    return this.sermonsService.getFolders();
   }
 
   @Get(':folderId')

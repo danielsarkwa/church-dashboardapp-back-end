@@ -1,24 +1,5 @@
 import { Message, Comment, RelatedItem } from './indent-pret';
 
-export class Article { // this is for the list of articles
-    articleId: string;
-    title: string;
-    folderId: string;
-    coverImg: string;
-    autuor: { 
-        _id: string, 
-        name: string, 
-        avatarUrl: string
-    };
-    desc: string;
-    stats: {
-        views: number,
-        likes: number,
-        shares: number
-        downloads: number
-    };
-}
-
 export class ArticleDetails { // this is the full detail of an article
     articleId: string;
     title: string;

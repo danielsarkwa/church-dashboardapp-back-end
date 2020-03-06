@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 
-import { podcasts } from '../../demo-database/resources(all are tables)/podcasts-data';
+import { podcastDetails } from '../../demo-database/resources(all are tables)/podcasts-data';
 
-import { podcastFolders, podcastDetails } from '../../demo-database/resources-folders/podcastFolder-data';
+import { podcastFolders, folderDetails } from '../../demo-database/resources-folders/podcastFolder-data';
 
 @Injectable()
 export class PodcastsService {
@@ -10,14 +10,12 @@ export class PodcastsService {
         return podcastFolders;
     }
 
-    getFolderDetails(folderId) { // this will return only a podcast files from the a folder
-        return podcastDetails;
+    getFolderDetails(folderId) {
+        return folderDetails;
     }
 
     getPodcast(id) {
-        return podcasts.find(podcast => {
-            return podcast.podcastId == id;
-         });
+        return podcastDetails;
     }
     
 }

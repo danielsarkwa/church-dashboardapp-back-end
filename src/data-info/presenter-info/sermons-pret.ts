@@ -1,9 +1,6 @@
-
-// @TODO -- add the sermon list class and the sermon details class
-
 import { Message, Comment, RelatedItem } from './indent-pret';
 
-export class Sermon {
+export class SermonDetails {
     sermonId: string;
     title: string;
     folderId: string;
@@ -20,7 +17,7 @@ export class Sermon {
     stats: {
         views: number,
         likes: number,
-        shares: number
+        shares: number,
         downloads: number
     };
     commentsData: { // query only 15 and rest is loaded as more
