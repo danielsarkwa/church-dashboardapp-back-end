@@ -16,7 +16,7 @@ import { EventsController } from './events/events.controller';
 import { EventsService } from './events/events.service';
 
 import { AnnouncementsController } from './announcements/announcements.controller';
-import { AnnouncementsService } from './announcements/announcement.service';
+import { AnnouncementsService } from './announcements/announcements.service';
 
 import { HelpSupportController } from './help-support/help-support.controller';
 import { HelpSupportService } from './help-support/helpSupport.service';

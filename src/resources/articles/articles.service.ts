@@ -17,5 +17,29 @@ export class ArticlesService {
     getArticle(id) {
         return articleDetails;
     }
+
+    addArticle(data) {
+        return ['article created succesfully', data];
+    }
+
+    addFolder(data) {
+        return ['folder created successfully', data];
+    } 
+
+    updateArticle(id, data) {
+        return ['article updated successfully', data];
+    }
+
+    updateFolder(id, data) {
+        return ['folder updated successfully', data];
+    }
+
+    deleteArticle(id) {
+        return 'article deleted';
+    }
+
+    deleteArticleFolder(id) {
+        return 'article folder deleted succesfully';
+    }
     
 }

@@ -2,6 +2,8 @@ import { Controller, Get, Param, Post, Body, Put, Delete } from '@nestjs/common'
 
 import { CreateSermonDto } from '../../data-info/entry-dto/sermon.dto';
 
+import { CreateFolder } from '../../data-info/entry-dto/folder.dto';
+
 import { SermonsService } from './sermons.service';
 
 @Controller('sermons')
@@ -28,12 +30,30 @@ export class SermonsController {
     return this.sermonsService.addSermon(createSermonDto);
   }
 
+  @Post('folders')
+  addFolder(@Body() createSermonFolder: CreateFolder) {
+    return this.sermonsService.addFolder(createSermonFolder);
+  }
+
   @Put(':id')
-  editSermon(
+  updateSermon(
     @Param('id') id,
     @Body() updateSermonDto: CreateSermonDto
   ) {
     return this.sermonsService.updateSermon(id, updateSermonDto);
+  }
+
+  @Put('folders/:folderId')
+  updateFolder(
+    @Param('id') id,
+    @Body() updateFolderDto: CreateFolder
+  ) {
+    return this.sermonsService.updateFolder(id, updateFolderDto);
+  }
+
+  @Delete('folders/:folderId')
+  deleteSermonFolder(@Param('folderId') id) {
+    return this.sermonsService.deleteSermonFolder(id);
   }
 
   @Delete(':id')

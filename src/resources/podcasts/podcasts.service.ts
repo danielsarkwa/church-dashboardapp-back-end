@@ -17,5 +17,28 @@ export class PodcastsService {
     getPodcast(id) {
         return podcastDetails;
     }
+
+    addPodcast(data) {
+        return ['podcast created successfully', data];
+    }
+
+    addFolder(data) {
+        return ['folder created successfully', data];
+    }
+
+    updatePodcast(id, data) {
+        return ['podcast successfully created', data];
+    }
+
+    updateFolder(id, data) {
+        return ['folder updated successfully', data];
+    }
     
+    deletePodcast(id) {
+        return 'sermon deleted';
+    }
+
+    deletePodcastFolder(id) {
+        return 'sermon folder deleted succesfully';
+    }
 }

@@ -11,4 +11,16 @@ export class EventsService {
     getEventDetails(id) {
         return eventsDetails;
     }
+
+    addEvent(data) {
+        return ['Event successfully added', data];
+    }
+
+    updateEvent(id, data) {
+        return ['event updated successfully', data];
+    }
+
+    deleteEvent(id) {
+        return 'event deleted successfully';
+    }
 }

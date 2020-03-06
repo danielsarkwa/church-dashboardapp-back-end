@@ -11,4 +11,12 @@ export class AdminsService {
   getAdminDetails(id) {
       return adminDetails;
   }
+
+  addAdmin(data) {
+    return ['successfully added admin', data];
+  }
+
+  updateAdmin(id, data) {
+    return ['successfully updated admin', data];
+  }
 }

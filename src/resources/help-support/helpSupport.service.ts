@@ -1,30 +1,60 @@
 import { Injectable } from '@nestjs/common';
 
-import { usersFeedbacks, userFeedbackDetails, suggestions, suggestionDetails, faqs, faqDetails } from '../../demo-database/resources(all are tables)/helpSupport-data';
+import { 
+   usersFeedbacks, 
+   userFeedbackDetails, 
+   suggestions, 
+   suggestionDetails, 
+   faqs, 
+   faqDetails
+} from '../../demo-database/resources(all are tables)/helpSupport-data';
 
 @Injectable()
 export class HelpSupportService {
-    getUsersFeedbacks() {
-        return usersFeedbacks;
-    }
+  // User Feedback
+  getUsersFeedbacks() {
+    return usersFeedbacks;
+  }  
 
-    getUserFeedback(id) {
-        return userFeedbackDetails;
-    }
+  getUserFeedback(id) {
+    return userFeedbackDetails;
+  }
 
-    getSuggestedFeatures() {
-        return suggestions;
-    }
+  deleteFeedback(id) {
+    return 'feedback deleted successfully';
+  }
 
-    getSuggestedFeature(id) {
-        return suggestionDetails
-    }
+  // SuggestedFeatures
+  getSuggestedFeatures() {
+    return suggestions;
+  } 
 
-    getFaqs() {
-        return faqs;
-    }
+  getSuggestedFeature(id) {
+    return suggestionDetails
+  } 
 
-    getFaq(id) {
-        return faqDetails
-    }
+  deleteSuggestFeature(id) {
+    return 'SuggestFeature deleted successfully';
+  }
+
+  // Faqs
+  getFaqs() {
+    return faqs;
+  }  
+
+  getFaq(id) {
+    return faqDetails;
+  }
+
+  addFaq(data) {
+    return ['faq posted successfully', data];
+  }
+
+  updateFaq(id, data) {
+    return ['faq updated successfully', data];
+  }
+
+  deleteFaq(id) {
+    return 'Faq deleted successfully';
+  }
 }

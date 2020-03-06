@@ -1,10 +1,10 @@
 
 export class CreateAnnouncementDto {
-    title: string;
-    desc: string;
-    tags: string[];
-    coverImg: string;
-    details: {
+    title?: string;
+    desc?: string;
+    tags?: string[];
+    coverImg?: string;
+    details?: {
         autuor: { _id: string, name: string, avatarUrl: string },
         from: string,
         to: string,

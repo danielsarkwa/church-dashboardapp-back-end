@@ -11,4 +11,8 @@ export class UsersService {
   getUserDetails(id) {
       return userDetails;
   }
+
+  addUser(data) {
+    return ['user added succssfully', data]
+  }
 }

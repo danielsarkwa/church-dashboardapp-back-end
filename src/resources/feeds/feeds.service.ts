@@ -11,4 +11,16 @@ export class FeedsService {
     getFeedDetails(id) {
         return feedDetails;
     }
+
+    addFeed(data) {
+        return ['successfully added feed', data];
+    }
+
+    updateFeed(id, data) {
+        return 'feed feed updated successfully';
+    }
+
+    deleteFeed(id) {
+        return 'feed deleted successfully';
+    }
 }

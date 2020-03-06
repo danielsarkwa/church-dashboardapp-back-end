@@ -11,4 +11,16 @@ export class AnnouncementsService {
     getAnnouncementDetail(id) {
         return announcementDetails;
     }
+
+    addAnnouncement(data) {
+        return ['announcement created succesfully', data];
+    }
+
+    updateAnnouncement(id, data) {
+        return ['announcement updated successfully', data];
+    }
+
+    deleteAnnouncement(id) {
+        return 'announcement deleted successfully';
+    }
 }

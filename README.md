@@ -36,31 +36,29 @@ $ npm run test:cov
 
 
 ## TODO - 1 (Use case and entity)
-    - Implement the full requests handling endpoints for the use cases
-        * Implement the POST
-            - make all the entry dto classes optional which will be required by the front-end
-            - create the controller
-            - create the service methods to reach to the data-model and return a sample data
-
-        * Implement the Get
-            - Get folders
-                - create the controller
-                - create the service methods to reach to the data-model and return a sample data
-            - Get lists
-                - create the controller
-                - create the service methods to reach to the data-model and return a sample data
-            - Get details
-                - create the controller
-                - create the service methods to reach to the data-model and return a sample data
-        
-        * Implement the Put
-            - make all the entry dto classes optional which will be required by the front-end
-            - creat the algorithm that builds the object of the data to be updated to send to the dataDriver to communicate with the database
-        
-        * Implement the Delete
+    - Done
 
 
 ## TODO - 2 (Drivers)
+    - Implement the database on aws to hold live data
+        ( ---- DynamoDB tables ----
+            [SERMONS TABLE]
+            [PODCASTS TABLE]
+            [EVENTS TABLE]
+            [ARTICLES TABLE]
+            [FEEDS TABLE]
+            [EVENTS TABLE]
+            [ANNOUNCEMEMTS TABLE]
+            [USERS TABLE]
+            [ADMINS TABLE]
+            ( --- will change later ---
+                [USER FEEDBACKS TABLE]
+                [SUGGESTIONS TABLE]
+                [FAQ TABLE]
+            )
+        ) 
+        * Involves creating the dynamoDB to hold all the data
+
     - Implement the SERVICE class that writes data to database
         * Post data to database
         * Put data on database

@@ -7,7 +7,7 @@ export const articleFolders: Folder[] = [ // these are articles by an entity -->
         folderId: 'dsjso89xz9c87z',
         title: 'user 1',
         coverImg: 'https:thisthilink.com',
-        belongsTo: 'sermon',
+        belongsTo: 'article',
         numberOfFiles: 0,
         totalTime: 3000,
         files: [
@@ -22,7 +22,7 @@ export const articleFolders: Folder[] = [ // these are articles by an entity -->
         folderId: 'rtryerds',
         title: 'user 2',
         coverImg: 'https:thisthilink.com',
-        belongsTo: 'sermon',
+        belongsTo: 'article',
         numberOfFiles: 0,
         totalTime: 3000,
         files: [
@@ -39,7 +39,7 @@ export const articleFolders: Folder[] = [ // these are articles by an entity -->
         folderId: 'rtryerds',
         title: 'user 3',
         coverImg: 'https:thisthilink.com',
-        belongsTo: 'sermon',
+        belongsTo: 'article',
         numberOfFiles: 0,
         totalTime: 3000,
         files: [

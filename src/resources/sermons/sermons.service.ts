@@ -19,14 +19,26 @@ export class SermonsService {
     }
 
     addSermon(data) {
-        return 'sermon created succesfully';
+        return ['sermon created succesfully', data];
     }
 
+    addFolder(data) {
+        return ['folder created successfully', data];
+    } 
+
     updateSermon(id, data) {
-        return 'sermon updated successfully';
+        return ['sermon updated successfully', data];
+    }
+
+    updateFolder(id, data) {
+        return ['folder updated successfully', data];
     }
 
     deleteSermon(id) {
         return 'sermon deleted';
+    }
+
+    deleteSermonFolder(id) {
+        return 'sermon folder deleted succesfully';
     }
 }
