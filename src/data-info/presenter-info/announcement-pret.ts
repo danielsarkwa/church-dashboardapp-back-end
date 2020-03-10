@@ -31,7 +31,6 @@ export class AnnouncementDetails {
         views: number,
         likes: number,
         shares: number
-        downloads: number
     };
     commentsData: { // query only 15 and rest is loaded as more
         totalCmts: number,

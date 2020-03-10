@@ -40,42 +40,39 @@ $ npm run test:cov
 
 
 ## TODO - 2 (Drivers)
-    - set up Aws role to use the aws services and resources
-        - Create an IAM role for the EC2
-
     - Implement the database on aws to hold live data
         ( ---- DynamoDB tables ----
-            [SERMONS TABLE]
             [PODCASTS TABLE]
-            [EVENTS TABLE]
             [ARTICLES TABLE]
             [FEEDS TABLE]
-            [EVENTS TABLE]
-            [ANNOUNCEMEMTS TABLE]
+            [NOTICE TABLE] ---tag(events and announcements)
             [USERS TABLE] --- TAG (User & Admin)
-            ( --- will change later ---
-                [RESPONSE TABLE] --- tag(users feedback, suggestions, faq)
-            )
+            [APP-REVIEW TABLE] --- tag(users feedback, suggestions, faq)
+            [FOLDER TABLE]
+            [MESSAGES TABLE] -- will always reference to the entity using the id
+            [COMMENTS TABLE] -- will always reference to the entity using the id
+            [STATS TABLE] -- will always reference to the entity using the id
         ) 
         * Involves creating the dynamoDB to hold all the data
 
     - Implement the SERVICE class that writes data to database
         * Post data to database
         * Put data on database
+        * delete data from database
+        * get data from database
     
     - Implement the service class that gets data from database
         ( ---- DynamoDB tables ----
-            [SERMONS TABLE]
             [PODCASTS TABLE]
-            [EVENTS TABLE]
             [ARTICLES TABLE]
             [FEEDS TABLE]
-            [EVENTS TABLE]
-            [ANNOUNCEMEMTS TABLE]
+            [NOTICE TABLE] ---tag(events and announcements)
             [USERS TABLE] --- TAG (User & Admin)
-            ( --- will change later ---
-                [RESPONSE TABLE] --- tag(users feedback, suggestions, faq)
-            )
+            [APP-REVIEW TABLE] --- tag(users feedback, suggestions, faq)
+            [FOLDER TABLE]
+            [MESSAGES TABLE] -- will always reference to the entity using the id
+            [COMMENTS TABLE] -- will always reference to the entity using the id
+            [STATS TABLE] -- will always reference to the entity using the id
         )
         (data will be loaded in pacs to the front-end -- and so the front-end will have to provide the last item for the app to load another pac from there)
         (non-predictable things ----- with comments, replys, messages, they will be loaded in the lastest five and then be loaded as more in the form of pages -- therefore the front-end will send the page number)

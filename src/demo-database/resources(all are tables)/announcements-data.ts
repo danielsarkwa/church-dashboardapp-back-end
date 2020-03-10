@@ -173,8 +173,7 @@ export const announcementDetails: AnnouncementDetails = {
     stats: {
         views: 17,
         likes: 12,
-        shares: 15,
-        downloads: 9
+        shares: 15
     },
     commentsData: {
         totalCmts: 3,
