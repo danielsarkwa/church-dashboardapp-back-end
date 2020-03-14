@@ -3,6 +3,7 @@ export class CreateSermonDto {
     readonly title?: string;
     readonly folderId?: string;
     readonly audioUrl?: string;
+    readonly duration: number;
     readonly details?: {
       bibleTxts?: { 
         txt: string, 

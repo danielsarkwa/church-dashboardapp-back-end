@@ -6,35 +6,117 @@ export const SermonSchema = new mongoose.Schema({
     audioUrl: String,
     coverImg: String,
     details: {
-        bibleTxts: { 
-            text: String, 
-            scripture: String 
+        bibleTxts: {
+            type: {
+                text: {
+                    type: String,
+                    required: true
+                }, 
+                scripture: {
+                    type: String,
+                    required: true
+                }
+            }
         },
         speaker: String,
         desc: String,
-        points: { 
-            heading: String, 
-            body: String 
+        points: {
+            type: {
+                heading: {
+                    type: String,
+                    required: true
+                }, 
+                body: {
+                    type: String,
+                    required: true
+                } 
+            }
         },
-        attachments: { 
-            heading: String, 
-            body: String 
+        attachments: {
+            type: {
+                heading: {
+                    type: String,
+                    required: true
+                }, 
+                body: {
+                    type: String,
+                    required: true
+                } 
+            }
         }
     },
-    createdAt: String,
+    createdAt: {
+        type: Date,
+        required: true,
+        default: Date.now
+    },
     stats: {
-        views: Number,
-        likes: Number,
-        shares: Number,
-        downloads: Number
+        type: {
+            views: {
+                type: Number,
+                required: true,
+                default: 0,
+            },
+            likes: {
+                type: Number,
+                required: true,
+                default: 0,
+            },
+            shared: {
+                type: Number,
+                required: true,
+                default: 0,
+            },
+            downloads: {
+                type: Number,
+                required: true,
+                default: 0,
+            }
+        },
+        required: true,
+        default: {
+            views: 0,
+            likes: 0,
+            shared: 0,
+            downloads: 0
+        }
     },
     commentsData: {
-        totalCmts: Number,
-        comments: String // this will be of comment later 
+        type: {
+            totalCmts: {
+                type: Number,
+                required: true,
+                default: 0,
+            },
+            comments: {
+                type: [String],
+                required: true,
+                default: [] // this will be the links of all comments set by the mobile app
+            }
+        },
+        required: true,
+        default: {
+            totalCmts: 0,
+            comments: []
+        }
     },
     messagesData: {
-        totalMsg: Number,
-        messages: String // this will be of message later 
-    },
-    relatedSermons: String // this will be of type snap entity
+        type: {
+            totalMsg: {
+                type: Number,
+                required: true,
+                default: 0,
+            },
+            messages: {
+                type: [String],
+                required: true,
+                default: [] // this will be the links of all messages set by the mobile app
+            }
+        },
+        required: true,
+        default: {
+            totalCmts: 0,
+            messages: []
+        }
+    }
 });

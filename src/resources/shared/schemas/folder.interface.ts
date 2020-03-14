@@ -1,11 +1,11 @@
 import { Document } from 'mongoose';
 
 export interface Folder extends Document {
-    readonly title: string;
-    readonly coverImg: string;
-    readonly belongsTo: string;
-    readonly totalTime?: number;
-    readonly numberOfFiles: number;
-    readonly files: string[];
+    title: string;
+    coverImg: string;
+    belongsTo: string;
+    totalTime?: number;
+    numberOfFiles: number;
+    files: string[]; // get the id of the file
     readonly createdAt: string;
 }

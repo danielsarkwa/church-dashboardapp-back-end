@@ -11,11 +11,11 @@ export class SermonsController {
   constructor(private readonly sermonsService: SermonsService) { }
 
   @Get()
-  loadSermonFolders() {
-    return this.sermonsService.getFolders();
+  async loadSermonFolders() { // @DONE
+    return await this.sermonsService.getFolders();
   }
 
-  @Get(':folderId')
+  @Get(':folderId') // @TO-DO: implement adding the list of sermons before responding to client
   loadSermonsFolder(@Param('folderId') id) {
     return this.sermonsService.getFolderDetails(id);
   }
@@ -26,11 +26,11 @@ export class SermonsController {
   }
 
   @Post()
-  addSermon(@Body() createSermonDto: CreateSermonDto) {
-    return this.sermonsService.addSermon(createSermonDto);
+  async addSermon(@Body() createSermonDto: CreateSermonDto) {
+    return await this.sermonsService.addSermon(createSermonDto);
   }
 
-  @Post('folders')
+  @Post('folders') // @DONE
   async addFolder(@Body() createSermonFolder: CreateFolder): Promise<string> {
     return await this.sermonsService.addFolder(createSermonFolder);
   }
@@ -43,20 +43,20 @@ export class SermonsController {
     return this.sermonsService.updateSermon(id, updateSermonDto);
   }
 
-  @Put('folders/:folderId')
+  @Put('folders/:folderId') // @DONE
   async updateFolder(
-    @Param('id') id,
+    @Param('folderId') id,
     @Body() updateFolderDto: CreateFolder
   ) {
     return await this.sermonsService.updateFolder(id, updateFolderDto);
   }
 
-  @Delete('folders/:folderId')
-  deleteSermonFolder(@Param('folderId') id) {
-    return this.sermonsService.deleteSermonFolder(id);
+  @Delete('folders/:folderId') // @DONE
+  async deleteSermonFolder(@Param('folderId') id): Promise<string> {
+    return await this.sermonsService.deleteSermonFolder(id);
   }
 
-  @Delete(':id')
+  @Delete(':sermonId')
   deleteSermon(@Param('sermonId') id) {
     return this.sermonsService.deleteSermon(id);
   }
