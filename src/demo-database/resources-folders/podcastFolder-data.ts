@@ -9,7 +9,6 @@ export const podcastFolders: Folder[] = [ // these folders are channels or group
         coverImg: 'https:thisthilink.com',
         belongsTo: 'sermon',
         numberOfFiles: 0,
-        totalTime: 3000,
         files: [ // these are podcasts list
             'sdadsadfcve5',
             'dfdsvdxxd',
@@ -26,7 +25,6 @@ export const podcastFolders: Folder[] = [ // these folders are channels or group
         coverImg: 'https:thisthilink.com',
         belongsTo: 'sermon',
         numberOfFiles: 0,
-        totalTime: 3000,
         files: [
             'sdadsadfcve5',
             'dfdsvdxxd',
@@ -41,7 +39,6 @@ export const podcastFolders: Folder[] = [ // these folders are channels or group
         coverImg: 'https:thisthilink.com',
         belongsTo: 'sermon',
         numberOfFiles: 0,
-        totalTime: 3000,
         files: [
             'sdadsadfcve5',
             'dfdsvdxxd',
@@ -61,7 +58,6 @@ export const folderDetails: FolderDetail = { // this is channel's or group's det
     coverImg: 'https:thisthilink.com',
     belongsTo: 'sermon',
     numberOfFiles: 0,
-    totalTime: 3000,
     files: podcastFolderItems,
     createdAt: 'Created data'
 };

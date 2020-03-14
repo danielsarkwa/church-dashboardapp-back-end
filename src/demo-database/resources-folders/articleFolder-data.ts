@@ -9,7 +9,6 @@ export const articleFolders: Folder[] = [ // these are articles by an entity -->
         coverImg: 'https:thisthilink.com',
         belongsTo: 'article',
         numberOfFiles: 0,
-        totalTime: 3000,
         files: [
             'sdadsadfcve5',
             'dfdsvdxxd',
@@ -24,7 +23,6 @@ export const articleFolders: Folder[] = [ // these are articles by an entity -->
         coverImg: 'https:thisthilink.com',
         belongsTo: 'article',
         numberOfFiles: 0,
-        totalTime: 3000,
         files: [
             'sdadsadfcve5',
             'dfdsvdxxd',
@@ -41,7 +39,6 @@ export const articleFolders: Folder[] = [ // these are articles by an entity -->
         coverImg: 'https:thisthilink.com',
         belongsTo: 'article',
         numberOfFiles: 0,
-        totalTime: 3000,
         files: [
             'sdadsadfcve5',
             'dfdsvdxxd',
@@ -59,7 +56,6 @@ export const articleFolderDetails: FolderDetail = { // this is the details of a 
     coverImg: 'https:thisthilink.com',
     belongsTo: 'sermon',
     numberOfFiles: 0,
-    totalTime: 3000,
     files: articlesFolderItems,
     createdAt: 'Created data'
 };

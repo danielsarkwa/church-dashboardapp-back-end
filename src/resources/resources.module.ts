@@ -3,8 +3,7 @@ import { Module } from '@nestjs/common';
 import { FeedsController } from './feeds/feeds.controller';
 import { FeedsService } from './feeds/feeds.service';
 
-import { SermonsController } from './sermons/sermons.controller';
-import { SermonsService } from './sermons/sermons.service';
+import { SermonsModule } from './sermons/sermons.module';
 
 import { PodcastsController } from './podcasts/podcasts.controller';
 import { PodcastsService } from './podcasts/podcasts.service';
@@ -28,10 +27,11 @@ import { AdminsController } from './admins/admins.controller';
 import { AdminsService } from './admins/admins.service';
 
 @Module({
-    imports: [],
+    imports: [
+      SermonsModule
+    ],
     controllers: [
-      FeedsController, 
-      SermonsController,
+      FeedsController,
       PodcastsController, 
       EventsController, 
       AnnouncementsController, 
@@ -42,7 +42,6 @@ import { AdminsService } from './admins/admins.service';
     ],
     providers: [
       FeedsService,
-      SermonsService,
       PodcastsService, 
       ArticlesService,
       EventsService,

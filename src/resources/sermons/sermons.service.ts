@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Inject } from '@nestjs/common';
+import { Model } from 'mongoose';
+
+import { Sermon } from '././schema/sermon.interface';
+import { Folder } from '../shared/schemas/folder.interface';
 
 import { sermonDetails } from '../../demo-database/resources(all are tables)/sermons-data';
 
@@ -6,6 +10,13 @@ import { sermonFolders, folderDetails } from '../../demo-database/resources-fold
 
 @Injectable()
 export class SermonsService {
+    constructor(
+        @Inject('SERMON_MODEL')
+        private SermonModel: Model<Sermon>,
+        @Inject('FOLDER_MODEL')
+        private FolderModel: Model<Folder>,
+        ) { }
+        
     getFolders() {
         return sermonFolders;
     }
@@ -22,15 +33,19 @@ export class SermonsService {
         return ['sermon created succesfully', data];
     }
 
-    addFolder(data) {
-        return ['folder created successfully', data];
-    } 
+    async addFolder(data): Promise<string> {
+        const createdFolder = new this.FolderModel(data);
+        await createdFolder.save();
+        return 'sermon series created successfully';
+    }
 
     updateSermon(id, data) {
         return ['sermon updated successfully', data];
     }
 
-    updateFolder(id, data) {
+    async updateFolder(id, data) {
+        const folderToUpdate = await this.FolderModel.findOne(id);
+        console.log(folderToUpdate);
         return ['folder updated successfully', data];
     }
 

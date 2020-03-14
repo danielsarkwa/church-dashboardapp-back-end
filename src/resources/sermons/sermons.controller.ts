@@ -31,8 +31,8 @@ export class SermonsController {
   }
 
   @Post('folders')
-  addFolder(@Body() createSermonFolder: CreateFolder) {
-    return this.sermonsService.addFolder(createSermonFolder);
+  async addFolder(@Body() createSermonFolder: CreateFolder): Promise<string> {
+    return await this.sermonsService.addFolder(createSermonFolder);
   }
 
   @Put(':id')
@@ -44,11 +44,11 @@ export class SermonsController {
   }
 
   @Put('folders/:folderId')
-  updateFolder(
+  async updateFolder(
     @Param('id') id,
     @Body() updateFolderDto: CreateFolder
   ) {
-    return this.sermonsService.updateFolder(id, updateFolderDto);
+    return await this.sermonsService.updateFolder(id, updateFolderDto);
   }
 
   @Delete('folders/:folderId')

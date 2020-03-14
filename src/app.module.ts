@@ -6,7 +6,5 @@ import { SystemModule } from './system/system.module';
 
 @Module({
   imports: [ResourcesModule, SystemModule],
-  controllers: [],
-  providers: [],
 })
 export class AppModule {}

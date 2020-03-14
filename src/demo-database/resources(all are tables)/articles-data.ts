@@ -12,7 +12,6 @@ export const articlesFolderItems: FolderItemList[] = [
             views: 17,
             likes: 12,
             shares: 15,
-            downloads: 9,
             comments: 23,
             messages: 45
         }
@@ -26,7 +25,6 @@ export const articlesFolderItems: FolderItemList[] = [
             views: 17,
             likes: 12,
             shares: 15,
-            downloads: 9,
             comments: 23,
             messages: 45
         }
@@ -40,7 +38,6 @@ export const articlesFolderItems: FolderItemList[] = [
             views: 17,
             likes: 12,
             shares: 15,
-            downloads: 9,
             comments: 23,
             messages: 45
         }
@@ -54,7 +51,6 @@ export const articlesFolderItems: FolderItemList[] = [
             views: 17,
             likes: 12,
             shares: 15,
-            downloads: 9,
             comments: 23,
             messages: 45
         }

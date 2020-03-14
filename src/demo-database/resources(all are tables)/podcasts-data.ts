@@ -12,7 +12,6 @@ export const podcastFolderItems: FolderItemList[] = [ // these are items for a p
             views: 17,
             likes: 12,
             shares: 15,
-            downloads: 9,
             comments: 23,
             messages: 45
         }
@@ -26,7 +25,6 @@ export const podcastFolderItems: FolderItemList[] = [ // these are items for a p
             views: 17,
             likes: 12,
             shares: 15,
-            downloads: 9,
             comments: 23,
             messages: 45
         }
@@ -40,7 +38,6 @@ export const podcastFolderItems: FolderItemList[] = [ // these are items for a p
             views: 17,
             likes: 12,
             shares: 15,
-            downloads: 9,
             comments: 23,
             messages: 45
         }
