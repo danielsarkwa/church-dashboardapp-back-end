@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post, Body, Put, Delete } from '@nestjs/common';
+import { Controller, Get, Param, Post, Body, Put, Delete, Query } from '@nestjs/common';
 
 import { CreateSermonDto } from '../../data-info/entry-dto/sermon.dto';
 
@@ -26,8 +26,8 @@ export class SermonsController {
   }
 
   @Get('one/:sermonId') // @TO-DO
-  async loadSermon(@Param('sermonId') id) {
-    return await this.sermonsService.getSermon(id);
+  async loadSermon(@Param('sermonId') id, @Query('state') state) {
+    return await this.sermonsService.getSermon(id, state);
   }
 
   @Post() // @TO-DO

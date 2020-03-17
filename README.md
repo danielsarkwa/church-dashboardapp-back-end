@@ -85,15 +85,16 @@ $ npm run test:cov
             * entity details(sermon, podcast, article, message, comment, announcement, event)
 
 
-        - TO-DO::Today - 17th March, 2020
-            * implement the second layer of request handling
-                - add data integrity on primary key
-                - add other built data -- inner list for folder and others
+        - TO-DO::Now
             * implement the thrid layer of request handling
-                - add validation of user input to the dto classes
+                - add validation of user input data (sermon && folder -- create and update)
                 - implement status code and error handling
             * implement using the presenter class to send data to client
                 - process data before sending it to client (just to make it clean) ---
+
+            * Refactor code if needed
+
+            * Work on podcasts and articles
 
 ## TODO -3 (Documentation)
     - Creata a personal documentation for future projects

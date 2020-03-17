@@ -20,7 +20,7 @@ export class SermonsService {
         private FolderModel: Model<Folder>,
         ) { }
         
-    async getFolders() { // @TO-DO: delete the unnessary items from the objects before sending
+    async getFolders() { // @TO-DO
         try {
             const series = await this.FolderModel.find({'belongsTo': 'sermon'});
             // @TO-DO: respond using the status code
@@ -31,14 +31,11 @@ export class SermonsService {
         };
     }
 
-    async getFolderDetails(folderId) { // @TO-DO: implement adding the list of sermons before res to client
+    async getFolderDetails(folderId) { // @TO-DO
         try {
             const folderDetails = await this.FolderModel.findById(folderId);
             if(folderDetails) {
-                // @TO-DO: respond using the status code
                 return folderDetails;
-                // build the sermon listing within the folder to send to the client
-                // skip errors, if the sermon _id in the folder but not in the sermons collections in db, log error to db for dev checking
             } else {
                 // @TO-DO: respond using the status code
                 return 'Error: specified series not found';
@@ -49,7 +46,7 @@ export class SermonsService {
         };
     }
 
-    async getAllSermons() {
+    async getAllSermons() { // @TO-DO
         try {
             return await this.SermonModel.find({});
         } catch(ex) {
@@ -58,29 +55,36 @@ export class SermonsService {
         }
     }
 
-    async getSermon(sermonId) {
+    async getSermon(sermonId, state) {
         try {
             const sermonDetails = await this.SermonModel.findById(sermonId);
             if(sermonDetails) {
-                // @TO-DO: respond using the status code
-                return sermonDetails;
+                if (state == 'details') {
+                    return sermonDetails;
+                } else {
+                    const listData = _lodash.pick(sermonDetails, ['_id', 'title', 'folderId', 'coverImg', 'stats']);
+                    return listData;
+                }
             } else {
                 // @TO-DO: respond using the status code
                 return 'Error: specified sermon not found';
             };
         } catch(ex) {
             // @TO-DO: respond using the status code
-            return 'Error: Caught on getting data';
+            return 'Error: could not get data';
         };
     }
 
     async addSermon(data): Promise<string> { // @TO-DO
-        /*
-            - validate that the sermon title is not avaliable
-            - validate that the sermon id does not exit in the folder files
-        */
         try {
-            const newSermon = await new this.SermonModel(data);
+            let newSermon = await this.SermonModel.findOne({ 'title': data.title });
+
+            if(newSermon) {
+                return 'sermon title already exit';
+            } else {
+                newSermon = await new this.SermonModel(data);
+            };
+
             const updateData = {
                 files: [
                     {
@@ -89,11 +93,14 @@ export class SermonsService {
                     }
                 ]
             };
+
             const updateDataMeta = {
                 folderId: mongoose.Types.ObjectId(newSermon.folderId),
                 data: JSON.stringify(updateData)
             };
+
             const updateFolderRes = await this.updateFolder(updateDataMeta.folderId, JSON.parse(updateDataMeta.data), 'add');
+
             if (updateFolderRes === 'series updated successfully') { // await the status code
                 await newSermon.save();
                 // @TO-DO: respond using the status code
@@ -110,7 +117,14 @@ export class SermonsService {
 
     async addFolder(data): Promise<string> { // @TO-DO
         try {
-            await new this.FolderModel(data).save();
+            let newSeries = await this.FolderModel.findOne({ 'title': data.title });
+
+            if(newSeries) {
+                return 'series title already exit';
+            } else {
+                newSeries = await new this.FolderModel(data).save();
+            };
+
             // @TO-DO: respond using the status code
             return 'sermon series created successfully';
         } catch(ex) {
@@ -119,8 +133,7 @@ export class SermonsService {
         }
     }
 
-    async updateSermon(id, data) {
-        // @TO-DO: data intergrity (the title should be unique all the time)
+    async updateSermon(id, data) { // @TO-DO
         try {
             const toUpdate = await this.SermonModel.findById(id);
             if (toUpdate) {
@@ -129,16 +142,29 @@ export class SermonsService {
                 ]);
                 for(const item in detailstoUpdate) {
                     if (item == 'details') {
+                        console.log('inside details block');
                         for (const detailsItems in detailstoUpdate.details) {
                             toUpdate.details[detailsItems] = detailstoUpdate.details[detailsItems];
                         }
                     } else {
-                        toUpdate[item] = detailstoUpdate[item];
-                    };
+                        if (item == 'title') {
+                            const another = await this.SermonModel.findOne({ 'title': detailstoUpdate.title });
+    
+                            if(another) {
+                                return 'sermon title already exit';
+                            } else {
+                                toUpdate[item] = detailstoUpdate[item];
+                            };
+                        } else {
+                            toUpdate[item] = detailstoUpdate[item];
+                        }
+                    }
                 };
                 await toUpdate.save();
+                // @TO-DO: respond using the status code
                 return 'Updated sermon successfully';
             } else {
+                // @TO-DO: respond using the status code
                 return 'Error: Specified sermon not found';
             }
         } catch (ex) {
@@ -149,7 +175,6 @@ export class SermonsService {
     }
 
     async updateFolder(id, data, state) { // @TO-DO
-        // @TO-DO: data intergrity (the title should be unique all the time)
         const toUpdate = await this.FolderModel.findById(id);
         if (toUpdate) {
             if (state === 'add') {
@@ -162,7 +187,17 @@ export class SermonsService {
                             toUpdate['totalTime'] += item.duration;
                         };
                     } else {
-                        toUpdate[item] = detailstoUpdate[item];
+                        if (item == 'title') {
+                            const another = await this.FolderModel.findOne({ 'title': detailstoUpdate.title });
+    
+                            if(another) {
+                                return 'series title already exit';
+                            } else {
+                                toUpdate[item] = detailstoUpdate[item];
+                            };
+                        } else {
+                            toUpdate[item] = detailstoUpdate[item];
+                        }
                     };
                 };
             } else {
