@@ -10,55 +10,60 @@ import { SermonsService } from './sermons.service';
 export class SermonsController {
   constructor(private readonly sermonsService: SermonsService) { }
 
-  @Get()
-  async loadSermonFolders() { // @DONE
+  @Get('/series') // @TO-DO: delete the unnessary items from the objects before sending
+  async loadSermonFolders() {
     return await this.sermonsService.getFolders();
   }
 
   @Get(':folderId') // @TO-DO: implement adding the list of sermons before responding to client
-  loadSermonsFolder(@Param('folderId') id) {
-    return this.sermonsService.getFolderDetails(id);
+  async loadSermonsFolder(@Param('folderId') id) {
+    return await this.sermonsService.getFolderDetails(id);
   }
 
-  @Get('one/:sermonId')
-  loadSermon(@Param('sermonId') id) {
-    return this.sermonsService.getSermon(id);
+  @Get()
+  async loadAllSermons() {
+    return await this.sermonsService.getAllSermons();
   }
 
-  @Post()
+  @Get('one/:sermonId') // @TO-DO
+  async loadSermon(@Param('sermonId') id) {
+    return await this.sermonsService.getSermon(id);
+  }
+
+  @Post() // @TO-DO
   async addSermon(@Body() createSermonDto: CreateSermonDto) {
     return await this.sermonsService.addSermon(createSermonDto);
   }
 
-  @Post('folders') // @DONE
+  @Post('folders') // @TO-DO
   async addFolder(@Body() createSermonFolder: CreateFolder): Promise<string> {
     return await this.sermonsService.addFolder(createSermonFolder);
   }
 
-  @Put(':id')
-  updateSermon(
+  @Put(':id') // @TO-DO
+  async updateSermon(
     @Param('id') id,
     @Body() updateSermonDto: CreateSermonDto
   ) {
-    return this.sermonsService.updateSermon(id, updateSermonDto);
+    return await this.sermonsService.updateSermon(id, updateSermonDto);
   }
 
-  @Put('folders/:folderId') // @DONE
+  @Put('folders/:folderId') // @TO-DO
   async updateFolder(
     @Param('folderId') id,
     @Body() updateFolderDto: CreateFolder
   ) {
-    return await this.sermonsService.updateFolder(id, updateFolderDto);
+    return await this.sermonsService.updateFolder(id, updateFolderDto, 'add');
   }
 
-  @Delete('folders/:folderId') // @DONE
+  @Delete('folders/:folderId') // @TO-DO
   async deleteSermonFolder(@Param('folderId') id): Promise<string> {
     return await this.sermonsService.deleteSermonFolder(id);
   }
 
-  @Delete(':sermonId')
-  deleteSermon(@Param('sermonId') id) {
-    return this.sermonsService.deleteSermon(id);
+  @Delete(':sermonId') // @TO-DO
+  async eleteSermon(@Param('sermonId') id) {
+    return await this.sermonsService.deleteSermon(id);
   }
 
 }

@@ -4,7 +4,11 @@ export const SermonSchema = new mongoose.Schema({
     title: String,
     folderId: String,
     audioUrl: String,
-    coverImg: String,
+    coverImg: {
+        type: String,
+        required: true
+    },
+    duration: Number,
     details: {
         bibleTxts: {
             type: {

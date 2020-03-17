@@ -5,6 +5,7 @@ export interface Sermon extends Document {
     folderId: string;
     audioUrl: string;
     coverImg: string;
+    duration: number;
     details: {
         bibleTxts?: { 
             text: string, 

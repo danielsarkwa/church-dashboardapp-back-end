@@ -2,6 +2,7 @@
 export class CreateSermonDto {
     readonly title?: string;
     readonly folderId?: string;
+    readonly coverImg?: string;
     readonly audioUrl?: string;
     readonly duration: number;
     readonly details?: {

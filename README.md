@@ -41,17 +41,17 @@ $ npm run test:cov
 
 ## TODO - 2 (Drivers)
     - Implement the database on aws to hold live data
-        ( ---- DynamoDB tables ----
-            [PODCASTS TABLE]
-            [ARTICLES TABLE]
-            [FEEDS TABLE]
-            [NOTICE TABLE] ---tag(events and announcements)
-            [USERS TABLE] --- TAG (User & Admin)
-            [APP-REVIEW TABLE] --- tag(users feedback, suggestions, faq)
-            [FOLDER TABLE]
-            [MESSAGES TABLE] -- will always reference to the entity using the id
-            [COMMENTS TABLE] -- will always reference to the entity using the id
-            [STATS TABLE] -- will always reference to the entity using the id
+        (
+            [PODCASTS Model]
+            [ARTICLES Model]
+            [FEEDS Model]
+            [NOTICE Model] ---tag(events and announcements)
+            [USERS Model] --- TAG (User & Admin)
+            [APP-REVIEW Model] --- tag(users feedback, suggestions, faq)
+            [FOLDER Model]
+            [MESSAGES Model] -- will always reference to the entity using the id
+            [COMMENTS Model] -- will always reference to the entity using the id
+            [STATS Model] -- will always reference to the entity using the id
         ) 
         * Involves creating the dynamoDB to hold all the data
 
@@ -62,17 +62,17 @@ $ npm run test:cov
         * get data from database
     
     - Implement the service class that gets data from database
-        ( ---- DynamoDB tables ----
-            [PODCASTS TABLE]
-            [ARTICLES TABLE]
-            [FEEDS TABLE]
-            [NOTICE TABLE] ---tag(events and announcements)
-            [USERS TABLE] --- TAG (User & Admin)
-            [APP-REVIEW TABLE] --- tag(users feedback, suggestions, faq)
-            [FOLDER TABLE]
-            [MESSAGES TABLE] -- will always reference to the entity using the id
-            [COMMENTS TABLE] -- will always reference to the entity using the id
-            [STATS TABLE] -- will always reference to the entity using the id
+        (
+            [PODCASTS Model]
+            [ARTICLES Model]
+            [FEEDS Model]
+            [NOTICE Model] ---tag(events and announcements)
+            [USERS Model] --- TAG (User & Admin)
+            [APP-REVIEW Model] --- tag(users feedback, suggestions, faq)
+            [FOLDER Model]
+            [MESSAGES Model] -- will always reference to the entity using the id
+            [COMMENTS Model] -- will always reference to the entity using the id
+            [STATS Model] -- will always reference to the entity using the id
         )
         (data will be loaded in pacs to the front-end -- and so the front-end will have to provide the last item for the app to load another pac from there)
         (non-predictable things ----- with comments, replys, messages, they will be loaded in the lastest five and then be loaded as more in the form of pages -- therefore the front-end will send the page number)
@@ -83,6 +83,17 @@ $ npm run test:cov
         - Entity
             * entity list (sermons, podcasts, articles, messages, comments, announcements, events)
             * entity details(sermon, podcast, article, message, comment, announcement, event)
+
+
+        - TO-DO::Today - 17th March, 2020
+            * implement the second layer of request handling
+                - add data integrity on primary key
+                - add other built data -- inner list for folder and others
+            * implement the thrid layer of request handling
+                - add validation of user input to the dto classes
+                - implement status code and error handling
+            * implement using the presenter class to send data to client
+                - process data before sending it to client (just to make it clean) ---
 
 ## TODO -3 (Documentation)
     - Creata a personal documentation for future projects
