@@ -1,9 +1,18 @@
 import * as mongoose from 'mongoose';
 
 export const FolderSchema = new mongoose.Schema({
-    title: String,
-    coverImg: String,
-    belongsTo: String,
+    title: {
+        type: String,
+        required: true
+    },
+    coverImg: {
+        type: String,
+        required: true
+    },
+    belongsTo: {
+        type: String,
+        required: true
+    },
     totalTime: {
         type: Number,
         required: true,

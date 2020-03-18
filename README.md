@@ -84,17 +84,14 @@ $ npm run test:cov
             * entity list (sermons, podcasts, articles, messages, comments, announcements, events)
             * entity details(sermon, podcast, article, message, comment, announcement, event)
 
-
-        - TO-DO::Now
-            * implement the thrid layer of request handling
-                - add validation of user input data (sermon && folder -- create and update)
-                - implement status code and error handling
-            * implement using the presenter class to send data to client
-                - process data before sending it to client (just to make it clean) ---
-
-            * Refactor code if needed
-
-            * Work on podcasts and articles
+        - TO-DO::
+            * review sermons service class code
+                - communication
+                - error handling
+                - request handling
+            * test application
+                - routes and errors
+            * refactor if needed (for other resources of the application to work with)
 
 ## TODO -3 (Documentation)
     - Creata a personal documentation for future projects

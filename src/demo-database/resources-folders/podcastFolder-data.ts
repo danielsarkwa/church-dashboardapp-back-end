@@ -1,7 +1,5 @@
 import { Folder, FolderDetail } from '../../data-info/presenter-info/folder-pret';
 
-import { podcastFolderItems } from '../resources(all are tables)/podcasts-data';
-
 export const podcastFolders: Folder[] = [ // these folders are channels or groups // therefore the items will be spliced from up to ten at a time
     {
         folderId: 'dsjso89xz9c87z',
@@ -58,6 +56,6 @@ export const folderDetails: FolderDetail = { // this is channel's or group's det
     coverImg: 'https:thisthilink.com',
     belongsTo: 'sermon',
     numberOfFiles: 0,
-    files: podcastFolderItems,
+    files: ['dnfsfdsf', 'fdhsibd'],
     createdAt: 'Created data'
 };

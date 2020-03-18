@@ -1,6 +1,8 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { Model } from 'mongoose';
 
+import { NotFoundException, BadRequestException, InternalServerErrorException, CustomException } from '../shared/exceptions';
+
 import * as mongoose from 'mongoose';
 import * as _lodash from 'lodash';
 
@@ -20,43 +22,66 @@ export class SermonsService {
         private FolderModel: Model<Folder>,
         ) { }
         
-    async getFolders() { // @TO-DO
+    async getFolders() {
         try {
             const series = await this.FolderModel.find({'belongsTo': 'sermon'});
-            // @TO-DO: respond using the status code
-            return series;
+            if (series.length > 0) {
+                return series;
+            } else {
+                throw new NotFoundException('Series not found');
+            };
         } catch(ex) {
-            // @TO-DO: respond using the status code
-            return 'Error: Could not get series data';
+            if(ex.response) {
+                throw new NotFoundException(ex.response);
+            } else {
+                throw new BadRequestException('Could not retrieve data');
+            };
         };
     }
 
-    async getFolderDetails(folderId) { // @TO-DO
+    async getFolderDetails(folderId) { 
+        // @TO-DO: update the folder details presenter not to contain the sermon list data
         try {
+            if(!mongoose.Types.ObjectId.isValid(folderId)) {
+                throw new BadRequestException('Invalid folder Id');
+            };
             const folderDetails = await this.FolderModel.findById(folderId);
             if(folderDetails) {
                 return folderDetails;
             } else {
-                // @TO-DO: respond using the status code
-                return 'Error: specified series not found';
+                throw new NotFoundException('Specified series not found');
             };
         } catch(ex) {
-            // @TO-DO: respond using the status code
-            return 'Error: Caught on processing data';
+            if(ex.message) {
+                throw new CustomException(ex.message, ex.status);
+            } else {
+                throw new InternalServerErrorException('Could not retrieve data');
+            }
         };
     }
 
-    async getAllSermons() { // @TO-DO
+    async getAllSermons() {
         try {
-            return await this.SermonModel.find({});
+            const sermons = await this.SermonModel.find({});
+            if (sermons.length > 0) {
+                return sermons;
+            } else {
+                throw new NotFoundException('Sermons not found');
+            }
         } catch(ex) {
-            // @TO-DO: respond using the status code
-            return 'Error: Could not get all sermons';
+            if(ex.response) {
+                throw new NotFoundException(ex.response);
+            } else {
+                throw new BadRequestException('Could not retrieve data');
+            };
         }
     }
 
     async getSermon(sermonId, state) {
         try {
+            if(!mongoose.Types.ObjectId.isValid(sermonId)) {
+                throw new BadRequestException('Invalid sermon Id');
+            };
             const sermonDetails = await this.SermonModel.findById(sermonId);
             if(sermonDetails) {
                 if (state == 'details') {
@@ -66,21 +91,23 @@ export class SermonsService {
                     return listData;
                 }
             } else {
-                // @TO-DO: respond using the status code
-                return 'Error: specified sermon not found';
+                throw new NotFoundException('Specified sermon not found');
             };
         } catch(ex) {
-            // @TO-DO: respond using the status code
-            return 'Error: could not get data';
+            if(ex.response) {
+                throw new NotFoundException(ex.response);
+            } else {
+                throw new BadRequestException('Could not retrieve data');
+            };
         };
     }
 
-    async addSermon(data): Promise<string> { // @TO-DO
+    async addSermon(data): Promise<string> {
         try {
             let newSermon = await this.SermonModel.findOne({ 'title': data.title });
 
             if(newSermon) {
-                return 'sermon title already exit';
+                throw new BadRequestException('Sermon already exit');
             } else {
                 newSermon = await new this.SermonModel(data);
             };
@@ -100,42 +127,46 @@ export class SermonsService {
             };
 
             const updateFolderRes = await this.updateFolder(updateDataMeta.folderId, JSON.parse(updateDataMeta.data), 'add');
-
-            if (updateFolderRes === 'series updated successfully') { // await the status code
+            // if there is any mistake on updating the series the the function will throuh its own error from the applicaiton
+            if (updateFolderRes == 'series updated successfully') {
                 await newSermon.save();
-                // @TO-DO: respond using the status code
-                return 'sermon created successfully';
+                return 'Sermon created successfully';
             } else {
-                // @TO-DO: respond using the status code
-                return 'Error: error on processing creation sermon';
+                throw new InternalServerErrorException('Could not add sermon to series');
             }
         } catch (ex) {
-            // @TO-DO: respond using the status code
-            return 'Error: Could not create new sermon';
+            if (ex.response) {
+                throw new BadRequestException(ex.response);
+            } else {
+                throw new BadRequestException(ex.errors.title.message);
+            }
         };
     }
 
-    async addFolder(data): Promise<string> { // @TO-DO
+    async addFolder(data): Promise<string> {
         try {
             let newSeries = await this.FolderModel.findOne({ 'title': data.title });
-
             if(newSeries) {
-                return 'series title already exit';
+                throw new BadRequestException('Series already exit');
             } else {
                 newSeries = await new this.FolderModel(data).save();
             };
-
-            // @TO-DO: respond using the status code
-            return 'sermon series created successfully';
+            return 'Series created successfully';
         } catch(ex) {
-            // @TO-DO: respond using the status code
-            return 'Error: Could not create new sermon series';
+            if (ex.response) {
+                throw new BadRequestException(ex.response);
+            } else {
+                throw new BadRequestException(ex.errors.title.message);
+            }
         }
     }
 
-    async updateSermon(id, data) { // @TO-DO
+    async updateSermon(sermonId, data) {
         try {
-            const toUpdate = await this.SermonModel.findById(id);
+            if(!mongoose.Types.ObjectId.isValid(sermonId)) {
+                throw new BadRequestException('Invalid sermon Id');
+            };
+            const toUpdate = await this.SermonModel.findById(sermonId);
             if (toUpdate) {
                 const detailstoUpdate = _lodash.pick(data, [
                     'title', 'coverImg', 'folderId', 'audioUrl', 'details'
@@ -149,9 +180,8 @@ export class SermonsService {
                     } else {
                         if (item == 'title') {
                             const another = await this.SermonModel.findOne({ 'title': detailstoUpdate.title });
-    
                             if(another) {
-                                return 'sermon title already exit';
+                                throw new BadRequestException('Sermon already exit');
                             } else {
                                 toUpdate[item] = detailstoUpdate[item];
                             };
@@ -161,65 +191,77 @@ export class SermonsService {
                     }
                 };
                 await toUpdate.save();
-                // @TO-DO: respond using the status code
                 return 'Updated sermon successfully';
             } else {
-                // @TO-DO: respond using the status code
-                return 'Error: Specified sermon not found';
+                throw new NotFoundException('Sermon not found');
             }
         } catch (ex) {
-            // TO-DO: remove console
-            console.log(ex);
-            return 'Error: Could not update the sermon'; 
+            if (ex.message) {
+                throw new CustomException(ex.message, ex.status);
+            } else {
+                throw new BadRequestException('Could not retrieve data');
+            }
         }
     }
 
-    async updateFolder(id, data, state) { // @TO-DO
-        const toUpdate = await this.FolderModel.findById(id);
-        if (toUpdate) {
-            if (state === 'add') {
-                const detailstoUpdate = _lodash.pick(data, ['title', 'coverImg', 'files']);
-                for(const item in detailstoUpdate) {
-                    if(item == 'files') {
-                        for(const item of detailstoUpdate['files']) {
-                            toUpdate['files'].push(item.fileId);
-                            ++toUpdate['numberOfFiles'];
-                            toUpdate['totalTime'] += item.duration;
-                        };
-                    } else {
-                        if (item == 'title') {
-                            const another = await this.FolderModel.findOne({ 'title': detailstoUpdate.title });
-    
-                            if(another) {
-                                return 'series title already exit';
-                            } else {
-                                toUpdate[item] = detailstoUpdate[item];
+    async updateFolder(folderId, data, state) {
+        try {
+            if(!mongoose.Types.ObjectId.isValid(folderId)) {
+                throw new BadRequestException('Invalid folder Id');
+            };
+            const toUpdate = await this.FolderModel.findById(folderId);
+            if (toUpdate) {
+                if (state === 'add') {
+                    const detailstoUpdate = _lodash.pick(data, ['title', 'coverImg', 'files']);
+                    for(const item in detailstoUpdate) {
+                        if(item == 'files') {
+                            for(const item of detailstoUpdate['files']) {
+                                toUpdate['files'].push(item.fileId);
+                                ++toUpdate['numberOfFiles'];
+                                toUpdate['totalTime'] += item.duration;
                             };
                         } else {
-                            toUpdate[item] = detailstoUpdate[item];
-                        }
+                            if (item == 'title') {
+                                const another = await this.FolderModel.findOne({ 'title': detailstoUpdate.title });
+        
+                                if(another) {
+                                    throw new BadRequestException('Series already exit');
+                                } else {
+                                    toUpdate[item] = detailstoUpdate[item];
+                                };
+                            } else {
+                                toUpdate[item] = detailstoUpdate[item];
+                            }
+                        };
                     };
-                };
+                } else {
+                    for(const item of data['files']) {
+                        toUpdate.files = toUpdate.files.filter(file => {
+                            return file !== item.fileId;
+                        });
+                        toUpdate.totalTime -= item.duration;
+                        --toUpdate.numberOfFiles;
+                    };
+                }
+                await toUpdate.save();
+                return 'Sermon updated successfully';
             } else {
-                for(const item of data['files']) {
-                    toUpdate.files = toUpdate.files.filter(file => {
-                        return file !== item.fileId;
-                    });
-                    toUpdate.totalTime -= item.duration;
-                    --toUpdate.numberOfFiles;
-                };
+                throw new NotFoundException('Series not found');
+            };
+        } catch(ex) {
+            if (ex.message) {
+                throw new CustomException(ex.message, ex.status);
+            } else {
+                throw new BadRequestException('Could not retrieve data');
             }
-            await toUpdate.save();
-        } else {
-            // @TO-DO: respond using the status code
-            return 'Error: specified series not found';
         };
-        // @TO-DO: respond using the status code
-        return 'series updated successfully';
     }
 
-    async deleteSermon(sermonId) { // @TO-DO
+    async deleteSermon(sermonId) {
         try {
+            if(!mongoose.Types.ObjectId.isValid(sermonId)) {
+                throw new BadRequestException('Invalid sermon Id');
+            };
             const toDelete = await this.SermonModel.findById(sermonId);
             if(toDelete) {
                 const deleteData = {
@@ -235,48 +277,46 @@ export class SermonsService {
                     data: JSON.stringify(deleteData)
                 };
                 const deleteFolderRes = await this.updateFolder(deleteDataMeta.folderId, JSON.parse(deleteDataMeta.data), 'delete');
-                if (deleteFolderRes === 'series updated successfully') { // await the status code
+                // if there is any mistake on updating the series the the function will throuh its own error from the applicaiton
+                if (deleteFolderRes === 'series updated successfully') {
                     const delSermon = await this.SermonModel.findByIdAndRemove(sermonId);
                     if (delSermon) {
-                        // @TO-DO: respond using the status code
                         return 'sermon deleted successfully';
                     } else {
-                        /*
-                        * at this point the err should be logged to the dashboard for feather checking to 
-                            - add sermon_id back to the folder files and delete again
-                            - delete the sermon that gave the err)
-                            - can directly delete the sermon from db
-                        */
-                        // @TO-DO: respond using the status code
-                        return 'Error: Could not delete sermon';
+                       throw new InternalServerErrorException('Could not delete sermon');
                     }
                 } else {
-                    // @TO-DO: respond using the status code
-                    return 'Error: error on processing creation sermon';
+                    throw new InternalServerErrorException('Could not remove sermon to series');
                 }
             } else {
-                // @TO-DO: respond using the status code
-                return 'Error: specified sermon not found';
+                throw new NotFoundException('Sermon not found');
             }
         } catch(ex) {
-            // @TO-DO: respond using the status code
-            return 'Error: Could not delete the specified sermon'
+            if (ex.message) {
+                throw new CustomException(ex.message, ex.status);
+            } else {
+                throw new BadRequestException('Could not retrieve data');
+            }
         }
     }
 
-    async deleteSermonFolder(folderId) { // @TO-DO
+    async deleteSermonFolder(folderId) {
         try {
+            if(!mongoose.Types.ObjectId.isValid(folderId)) {
+                throw new BadRequestException('Invalid folder Id');
+            };
             const toDelete = await this.FolderModel.findByIdAndRemove(folderId);
             if(toDelete) {
-                // @TO-DO: respond using the status code
-                return 'sermon series deleted succesfully';
+                return 'Series deleted succesfully';
             } else {
-                // @TO-DO: respond using the status code
-                return 'Error: specified series not found';
+                throw new NotFoundException('Series not found');
             }
         } catch(ex) {
-             // @TO-DO: respond using the status code
-             return 'Error: Could not delete the series;'
+            if (ex.message) {
+                throw new CustomException(ex.message, ex.status);
+            } else {
+                throw new BadRequestException('Could not retrieve data');
+            }
         }
     }
 }

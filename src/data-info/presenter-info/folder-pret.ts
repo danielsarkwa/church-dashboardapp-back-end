@@ -9,7 +9,7 @@ export class Folder {
     createdAt: string;
 };
 
-export class FolderItemList {
+export class FolderItemList { // this will be used when user requests the data from the sermon get as a list item
     _id: string;
     title: string;
     folderId: string;
@@ -30,6 +30,6 @@ export class FolderDetail { // this only build the data with the list items
     belongsTo: string;
     numberOfFiles: number;
     totalTime?: number;
-    files: FolderItemList[];
+    files: string[];
     createdAt: string;
 }

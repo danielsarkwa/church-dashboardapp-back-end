@@ -1,7 +1,5 @@
 import { Folder, FolderDetail } from '../../data-info/presenter-info/folder-pret';
 
-import { podcastFolderItems } from '../resources(all are tables)/sermons-data';
-
 export const sermonFolders: Folder[] = [
     {
         folderId: 'dsjso89xz9c87z',
@@ -77,6 +75,6 @@ export const folderDetails: FolderDetail = { // this is opening one of the folde
     belongsTo: 'sermon',
     numberOfFiles: 0,
     totalTime: 3000,
-    files: podcastFolderItems,
+    files: ['dnfsfdsf', 'fdhsibd'],
     createdAt: 'Created data'
 };

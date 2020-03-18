@@ -1,7 +1,5 @@
 import { Folder, FolderDetail } from '../../data-info/presenter-info/folder-pret';
 
-import { articlesFolderItems } from '../resources(all are tables)/articles-data';
-
 export const articleFolders: Folder[] = [ // these are articles by an entity --> autuor, channel, church or pastor
     {
         folderId: 'dsjso89xz9c87z',
@@ -56,6 +54,6 @@ export const articleFolderDetails: FolderDetail = { // this is the details of a 
     coverImg: 'https:thisthilink.com',
     belongsTo: 'sermon',
     numberOfFiles: 0,
-    files: articlesFolderItems,
+    files: ['dnfsfdsf', 'fdhsibd'],
     createdAt: 'Created data'
 };
