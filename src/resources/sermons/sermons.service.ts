@@ -31,16 +31,15 @@ export class SermonsService {
                 throw new NotFoundException('Series not found');
             };
         } catch(ex) {
-            if(ex.response) {
-                throw new NotFoundException(ex.response);
+            if(ex.message) {
+                throw new NotFoundException(ex.message);
             } else {
                 throw new BadRequestException('Could not retrieve data');
             };
         };
     }
 
-    async getFolderDetails(folderId) { 
-        // @TO-DO: update the folder details presenter not to contain the sermon list data
+    async getFolderDetails(folderId) {
         try {
             if(!mongoose.Types.ObjectId.isValid(folderId)) {
                 throw new BadRequestException('Invalid folder Id');
@@ -69,8 +68,8 @@ export class SermonsService {
                 throw new NotFoundException('Sermons not found');
             }
         } catch(ex) {
-            if(ex.response) {
-                throw new NotFoundException(ex.response);
+            if(ex.message) {
+                throw new NotFoundException(ex.message);
             } else {
                 throw new BadRequestException('Could not retrieve data');
             };
@@ -87,15 +86,15 @@ export class SermonsService {
                 if (state == 'details') {
                     return sermonDetails;
                 } else {
-                    const listData = _lodash.pick(sermonDetails, ['_id', 'title', 'folderId', 'coverImg', 'stats']);
+                    const listData = _lodash.pick(sermonDetails, ['_id', 'title', 'folderId', 'coverImg', 'details.speaker', 'stats']);
                     return listData;
                 }
             } else {
                 throw new NotFoundException('Specified sermon not found');
             };
         } catch(ex) {
-            if(ex.response) {
-                throw new NotFoundException(ex.response);
+            if(ex.message) {
+                throw new NotFoundException(ex.message);
             } else {
                 throw new BadRequestException('Could not retrieve data');
             };
@@ -105,13 +104,11 @@ export class SermonsService {
     async addSermon(data): Promise<string> {
         try {
             let newSermon = await this.SermonModel.findOne({ 'title': data.title });
-
             if(newSermon) {
                 throw new BadRequestException('Sermon already exit');
             } else {
                 newSermon = await new this.SermonModel(data);
             };
-
             const updateData = {
                 files: [
                     {
@@ -120,14 +117,11 @@ export class SermonsService {
                     }
                 ]
             };
-
             const updateDataMeta = {
                 folderId: mongoose.Types.ObjectId(newSermon.folderId),
                 data: JSON.stringify(updateData)
             };
-
             const updateFolderRes = await this.updateFolder(updateDataMeta.folderId, JSON.parse(updateDataMeta.data), 'add');
-            // if there is any mistake on updating the series the the function will throuh its own error from the applicaiton
             if (updateFolderRes == 'series updated successfully') {
                 await newSermon.save();
                 return 'Sermon created successfully';
@@ -135,10 +129,11 @@ export class SermonsService {
                 throw new InternalServerErrorException('Could not add sermon to series');
             }
         } catch (ex) {
-            if (ex.response) {
-                throw new BadRequestException(ex.response);
+            if (ex.message) {
+                throw new BadRequestException(ex.message);
             } else {
-                throw new BadRequestException(ex.errors.title.message);
+                console.log(ex.message);
+                throw new BadRequestException('Could not add sermon');
             }
         };
     }
@@ -149,14 +144,16 @@ export class SermonsService {
             if(newSeries) {
                 throw new BadRequestException('Series already exit');
             } else {
-                newSeries = await new this.FolderModel(data).save();
+                newSeries = await new this.FolderModel(data);
+                await newSeries.save();
+                return 'Series created successfully';
             };
-            return 'Series created successfully';
         } catch(ex) {
             if (ex.response) {
                 throw new BadRequestException(ex.response);
             } else {
-                throw new BadRequestException(ex.errors.title.message);
+                console.log(ex.message);
+                throw new BadRequestException('Could not add sermon');
             }
         }
     }
@@ -168,30 +165,67 @@ export class SermonsService {
             };
             const toUpdate = await this.SermonModel.findById(sermonId);
             if (toUpdate) {
-                const detailstoUpdate = _lodash.pick(data, [
-                    'title', 'coverImg', 'folderId', 'audioUrl', 'details'
+                const possibleUpdates = _lodash.pick(data, [
+                    'title', 'coverImg', 'folderId', 'audioUrl', 'duration','details', 'moveTo'
                 ]);
-                for(const item in detailstoUpdate) {
+                for(const item in possibleUpdates) {
                     if (item == 'details') {
-                        console.log('inside details block');
-                        for (const detailsItems in detailstoUpdate.details) {
-                            toUpdate.details[detailsItems] = detailstoUpdate.details[detailsItems];
+                        for (const detailsItems in possibleUpdates.details) {
+                            toUpdate.details[detailsItems] = possibleUpdates.details[detailsItems];
                         }
                     } else {
                         if (item == 'title') {
-                            const another = await this.SermonModel.findOne({ 'title': detailstoUpdate.title });
+                            const another = await this.SermonModel.findOne({ 'title': possibleUpdates.title });
                             if(another) {
                                 throw new BadRequestException('Sermon already exit');
                             } else {
-                                toUpdate[item] = detailstoUpdate[item];
+                                toUpdate[item] = possibleUpdates[item];
                             };
                         } else {
-                            toUpdate[item] = detailstoUpdate[item];
+                            if(item == 'audioUrl') {
+                                const updateData = {
+                                    oldTime: toUpdate.duration,
+                                    newTime: data.duration
+                                };
+                                toUpdate[item] = possibleUpdates[item];
+                                toUpdate['duration'] = possibleUpdates['duration'];
+                                this.updateFolder(toUpdate.folderId, JSON.parse(JSON.stringify(updateData)), 'update')
+                            } else {
+                                if(item == 'moveTo') {
+                                    const moveData = {
+                                        files: [
+                                            {
+                                                fileId: toUpdate._id,
+                                                duration: toUpdate.duration
+                                            }
+                                        ]
+                                    };
+                                    const moveDataMeta = {
+                                        folderId: mongoose.Types.ObjectId(toUpdate.folderId),
+                                        data: JSON.stringify(moveData),
+                                        to: data.moveTo
+                                    };
+                                    toUpdate.folderId = moveDataMeta.to;
+                                    const removeRes = await this.updateFolder(moveDataMeta.folderId, JSON.parse(moveDataMeta.data), 'delete');
+                                    if (removeRes == 'series updated successfully') {
+                                        const addRes = await this.updateFolder(moveDataMeta.to, JSON.parse(moveDataMeta.data), 'add');
+                                        if (addRes == 'series updated successfully') {
+                                            console.log('sermon moved successfully'); ////
+                                        } else {
+                                            throw new InternalServerErrorException('Could not move sermon to new series');
+                                        }
+                                    } else {
+                                        throw new InternalServerErrorException('Could not move sermon');
+                                    }
+                                } else {
+                                    toUpdate[item] = possibleUpdates[item];
+                                }
+                            }
                         }
                     }
                 };
                 await toUpdate.save();
-                return 'Updated sermon successfully';
+                return 'Sermon updated successfully';
             } else {
                 throw new NotFoundException('Sermon not found');
             }
@@ -199,7 +233,7 @@ export class SermonsService {
             if (ex.message) {
                 throw new CustomException(ex.message, ex.status);
             } else {
-                throw new BadRequestException('Could not retrieve data');
+                throw new BadRequestException('Could not update sermon');
             }
         }
     }
@@ -211,40 +245,47 @@ export class SermonsService {
             };
             const toUpdate = await this.FolderModel.findById(folderId);
             if (toUpdate) {
-                if (state === 'add') {
-                    const detailstoUpdate = _lodash.pick(data, ['title', 'coverImg', 'files']);
-                    for(const item in detailstoUpdate) {
+                if (state == 'add') {
+                    const possibleUpdates = _lodash.pick(data, ['title', 'coverImg', 'files']);
+                    for(const item in possibleUpdates) {
                         if(item == 'files') {
-                            for(const item of detailstoUpdate['files']) {
+                            for(const item of possibleUpdates['files']) {
                                 toUpdate['files'].push(item.fileId);
                                 ++toUpdate['numberOfFiles'];
                                 toUpdate['totalTime'] += item.duration;
                             };
                         } else {
                             if (item == 'title') {
-                                const another = await this.FolderModel.findOne({ 'title': detailstoUpdate.title });
+                                const another = await this.FolderModel.findOne({ 'title': possibleUpdates.title });
         
                                 if(another) {
                                     throw new BadRequestException('Series already exit');
                                 } else {
-                                    toUpdate[item] = detailstoUpdate[item];
+                                    toUpdate[item] = possibleUpdates[item];
                                 };
                             } else {
-                                toUpdate[item] = detailstoUpdate[item];
+                                toUpdate[item] = possibleUpdates[item];
                             }
                         };
                     };
                 } else {
-                    for(const item of data['files']) {
-                        toUpdate.files = toUpdate.files.filter(file => {
-                            return file !== item.fileId;
-                        });
-                        toUpdate.totalTime -= item.duration;
-                        --toUpdate.numberOfFiles;
-                    };
+                    if (state == 'update') {
+                        toUpdate.totalTime -= data.oldTime;
+                        toUpdate.totalTime += data.newTime;
+                    } else {
+                        if(state == 'delete') {
+                            for(const item of data['files']) {
+                                toUpdate.files = toUpdate.files.filter(file => {
+                                    return file !== item.fileId;
+                                });
+                                toUpdate.totalTime -= item.duration;
+                                --toUpdate.numberOfFiles;
+                            };
+                        }
+                    }
                 }
                 await toUpdate.save();
-                return 'Sermon updated successfully';
+                return 'series updated successfully';
             } else {
                 throw new NotFoundException('Series not found');
             };
@@ -252,7 +293,7 @@ export class SermonsService {
             if (ex.message) {
                 throw new CustomException(ex.message, ex.status);
             } else {
-                throw new BadRequestException('Could not retrieve data');
+                throw new BadRequestException('Could not update sermon series');
             }
         };
     }
@@ -277,7 +318,6 @@ export class SermonsService {
                     data: JSON.stringify(deleteData)
                 };
                 const deleteFolderRes = await this.updateFolder(deleteDataMeta.folderId, JSON.parse(deleteDataMeta.data), 'delete');
-                // if there is any mistake on updating the series the the function will throuh its own error from the applicaiton
                 if (deleteFolderRes === 'series updated successfully') {
                     const delSermon = await this.SermonModel.findByIdAndRemove(sermonId);
                     if (delSermon) {
@@ -295,7 +335,7 @@ export class SermonsService {
             if (ex.message) {
                 throw new CustomException(ex.message, ex.status);
             } else {
-                throw new BadRequestException('Could not retrieve data');
+                throw new BadRequestException('Could not delete sermon');
             }
         }
     }
@@ -315,7 +355,7 @@ export class SermonsService {
             if (ex.message) {
                 throw new CustomException(ex.message, ex.status);
             } else {
-                throw new BadRequestException('Could not retrieve data');
+                throw new BadRequestException('Could not delete sermon series');
             }
         }
     }

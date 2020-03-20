@@ -1,14 +1,26 @@
 import * as mongoose from 'mongoose';
 
 export const SermonSchema = new mongoose.Schema({
-    title: String,
-    folderId: String,
-    audioUrl: String,
+    title: {
+        type: String,
+        required: true
+    },
+    folderId: {
+        type: String,
+        required: true
+    },
+    audioUrl: {
+        type: String,
+        required: true
+    },
     coverImg: {
         type: String,
         required: true
     },
-    duration: Number,
+    duration: {
+        type: Number,
+        required: true
+    },
     details: {
         bibleTxts: {
             type: {
@@ -22,8 +34,14 @@ export const SermonSchema = new mongoose.Schema({
                 }
             }
         },
-        speaker: String,
-        desc: String,
+        speaker: {
+            type: String,
+            required: true
+        },
+        desc: {
+            type: String,
+            required: true
+        },
         points: {
             type: {
                 heading: {
@@ -95,7 +113,7 @@ export const SermonSchema = new mongoose.Schema({
             comments: {
                 type: [String],
                 required: true,
-                default: [] // this will be the links of all comments set by the mobile app
+                default: []
             }
         },
         required: true,
@@ -114,7 +132,7 @@ export const SermonSchema = new mongoose.Schema({
             messages: {
                 type: [String],
                 required: true,
-                default: [] // this will be the links of all messages set by the mobile app
+                default: []
             }
         },
         required: true,

@@ -85,13 +85,9 @@ $ npm run test:cov
             * entity details(sermon, podcast, article, message, comment, announcement, event)
 
         - TO-DO::
-            * review sermons service class code
-                - communication
-                - error handling
-                - request handling
-            * test application
-                - routes and errors
-            * refactor if needed (for other resources of the application to work with)
+            * deleting sermons series should delete all of its sermons
+                - create a loop from the folder method that calls the delete sermon method
+                    * if one fails break the loop and respond with internalServerError
 
 ## TODO -3 (Documentation)
     - Creata a personal documentation for future projects

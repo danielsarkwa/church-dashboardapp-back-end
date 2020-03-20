@@ -31,10 +31,10 @@ export interface Sermon extends Document {
         };
     commentsData: {
             totalCmts: number,
-            comments: string[] // data in here will be used to query the comments
+            comments: string[]
         };
     messagesData: {
             totalMsg: number,
-            messages: string[] // data in here will be used to query the messages
+            messages: string[]
         };
 };

@@ -9,6 +9,10 @@ export const FolderSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    desc: {
+        type: String,
+        required: true
+    },
     belongsTo: {
         type: String,
         required: true
@@ -32,15 +36,45 @@ export const FolderSchema = new mongoose.Schema({
 });
 
 export const FolderOthersSchema = new mongoose.Schema({ // this will be for channels and accounts
-    title: String,
-    coverImg: String,
-    belongsTo: String,
+    title: {
+        type: String,
+        required: true
+    },
+    coverImg: {
+        type: String,
+        required: true
+    },
+    desc: {
+        type: String,
+        required: true
+    },
+    belongsTo: {
+        type: String,
+        required: true
+    },
     numberOfFiles: { 
         type: Number, 
         required: true, 
         default: 0
     },
     files: [String],
+    stats: {
+        type: {
+            views: {
+                type: Number,
+                required: true
+            },
+            likes: {
+                type: Number,
+                required: true
+            }
+        },
+        required: true,
+        default: {
+            views: 0,
+            likes: 0
+        }
+    },
     createdAt: { 
         type: Date,
         required: true,

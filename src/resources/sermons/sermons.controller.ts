@@ -1,9 +1,6 @@
 import { Controller, Get, Param, Post, Body, Put, Delete, Query } from '@nestjs/common';
-
 import { CreateSermonDto } from '../../data-info/entry-dto/sermon.dto';
-
 import { CreateFolder } from '../../data-info/entry-dto/folder.dto';
-
 import { SermonsService } from './sermons.service';
 
 @Controller('sermons')
@@ -15,8 +12,7 @@ export class SermonsController {
     return await this.sermonsService.getFolders();
   }
 
-  @Get(':folderId') 
-  // @TO-DO: implement adding the list of sermons before responding to client in presenter (make changes)
+  @Get(':folderId')
   async loadSermonsFolder(@Param('folderId') id) {
     return await this.sermonsService.getFolderDetails(id);
   }
@@ -66,5 +62,4 @@ export class SermonsController {
   async eleteSermon(@Param('sermonId') id) {
     return await this.sermonsService.deleteSermon(id);
   }
-
 }
