@@ -84,11 +84,6 @@ $ npm run test:cov
             * entity list (sermons, podcasts, articles, messages, comments, announcements, events)
             * entity details(sermon, podcast, article, message, comment, announcement, event)
 
-        - TO-DO::
-            * deleting sermons series should delete all of its sermons
-                - create a loop from the folder method that calls the delete sermon method
-                    * if one fails break the loop and respond with internalServerError
-
 ## TODO -3 (Documentation)
     - Creata a personal documentation for future projects
     - Create a business documentation for this application

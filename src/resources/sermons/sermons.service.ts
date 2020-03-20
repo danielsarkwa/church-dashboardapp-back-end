@@ -1,17 +1,18 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { Model } from 'mongoose';
 
-import { NotFoundException, BadRequestException, InternalServerErrorException, CustomException } from '../shared/exceptions';
+import { 
+    NotFoundException,
+    BadRequestException,
+    CustomException,
+    InternalServerErrorException
+} from '../shared/exceptions';
 
 import * as mongoose from 'mongoose';
 import * as _lodash from 'lodash';
 
 import { Sermon } from '././schema/sermon.interface';
 import { Folder } from '../shared/schemas/folder.interface';
-
-/**
- * build the data with the presenter before sending it to the user
- */
 
 @Injectable()
 export class SermonsService {
@@ -205,18 +206,28 @@ export class SermonsService {
                                         data: JSON.stringify(moveData),
                                         to: data.moveTo
                                     };
-                                    toUpdate.folderId = moveDataMeta.to;
-                                    const removeRes = await this.updateFolder(moveDataMeta.folderId, JSON.parse(moveDataMeta.data), 'delete');
-                                    if (removeRes == 'series updated successfully') {
-                                        const addRes = await this.updateFolder(moveDataMeta.to, JSON.parse(moveDataMeta.data), 'add');
-                                        if (addRes == 'series updated successfully') {
-                                            console.log('sermon moved successfully'); ////
+                                    if(!mongoose.Types.ObjectId.isValid(moveDataMeta.folderId)) {
+                                        throw new BadRequestException('Invalid series Id');
+                                    };
+                                    if(!mongoose.Types.ObjectId.isValid(moveDataMeta.to)) {
+                                        throw new BadRequestException('Invalid series Id');
+                                    };
+                                    const fromFolder = await this.FolderModel.findById(moveDataMeta.folderId);
+                                    const toFolder = await this.FolderModel.findById(moveDataMeta.to);
+                                    if (fromFolder && toFolder) {
+                                        toUpdate.folderId = moveDataMeta.to;
+                                        const removeRes = await this.updateFolder(moveDataMeta.folderId, JSON.parse(moveDataMeta.data), 'delete');
+                                        if (removeRes == 'series updated successfully') {
+                                            const addRes = await this.updateFolder(moveDataMeta.to, JSON.parse(moveDataMeta.data), 'add');
+                                            if (addRes !== 'series updated successfully') {
+                                                throw new InternalServerErrorException('Could not move sermon to new series');   
+                                            }
                                         } else {
-                                            throw new InternalServerErrorException('Could not move sermon to new series');
+                                            throw new InternalServerErrorException('Could not move sermon');
                                         }
-                                    } else {
-                                        throw new InternalServerErrorException('Could not move sermon');
-                                    }
+                                        } else {
+                                            throw new BadRequestException('one of the series not found');
+                                        }
                                 } else {
                                     toUpdate[item] = possibleUpdates[item];
                                 }
@@ -241,7 +252,7 @@ export class SermonsService {
     async updateFolder(folderId, data, state) {
         try {
             if(!mongoose.Types.ObjectId.isValid(folderId)) {
-                throw new BadRequestException('Invalid folder Id');
+                throw new BadRequestException('Invalid Series Id');
             };
             const toUpdate = await this.FolderModel.findById(folderId);
             if (toUpdate) {
@@ -345,8 +356,16 @@ export class SermonsService {
             if(!mongoose.Types.ObjectId.isValid(folderId)) {
                 throw new BadRequestException('Invalid folder Id');
             };
-            const toDelete = await this.FolderModel.findByIdAndRemove(folderId);
+            const toDelete = await this.FolderModel.findById(folderId);
             if(toDelete) {
+                toDelete.files.forEach(async file => {
+                    const fileId = mongoose.Types.ObjectId(file);
+                    const deleteFile = await this.SermonModel.findByIdAndRemove(fileId);
+                    if(!deleteFile) {
+                        throw new InternalServerErrorException('Could not delete sermon series');
+                    }
+                });
+                await toDelete.remove();
                 return 'Series deleted succesfully';
             } else {
                 throw new NotFoundException('Series not found');
