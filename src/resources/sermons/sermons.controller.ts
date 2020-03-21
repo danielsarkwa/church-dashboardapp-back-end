@@ -8,7 +8,7 @@ export class SermonsController {
   constructor(private readonly sermonsService: SermonsService) { }
 
   @Get('series')
-  async loadSermonSeriess() {
+  async loadSeries() {
     return await this.sermonsService.getSeries();
   }
 

@@ -1,65 +1,65 @@
-import { Controller, Get, Param, Delete, Body, Put, Post } from '@nestjs/common';
-
+import { Controller, Get, Param, Delete, Body, Put, Post, Query } from '@nestjs/common';
 import { CreateArticleDto } from '../../data-info/entry-dto/article.dto';
-
 import { CreateFolder } from '../../data-info/entry-dto/folder.dto';
-
 import { ArticlesService } from './articles.service';
-import { CreateSermonDto } from 'src/data-info/entry-dto/sermon.dto';
 
 @Controller('articles')
 export class ArticlesController {
   constructor(private readonly articlesService: ArticlesService) { }
 
-  @Get()
-  loadArticlesFolders() {
-      return this.articlesService.getFolders();
+  @Get('accounts')
+  async loadAccounts() {
+      return await this.articlesService.getAccounts();
   }
 
-  @Get(':folderId')
-  loadArticlesFolder(@Param('folderId') id) {
-    return this.articlesService.getFolderDetails(id);
+  @Get(':accountId')
+  async loadAccount(@Param('accountId') id) {
+    return await this.articlesService.getAccountDetails(id);
+  }
+
+  @Get()
+  async loadAllArticles() {
+    return await this.articlesService.getAllArticles();
   }
 
   @Get('one/:articleId')
-  loadSermon(@Param('articleId') id) {
-    return this.articlesService.getArticle(id);
+  async loadArticle(@Param('articleId') id, @Query('state') state) {
+    return await this.articlesService.getArticle(id, state);
   }
 
   @Post()
-  addArticle(@Body() createSermonDto: CreateArticleDto) {
-    return this.articlesService.addArticle(createSermonDto);
+  async addArticle(@Body() CreateArticle: CreateArticleDto) {
+    return await this.articlesService.addArticle(CreateArticle);
   }
 
-  @Post('folders')
-  addFolder(@Body() createSermonFolder: CreateFolder) {
-    return this.articlesService.addFolder(createSermonFolder);
+  @Post('accounts')
+  async addAccount(@Body() createAccount: CreateFolder) {
+    return await this.articlesService.addAccount(createAccount);
   }
 
-  @Put(':id')
-  updateArticle(
-    @Param('id') id,
-    @Body() updateArticleDto: CreateArticleDto
+  @Put(':articleId')
+  async updateArticle(
+    @Param('articleId') id,
+    @Body() updateArticle: CreateArticleDto
   ) {
-    return this.articlesService.updateArticle(id, updateArticleDto);
+    return await this.articlesService.updateArticle(id, updateArticle);
   }
 
-  @Put('folders/:folderId')
-  updateFolder(
-    @Param('id') id,
-    @Body() updateFolderDto: CreateFolder
+  @Put('accounts/:accountId')
+  async updateAccount(
+    @Param('accountId') id,
+    @Body() updateAccount: CreateFolder
   ) {
-    return this.articlesService.updateFolder(id, updateFolderDto);
+    return await this.articlesService.updateAccount(id, updateAccount, 'add');
   }
 
-  @Delete('folders/:folderId')
-  deletePodcastFolder(@Param('folderId') id) {
-    return this.articlesService.deleteArticleFolder(id);
+  @Delete('accounts/:accountId')
+  async deleteAccount(@Param('accountId') id) {
+    return await this.articlesService.deleteAccount(id);
   }
 
-  @Delete(':id')
-  deleteArticle(@Param('sermonId') id) {
-    return this.articlesService.deleteArticle(id);
+  @Delete(':podcastId')
+  async deleteArticle(@Param('podcastId') id) {
+    return await this.articlesService.deleteArticle(id);
   }
-
 }

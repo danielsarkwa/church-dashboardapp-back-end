@@ -17,17 +17,30 @@ export const FolderSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    totalTime: {
-        type: Number,
-        required: true,
-        default: 0
-    },
+    totalTime: Number,
     numberOfFiles: { 
         type: Number, 
         required: true,
         default: 0
     },
     files: [String],
+    stats: {
+        type: {
+            views: {
+                type: Number,
+                required: true
+            },
+            likes: {
+                type: Number,
+                required: true
+            }
+        },
+        required: true,
+        default: {
+            views: 0,
+            likes: 0
+        }
+    },
     createdAt: {
         type: Date,
         required: true,
@@ -35,7 +48,7 @@ export const FolderSchema = new mongoose.Schema({
     },
 });
 
-export const FolderOthersSchema = new mongoose.Schema({ // this will be for channels and accounts
+export const FolderAccountSchema = new mongoose.Schema({ // this will be for channels and accounts
     title: {
         type: String,
         required: true
@@ -58,26 +71,10 @@ export const FolderOthersSchema = new mongoose.Schema({ // this will be for chan
         default: 0
     },
     files: [String],
-    stats: {
-        type: {
-            views: {
-                type: Number,
-                required: true
-            },
-            likes: {
-                type: Number,
-                required: true
-            }
-        },
-        required: true,
-        default: {
-            views: 0,
-            likes: 0
-        }
-    },
+    
     createdAt: { 
         type: Date,
         required: true,
         default: Date.now
-    },
+    }
 });

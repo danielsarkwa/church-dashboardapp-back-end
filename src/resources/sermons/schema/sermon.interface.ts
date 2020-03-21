@@ -22,7 +22,7 @@ export interface Sermon extends Document {
             body: string 
         }[]
     };
-    readonly createdAt: string;
+    readonly createdAt: Date;
     readonly stats: {
             views: number,
             likes: number,

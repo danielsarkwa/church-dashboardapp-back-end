@@ -43,11 +43,11 @@ export class SermonsService {
     async getSeriesDetails(seriesId) {
         try {
             if(!mongoose.Types.ObjectId.isValid(seriesId)) {
-                throw new BadRequestException('Invalid folder Id');
+                throw new BadRequestException('Invalid series Id');
             };
-            const folderDetails = await this.FolderModel.findById(seriesId);
-            if(folderDetails) {
-                return folderDetails;
+            const seriesDetails = await this.FolderModel.findById(seriesId);
+            if(seriesDetails) {
+                return seriesDetails;
             } else {
                 throw new NotFoundException('Specified series not found');
             };
@@ -64,7 +64,12 @@ export class SermonsService {
         try {
             const sermons = await this.SermonModel.find({});
             if (sermons.length > 0) {
-                return sermons;
+                const sermonsList = [];
+                sermons.forEach(article => {
+                    const listData = _lodash.pick(article, ['_id', 'title', 'seriesId', 'coverImg', 'details.desc', 'stats', 'details.speaker','commentsData.totalCmts', 'messagesData.totalMsgs']);
+                    sermonsList.push(listData);
+                });
+                return sermonsList;
             } else {
                 throw new NotFoundException('Sermons not found');
             }
@@ -154,7 +159,7 @@ export class SermonsService {
                 throw new BadRequestException(ex.response);
             } else {
                 console.log(ex.message);
-                throw new BadRequestException('Could not add sermon series');
+                throw new BadRequestException('Could not add new sermon series');
             }
         }
     }
@@ -309,7 +314,7 @@ export class SermonsService {
         };
     }
 
-    async deleteSermon(sermonId) {
+    async deleteSermon(sermonId): Promise<string> {
         try {
             if(!mongoose.Types.ObjectId.isValid(sermonId)) {
                 throw new BadRequestException('Invalid sermon Id');
@@ -328,8 +333,8 @@ export class SermonsService {
                     seriesId: mongoose.Types.ObjectId(toDelete.seriesId),
                     data: JSON.stringify(deleteData)
                 };
-                const deleteFolderRes = await this.updateSeries(deleteDataMeta.seriesId, JSON.parse(deleteDataMeta.data), 'delete');
-                if (deleteFolderRes === 'series updated successfully') {
+                const deleteSeriesRes = await this.updateSeries(deleteDataMeta.seriesId, JSON.parse(deleteDataMeta.data), 'delete');
+                if (deleteSeriesRes === 'series updated successfully') {
                     const delSermon = await this.SermonModel.findByIdAndRemove(sermonId);
                     if (delSermon) {
                         return 'sermon deleted successfully';
@@ -337,7 +342,7 @@ export class SermonsService {
                        throw new InternalServerErrorException('Could not delete sermon');
                     }
                 } else {
-                    throw new InternalServerErrorException('Could not remove sermon to series');
+                    throw new InternalServerErrorException('Could not remove sermon from series');
                 }
             } else {
                 throw new NotFoundException('Sermon not found');
@@ -351,10 +356,10 @@ export class SermonsService {
         }
     }
 
-    async deleteSeries(seriesId) {
+    async deleteSeries(seriesId): Promise<string> {
         try {
             if(!mongoose.Types.ObjectId.isValid(seriesId)) {
-                throw new BadRequestException('Invalid folder Id');
+                throw new BadRequestException('Invalid series Id');
             };
             const toDelete = await this.FolderModel.findById(seriesId);
             if(toDelete) {

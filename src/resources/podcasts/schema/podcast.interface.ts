@@ -17,7 +17,7 @@ export interface Podcast extends Document {
             body: string 
         }[]
     };
-    readonly createdAt: string;
+    readonly createdAt: Date;
     readonly stats: {
             views: number,
             likes: number,

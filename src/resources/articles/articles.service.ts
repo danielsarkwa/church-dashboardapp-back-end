@@ -1,45 +1,332 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Inject } from '@nestjs/common';
+import { Model } from 'mongoose';
 
-import { articleDetails } from '../../demo-database/resources(all are tables)/articles-data';
+import { 
+    NotFoundException,
+    BadRequestException,
+    CustomException,
+    InternalServerErrorException
+} from '../shared/exceptions';
 
-import { articleFolders, articleFolderDetails } from '../../demo-database/resources-folders/articleFolder-data';
+import * as mongoose from 'mongoose';
+import * as _lodash from 'lodash';
+
+import { Article } from './schema/article.interface';
+import { Folder } from '../shared/schemas/folder.interface';
 
 @Injectable()
 export class ArticlesService {
-    getFolders() {
-        return articleFolders;
+    constructor(
+        @Inject('ARTICLE_MODEL')
+        private ArticleModel: Model<Article>,
+        @Inject('FOLDER_MODEL')
+        private FolderModel: Model<Folder>,
+    ) {}
+
+    async getAccounts() {
+        try {
+            const account = await this.FolderModel.find({'belongsTo': 'article'});
+            if (account.length > 0) {
+                return account;
+            } else {
+                throw new NotFoundException('Account not found');
+            };
+        } catch(ex) {
+            if(ex.message) {
+                throw new NotFoundException(ex.message);
+            } else {
+                throw new BadRequestException('Could not retrieve data');
+            };
+        };
     }
 
-    getFolderDetails(folderId) { // this will return only a article files from the a folder
-        return articleFolderDetails;
+    async getAccountDetails(accountId) {
+        try {
+            if(!mongoose.Types.ObjectId.isValid(accountId)) {
+                throw new BadRequestException('Invalid account Id');
+            };
+            const accountDetails = await this.FolderModel.findById(accountId);
+            if(accountDetails) {
+                return accountDetails;
+            } else {
+                throw new NotFoundException('Specified series not found');
+            };
+        } catch(ex) {
+            if(ex.message) {
+                throw new CustomException(ex.message, ex.status);
+            } else {
+                throw new InternalServerErrorException('Could not retrieve data');
+            }
+        };
     }
 
-    getArticle(id) {
-        return articleDetails;
+    async getAllArticles() {
+        try {
+            const articles = await this.ArticleModel.find({});
+            if (articles.length > 0) {
+                const articlesList = [];
+                articles.forEach(article => {
+                    const listData = _lodash.pick(article, ['_id', 'title', 'accountId', 'coverImg', 'details.desc', 'details.autuorId', 'stats', 'commentsData.totalCmts', 'messagesData.totalMsgs']);
+                    articlesList.push(listData);
+                });
+                return articlesList;
+            } else {
+                throw new NotFoundException('Articles not found');
+            }
+        } catch(ex) {
+            if(ex.message) {
+                throw new NotFoundException(ex.message);
+            } else {
+                throw new BadRequestException('Could not retrieve data');
+            };
+        }
     }
 
-    addArticle(data) {
-        return ['article created succesfully', data];
+    async getArticle(articleId, state) {
+        try {
+            if(!mongoose.Types.ObjectId.isValid(articleId)) {
+                throw new BadRequestException('Invalid article Id');
+            };
+            const articleDetails = await this.ArticleModel.findById(articleId);
+            if(articleDetails) {
+                if (state == 'details') {
+                    return articleDetails;
+                } else {
+                    const listData = _lodash.pick(articleDetails, ['_id', 'title', 'accountId', 'coverImg', 'details.desc', 'stats']);
+                    return listData;
+                }
+            } else {
+                throw new NotFoundException('Specified article not found');
+            };
+        } catch(ex) {
+            if(ex.message) {
+                throw new NotFoundException(ex.message);
+            } else {
+                throw new BadRequestException('Could not retrieve data');
+            };
+        };
     }
 
-    addFolder(data) {
-        return ['folder created successfully', data];
-    } 
 
-    updateArticle(id, data) {
-        return ['article updated successfully', data];
+    async addArticle(data): Promise<string> {
+        try {
+            let newArticle = await this.ArticleModel.findOne({ 'title': data.title });
+            if(newArticle) {
+                throw new BadRequestException('Article already exit');
+            } else {
+                newArticle = await new this.ArticleModel(data);
+            };
+            const updateData = {
+                files: [
+                    {
+                        fileId: newArticle._id
+                    }
+                ]
+            };
+            const updateDataMeta = {
+                accountId: mongoose.Types.ObjectId(newArticle.accountId),
+                data: JSON.stringify(updateData)
+            };
+            const updateSeriesRes = await this.updateAccount(updateDataMeta.accountId, JSON.parse(updateDataMeta.data), 'add');
+            if (updateSeriesRes == 'account updated successfully') {
+                await newArticle.save();
+                return 'Article created successfully';
+            } else {
+                throw new InternalServerErrorException('Could not add article to acount');
+            }
+        } catch (ex) {
+            if (ex.message) {
+                throw new BadRequestException(ex.message);
+            } else {
+                console.log(ex.message);
+                throw new BadRequestException('Could not add article');
+            }
+        };
     }
 
-    updateFolder(id, data) {
-        return ['folder updated successfully', data];
+
+    async addAccount(data): Promise<string> {
+        try {
+            let newAccount = await this.FolderModel.findOne({ 'title': data.title });
+            if(newAccount) {
+                throw new BadRequestException('Account already exit');
+            } else {
+                newAccount = await new this.FolderModel(data);
+                await newAccount.save();
+                return 'Account created successfully';
+            };
+        } catch(ex) {
+            if (ex.response) {
+                throw new BadRequestException(ex.response);
+            } else {
+                console.log(ex.message);
+                throw new BadRequestException('Could not add new article account');
+            }
+        }
     }
 
-    deleteArticle(id) {
-        return 'article deleted';
+    async updateArticle(articleId, data) {
+        try {
+            if(!mongoose.Types.ObjectId.isValid(articleId)) {
+                throw new BadRequestException('Invalid article Id');
+            };
+            const toUpdate = await this.ArticleModel.findById(articleId);
+            if (toUpdate) {
+                const possibleUpdates = _lodash.pick(data, [
+                    'title', 'coverImg', 'details'
+                ]);
+                for(const item in possibleUpdates) {
+                    if (item == 'details') {
+                        for (const detailsItems in possibleUpdates.details) {
+                            toUpdate.details[detailsItems] = possibleUpdates.details[detailsItems];
+                        }
+                    } else {
+                        if (item == 'title') {
+                            const another = await this.ArticleModel.findOne({ 'title': possibleUpdates.title });
+                            if(another) {
+                                throw new BadRequestException('Article already exit');
+                            } else {
+                                toUpdate[item] = possibleUpdates[item];
+                            };
+                        } else {
+                            toUpdate[item] = possibleUpdates[item];
+                        }
+                    }
+                };
+                await toUpdate.save();
+                return 'Article updated successfully';
+            } else {
+                throw new NotFoundException('Article not found');
+            }
+        } catch (ex) {
+            if (ex.message) {
+                throw new CustomException(ex.message, ex.status);
+            } else {
+                throw new BadRequestException('Could not update article');
+            }
+        }
     }
 
-    deleteArticleFolder(id) {
-        return 'article folder deleted succesfully';
+    async updateAccount(accountId, data, state) {
+        try {
+            if(!mongoose.Types.ObjectId.isValid(accountId)) {
+                throw new BadRequestException('Invalid account Id');
+            };
+            const toUpdate = await this.FolderModel.findById(accountId);
+            if (toUpdate) {
+                if (state == 'add') {
+                    const possibleUpdates = _lodash.pick(data, ['title', 'coverImg', 'files', 'desc']);
+                    for(const item in possibleUpdates) {
+                        if(item == 'files') {
+                            for(const item of possibleUpdates['files']) {
+                                toUpdate['files'].push(item.fileId);
+                                ++toUpdate['numberOfFiles'];
+                            };
+                        } else {
+                            if (item == 'title') {
+                                const another = await this.FolderModel.findOne({ 'title': possibleUpdates.title });
+        
+                                if(another) {
+                                    throw new BadRequestException('account already exit');
+                                } else {
+                                    toUpdate[item] = possibleUpdates[item];
+                                };
+                            } else {
+                                toUpdate[item] = possibleUpdates[item];
+                            }
+                        };
+                    };
+                } else {
+                    for(const item of data['files']) {
+                        toUpdate.files = toUpdate.files.filter(file => {
+                            return file !== item.fileId;
+                        });
+                        --toUpdate.numberOfFiles;
+                    };
+                }
+                await toUpdate.save();
+                return 'account updated successfully';
+            } else {
+                throw new NotFoundException('account not found');
+            };
+        } catch(ex) {
+            if (ex.message) {
+                throw new CustomException(ex.message, ex.status);
+            } else {
+                throw new BadRequestException('Could not update article account');
+            }
+        };
     }
-    
+
+    async deleteArticle(articleId) {
+        try {
+            if(!mongoose.Types.ObjectId.isValid(articleId)) {
+                throw new BadRequestException('Invalid article Id');
+            };
+            const toDelete = await this.ArticleModel.findById(articleId);
+            if(toDelete) {
+                const deleteData = {
+                    files: [
+                        {
+                            fileId: toDelete._id
+                        }
+                    ]
+                };
+                const deleteDataMeta = {
+                    seriesId: mongoose.Types.ObjectId(toDelete.accountId),
+                    data: JSON.stringify(deleteData)
+                };
+                const deleteArticleRes = await this.updateAccount(deleteDataMeta.seriesId, JSON.parse(deleteDataMeta.data), 'delete');
+                if (deleteArticleRes === 'account updated successfully') {
+                    const delArticle = await this.ArticleModel.findByIdAndRemove(articleId);
+                    if (delArticle) {
+                        return 'article deleted successfully';
+                    } else {
+                       throw new InternalServerErrorException('Could not delete article');
+                    }
+                } else {
+                    throw new InternalServerErrorException('Could not remove article from account');
+                }
+            } else {
+                throw new NotFoundException('Article not found');
+            }
+        } catch(ex) {
+            if (ex.message) {
+                throw new CustomException(ex.message, ex.status);
+            } else {
+                throw new BadRequestException('Could not delete article');
+            }
+        }
+    }
+
+    async deleteAccount(accountId): Promise<string> {
+        try {
+            if(!mongoose.Types.ObjectId.isValid(accountId)) {
+                throw new BadRequestException('Invalid account Id');
+            };
+            const toDelete = await this.FolderModel.findById(accountId);
+            if(toDelete) {
+                if (toDelete.files.length > 0) {
+                    toDelete.files.forEach(async file => {
+                        const fileId = mongoose.Types.ObjectId(file);
+                        const deleteFile = await this.ArticleModel.findByIdAndRemove(fileId);
+                        if(!deleteFile) {
+                            throw new InternalServerErrorException('Could not delete all account articles');
+                        };
+                    });
+                };
+                await toDelete.remove();
+                return 'Account deleted succesfully';             
+            } else {
+                throw new NotFoundException('Account not found');
+            }
+        } catch(ex) {
+            if (ex.message) {
+                throw new CustomException(ex.message, ex.status);
+            } else {
+                throw new BadRequestException('Could not delete article account');
+            }
+        }
+    }
+
 }

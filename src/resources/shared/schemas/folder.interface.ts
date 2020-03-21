@@ -8,5 +8,9 @@ export interface Folder extends Document {
     totalTime?: number;
     numberOfFiles: number;
     files: string[];
-    readonly createdAt: string;
+    stats: {
+        views: number,
+        likes: number
+    };
+    readonly createdAt: Date;
 }
