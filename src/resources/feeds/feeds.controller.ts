@@ -1,7 +1,5 @@
-import { Controller, Get, Param, Post, Body, Put, Delete } from '@nestjs/common';
-
+import { Controller, Get, Param, Post, Body, Put, Delete, Query } from '@nestjs/common';
 import { CreateFeedDto } from '../../data-info/entry-dto/feed.dto';
-
 import { FeedsService } from './feeds.service';
 
 @Controller('feeds')
@@ -9,8 +7,8 @@ export class FeedsController {
   constructor(private feedsService: FeedsService) { }
 
   @Get()
-  loadFeeds() {
-    return this.feedsService.getFeeds();
+  loadFeeds(@Query('pageNumber') pageNumber ) {
+    return this.feedsService.getFeeds(pageNumber);
   }
   
   @Get(':feedId')
@@ -19,8 +17,8 @@ export class FeedsController {
   }
 
   @Post()
-  addFeed(@Body() createFeedDto: CreateFeedDto) {
-    return this.feedsService.addFeed(createFeedDto);
+  async addFeed(@Body() createFeedDto: CreateFeedDto) {
+    return await this.feedsService.addFeed(createFeedDto);
   }
 
   @Put(':id')
@@ -31,8 +29,9 @@ export class FeedsController {
     return this.feedsService.updateFeed(id, updateFeedDto);
   }
 
-  @Delete(':id')
+  @Delete(':feedId')
   deleteFeed(@Param('feedId') id) {
     return this.feedsService.deleteFeed(id);
   }
+
 }

@@ -1,11 +1,9 @@
 import { Module } from '@nestjs/common';
 
-import { FeedsController } from './feeds/feeds.controller';
-import { FeedsService } from './feeds/feeds.service';
-
 import { SermonsModule } from './sermons/sermons.module';
 import { PodcastModule } from './podcasts/podcasts.module';
 import { ArticlesModule } from './articles/articles.module';
+import { FeedsModule } from './feeds/feeds.module';
 
 import { EventsController } from './events/events.controller';
 import { EventsService } from './events/events.service';
@@ -26,10 +24,10 @@ import { AdminsService } from './admins/admins.service';
     imports: [
       SermonsModule,
       PodcastModule,
-      ArticlesModule
+      ArticlesModule,
+      FeedsModule
     ],
     controllers: [
-      FeedsController,
       EventsController, 
       AnnouncementsController, 
       HelpSupportController,
@@ -37,7 +35,6 @@ import { AdminsService } from './admins/admins.service';
       AdminsController
     ],
     providers: [
-      FeedsService,
       EventsService,
       AnnouncementsService,
       HelpSupportService,
