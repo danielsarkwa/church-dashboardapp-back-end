@@ -1,15 +1,7 @@
 import * as mongoose from 'mongoose';
 
-export const SermonSchema = new mongoose.Schema({
+export const EventSchema = new mongoose.Schema({
     title: {
-        type: String,
-        required: true
-    },
-    seriesId: {
-        type: String,
-        required: true
-    },
-    audioUrl: {
         type: String,
         required: true
     },
@@ -17,42 +9,41 @@ export const SermonSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    duration: {
-        type: Number,
+    date: {
+        type: String,
         required: true
     },
+    viewColor: String,
+    time: {
+        type: String,
+        required: true
+    },
+    desc: {
+        type: String,
+        required: true
+    },
+    tags: [String],
     details: {
-        bibleTxts: {
-            type: [{
-                text: {
-                    type: String,
-                    required: true
-                }, 
-                scripture: {
-                    type: String,
-                    required: true
-                }
-            }]
-        },
-        speaker: {
+        autuorId: {
             type: String,
             required: true
         },
-        desc: {
+        content: {
             type: String,
             required: true
         },
-        points: {
+        media: {
             type: [{
-                heading: {
-                    type: String,
-                    required: true
-                }, 
-                body: {
-                    type: String,
-                    required: true
-                } 
+                heading: String,
+                link: String
             }]
+        },
+        reminders: {
+            type: [{
+                date: String, 
+                time: String,
+            }],
+            required: true
         },
         attachments: {
             type: [{
@@ -87,20 +78,14 @@ export const SermonSchema = new mongoose.Schema({
             shared: {
                 type: Number,
                 required: true,
-                default: 0,
-            },
-            downloads: {
-                type: Number,
-                required: true,
-                default: 0,
+                default: 0
             }
         },
         required: true,
         default: {
             views: 0,
             likes: 0,
-            shared: 0,
-            downloads: 0
+            shared: 0
         }
     },
     commentsData: {

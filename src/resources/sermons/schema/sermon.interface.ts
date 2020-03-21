@@ -34,7 +34,7 @@ export interface Sermon extends Document {
             comments: string[]
         };
     messagesData: {
-            totalMsg: number,
+            totalMsgs: number,
             messages: string[]
         };
 };

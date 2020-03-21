@@ -1,35 +1,26 @@
 
 export class CreateEventDto {
     title?: string;
+    coverImg?: string;
+    viewColor: string;
     date?: string;
     time?: string;
     desc?: string;
-    from?: string;
-    to?: string;
-    content?: string;
     tags?: string[];
-    coverImg?: string;
     details?: {
-        autuor: { 
-            _id: string,
-            name: string,
-            avatarUrl: string 
-        },
-        more?: { 
-            heading: string, 
-            body: string 
-        }[]; // guest // mc // host // activities
-        reminders: { 
-            date: string, 
-            time: string 
-        }[]; // this is set to 2hrs - 3hrs before the time
-        attachments?: {
-            heading: string, 
-            body: string
-        }[];
+        autuorId: string,
+        content: string,
         media?: {
             heading: string, 
             link: string
-        }[]; // videos and images links
+        }[],
+        reminders: { 
+            date: string, 
+            time: string 
+        }[],
+        attachments?: {
+            heading: string, 
+            body: string
+        }[]
     };
 }
