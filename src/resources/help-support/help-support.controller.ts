@@ -1,7 +1,5 @@
 import { Controller, Get, Param, Post, Body, Put, Delete } from '@nestjs/common';
-
 import { CreateFaqDto } from '../../data-info/entry-dto/faq.dto';
-
 import { HelpSupportService } from './helpSupport.service';
 
 @Controller('helpSupport')
@@ -67,4 +65,5 @@ export class HelpSupportController {
   deleteFaq(@Param('faqId') id) {
     return this.helpSupportService.deleteFaq(id);
   }
+
 }
