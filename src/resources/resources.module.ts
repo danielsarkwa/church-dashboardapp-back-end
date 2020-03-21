@@ -4,12 +4,10 @@ import { SermonsModule } from './sermons/sermons.module';
 import { PodcastModule } from './podcasts/podcasts.module';
 import { ArticlesModule } from './articles/articles.module';
 import { FeedsModule } from './feeds/feeds.module';
+import { AnnouncementModule } from './announcements/announcements.module';
 
 import { EventsController } from './events/events.controller';
 import { EventsService } from './events/events.service';
-
-import { AnnouncementsController } from './announcements/announcements.controller';
-import { AnnouncementsService } from './announcements/announcements.service';
 
 import { HelpSupportController } from './help-support/help-support.controller';
 import { HelpSupportService } from './help-support/helpSupport.service';
@@ -25,18 +23,17 @@ import { AdminsService } from './admins/admins.service';
       SermonsModule,
       PodcastModule,
       ArticlesModule,
-      FeedsModule
+      FeedsModule,
+      AnnouncementModule
     ],
     controllers: [
-      EventsController, 
-      AnnouncementsController, 
+      EventsController,
       HelpSupportController,
       UsersController,
       AdminsController
     ],
     providers: [
       EventsService,
-      AnnouncementsService,
       HelpSupportService,
       UsersService,
       AdminsService

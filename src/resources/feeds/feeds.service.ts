@@ -13,8 +13,6 @@ import * as _lodash from 'lodash';
 
 import { Feed } from './schema/feeds.interface';
 
-import { feedDetails } from '../../demo-database/resources(all are tables)/feeds-data';
-
 @Injectable()
 export class FeedsService {
     constructor(
