@@ -1,28 +1,25 @@
-import { Controller, Get, Param, Post, Body, Put, Delete } from '@nestjs/common';
-
+import { Controller, Get, Param, Post, Body, Put, Delete, Query } from '@nestjs/common';
 import { CreatePodcastDto } from '../../data-info/entry-dto/podcast.dto';
-
 import { CreateFolder } from '../../data-info/entry-dto/folder.dto';
-
 import { PodcastsService } from './podcasts.service';
 
 @Controller('podcasts')
 export class PodcastsController {
   constructor(private readonly podcastsService: PodcastsService) { }
 
-  @Get()
-  loadPodcastFolders() {
-      return this.podcastsService.getFolders();
+  @Get('channels')
+  loadPodcastChannels() {
+      return this.podcastsService.PodcastChannels();
   }
 
-  @Get(':folderId')
-  loadPodcastFolder(@Param('folderId') id) {
-    return this.podcastsService.getFolderDetails(id);
+  @Get(':channelId')
+  loadPodcastChannel(@Param('channelId') id) {
+    return this.podcastsService.PodcastChannel(id);
   }
 
   @Get('one/:podcastId')
-  loadPodcast(@Param('podcastId') id) {
-    return this.podcastsService.getPodcast(id);
+  loadPodcast(@Param('podcastId') id, @Query('state') state) {
+    return this.podcastsService.getPodcast(id, state);
   }
 
   @Post()
@@ -30,9 +27,9 @@ export class PodcastsController {
     return this.podcastsService.addPodcast(createPodcastDto);
   }
 
-  @Post('folders')
-  addFolder(@Body() createSermonFolder: CreateFolder) {
-    return this.podcastsService.addFolder(createSermonFolder);
+  @Post('channels')
+  addChannel(@Body() createSermonFolder: CreateFolder) {
+    return this.podcastsService.addChannel(createSermonFolder);
   }
 
   @Put(':id')
@@ -43,21 +40,21 @@ export class PodcastsController {
     return this.podcastsService.updatePodcast(id, updatePodcastDto);
   }
 
-  @Put('folders/:folderId')
-  updateFolder(
-    @Param('id') id,
+  @Put('channels/:channelId')
+  updateChannel(
+    @Param('channelId') id,
     @Body() updateFolderDto: CreateFolder
   ) {
-    return this.podcastsService.updateFolder(id, updateFolderDto);
+    return this.podcastsService.updateChannel(id, updateFolderDto, 'add');
   }
 
-  @Delete('folders/:folderId')
-  deletePodcastFolder(@Param('folderId') id) {
-    return this.podcastsService.deletePodcastFolder(id);
+  @Delete('channels/:channelId')
+  deletePodcastChannel(@Param('channelId') id) {
+    return this.podcastsService.deletePodcastChannel(id);
   }
 
-  @Delete(':id')
-  deletePodcast(@Param('sermonId') id) {
+  @Delete(':podcastId')
+  deletePodcast(@Param('podcastId') id) {
     return this.podcastsService.deletePodcast(id);
   }
 }

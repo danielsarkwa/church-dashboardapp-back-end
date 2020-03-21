@@ -7,14 +7,14 @@ import { SermonsService } from './sermons.service';
 export class SermonsController {
   constructor(private readonly sermonsService: SermonsService) { }
 
-  @Get('/series')
-  async loadSermonFolders() {
-    return await this.sermonsService.getFolders();
+  @Get('series')
+  async loadSermonSeriess() {
+    return await this.sermonsService.getSeries();
   }
 
-  @Get(':folderId')
-  async loadSermonsFolder(@Param('folderId') id) {
-    return await this.sermonsService.getFolderDetails(id);
+  @Get(':seriesId')
+  async loadSermonSeries(@Param('seriesId') id) {
+    return await this.sermonsService.getSeriesDetails(id);
   }
 
   @Get()
@@ -32,9 +32,9 @@ export class SermonsController {
     return await this.sermonsService.addSermon(createSermonDto);
   }
 
-  @Post('folders')
-  async addFolder(@Body() createSermonFolder: CreateFolder): Promise<string> {
-    return await this.sermonsService.addFolder(createSermonFolder);
+  @Post('series')
+  async addSeries(@Body() createSermonFolder: CreateFolder): Promise<string> {
+    return await this.sermonsService.addSeries(createSermonFolder);
   }
 
   @Put(':id')
@@ -45,21 +45,21 @@ export class SermonsController {
     return await this.sermonsService.updateSermon(id, updateSermonDto);
   }
 
-  @Put('folders/:folderId')
-  async updateFolder(
-    @Param('folderId') id,
+  @Put('series/:seriesId')
+  async updateSeries(
+    @Param('seriesId') id,
     @Body() updateFolderDto: CreateFolder
   ) {
-    return await this.sermonsService.updateFolder(id, updateFolderDto, 'add');
+    return await this.sermonsService.updateSeries(id, updateFolderDto, 'add');
   }
 
-  @Delete('folders/:folderId')
-  async deleteSermonFolder(@Param('folderId') id): Promise<string> {
-    return await this.sermonsService.deleteSermonFolder(id);
+  @Delete('series/:seriesId')
+  async deleteSeries(@Param('seriesId') id): Promise<string> {
+    return await this.sermonsService.deleteSeries(id);
   }
 
   @Delete(':sermonId')
-  async eleteSermon(@Param('sermonId') id) {
+  async deleteSermon(@Param('sermonId') id) {
     return await this.sermonsService.deleteSermon(id);
   }
 }

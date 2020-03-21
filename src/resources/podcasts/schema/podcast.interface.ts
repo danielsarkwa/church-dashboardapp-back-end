@@ -1,22 +1,17 @@
 import { Document } from 'mongoose';
 
-export interface Sermon extends Document {
+export interface Podcast extends Document {
     title: string;
-    seriesId: string;
+    channelId: string;
     audioUrl: string;
     coverImg: string;
     duration: number;
     details: {
-        bibleTxts?: { 
-            text: string, 
-            scripture: string 
-        }[],
-        speaker: string,
-        desc: string,
-        points?: { 
-            heading: string, 
-            body: string 
-        }[],
+        speakers: {
+            hosts: string[],
+            guests?: string[],
+        },
+        desc?: string,
         attachments?: { 
             heading: string, 
             body: string 

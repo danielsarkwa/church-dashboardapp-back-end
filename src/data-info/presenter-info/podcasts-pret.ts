@@ -3,7 +3,7 @@ import { Message, Comment, RelatedItem } from './indent-pret';
 export class PodcastDetails {
     podcastId: string;
     title: string;
-    folderId: string;
+    folderId: string; // this have changed in real application, NB
     audioUrl: string;
     coverImg: string;
     podcastGroup: string;

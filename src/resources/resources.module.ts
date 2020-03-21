@@ -4,9 +4,7 @@ import { FeedsController } from './feeds/feeds.controller';
 import { FeedsService } from './feeds/feeds.service';
 
 import { SermonsModule } from './sermons/sermons.module';
-
-import { PodcastsController } from './podcasts/podcasts.controller';
-import { PodcastsService } from './podcasts/podcasts.service';
+import { PodcastModule } from './podcasts/podcasts.module';
 
 import { ArticlesController } from './articles/articles.controller';
 import { ArticlesService } from './articles/articles.service';
@@ -28,11 +26,11 @@ import { AdminsService } from './admins/admins.service';
 
 @Module({
     imports: [
-      SermonsModule
+      SermonsModule,
+      PodcastModule
     ],
     controllers: [
       FeedsController,
-      PodcastsController, 
       EventsController, 
       AnnouncementsController, 
       HelpSupportController,
@@ -42,7 +40,6 @@ import { AdminsService } from './admins/admins.service';
     ],
     providers: [
       FeedsService,
-      PodcastsService, 
       ArticlesService,
       EventsService,
       AnnouncementsService,

@@ -1,11 +1,11 @@
 import * as mongoose from 'mongoose';
 
-export const SermonSchema = new mongoose.Schema({
+export const PodcastSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true
     },
-    seriesId: {
+    channelId: {
         type: String,
         required: true
     },
@@ -22,38 +22,24 @@ export const SermonSchema = new mongoose.Schema({
         required: true
     },
     details: {
-        bibleTxts: {
-            type: [{
-                text: {
-                    type: String,
+        speakers: {
+            type: {
+                hosts: {
+                    type: [String],
                     required: true
-                }, 
-                scripture: {
-                    type: String,
+                },
+                guests: {
+                    type: [String],
                     required: true
                 }
-            }]
+            },
+            required: true,
+            default: {
+                hosts: [],
+                guest: []
+            }
         },
-        speaker: {
-            type: String,
-            required: true
-        },
-        desc: {
-            type: String,
-            required: true
-        },
-        points: {
-            type: [{
-                heading: {
-                    type: String,
-                    required: true
-                }, 
-                body: {
-                    type: String,
-                    required: true
-                } 
-            }]
-        },
+        desc: String,
         attachments: {
             type: [{
                 heading: {

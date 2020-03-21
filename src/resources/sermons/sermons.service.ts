@@ -23,7 +23,7 @@ export class SermonsService {
         private FolderModel: Model<Folder>,
         ) { }
         
-    async getFolders() {
+    async getSeries() {
         try {
             const series = await this.FolderModel.find({'belongsTo': 'sermon'});
             if (series.length > 0) {
@@ -40,12 +40,12 @@ export class SermonsService {
         };
     }
 
-    async getFolderDetails(folderId) {
+    async getSeriesDetails(seriesId) {
         try {
-            if(!mongoose.Types.ObjectId.isValid(folderId)) {
+            if(!mongoose.Types.ObjectId.isValid(seriesId)) {
                 throw new BadRequestException('Invalid folder Id');
             };
-            const folderDetails = await this.FolderModel.findById(folderId);
+            const folderDetails = await this.FolderModel.findById(seriesId);
             if(folderDetails) {
                 return folderDetails;
             } else {
@@ -87,7 +87,7 @@ export class SermonsService {
                 if (state == 'details') {
                     return sermonDetails;
                 } else {
-                    const listData = _lodash.pick(sermonDetails, ['_id', 'title', 'folderId', 'coverImg', 'details.speaker', 'stats']);
+                    const listData = _lodash.pick(sermonDetails, ['_id', 'title', 'seriesId', 'coverImg', 'details.speaker', 'stats']);
                     return listData;
                 }
             } else {
@@ -119,11 +119,11 @@ export class SermonsService {
                 ]
             };
             const updateDataMeta = {
-                folderId: mongoose.Types.ObjectId(newSermon.folderId),
+                seriesId: mongoose.Types.ObjectId(newSermon.seriesId),
                 data: JSON.stringify(updateData)
             };
-            const updateFolderRes = await this.updateFolder(updateDataMeta.folderId, JSON.parse(updateDataMeta.data), 'add');
-            if (updateFolderRes == 'series updated successfully') {
+            const updateSeriesRes = await this.updateSeries(updateDataMeta.seriesId, JSON.parse(updateDataMeta.data), 'add');
+            if (updateSeriesRes == 'series updated successfully') {
                 await newSermon.save();
                 return 'Sermon created successfully';
             } else {
@@ -139,7 +139,7 @@ export class SermonsService {
         };
     }
 
-    async addFolder(data): Promise<string> {
+    async addSeries(data): Promise<string> {
         try {
             let newSeries = await this.FolderModel.findOne({ 'title': data.title });
             if(newSeries) {
@@ -154,7 +154,7 @@ export class SermonsService {
                 throw new BadRequestException(ex.response);
             } else {
                 console.log(ex.message);
-                throw new BadRequestException('Could not add sermon');
+                throw new BadRequestException('Could not add sermon series');
             }
         }
     }
@@ -167,7 +167,7 @@ export class SermonsService {
             const toUpdate = await this.SermonModel.findById(sermonId);
             if (toUpdate) {
                 const possibleUpdates = _lodash.pick(data, [
-                    'title', 'coverImg', 'folderId', 'audioUrl', 'duration','details', 'moveTo'
+                    'title', 'coverImg', 'seriesId', 'audioUrl', 'duration','details', 'moveTo'
                 ]);
                 for(const item in possibleUpdates) {
                     if (item == 'details') {
@@ -190,7 +190,7 @@ export class SermonsService {
                                 };
                                 toUpdate[item] = possibleUpdates[item];
                                 toUpdate['duration'] = possibleUpdates['duration'];
-                                this.updateFolder(toUpdate.folderId, JSON.parse(JSON.stringify(updateData)), 'update')
+                                this.updateSeries(toUpdate.seriesId, JSON.parse(JSON.stringify(updateData)), 'update')
                             } else {
                                 if(item == 'moveTo') {
                                     const moveData = {
@@ -202,23 +202,23 @@ export class SermonsService {
                                         ]
                                     };
                                     const moveDataMeta = {
-                                        folderId: mongoose.Types.ObjectId(toUpdate.folderId),
+                                        seriesId: mongoose.Types.ObjectId(toUpdate.seriesId),
                                         data: JSON.stringify(moveData),
                                         to: data.moveTo
                                     };
-                                    if(!mongoose.Types.ObjectId.isValid(moveDataMeta.folderId)) {
+                                    if(!mongoose.Types.ObjectId.isValid(moveDataMeta.seriesId)) {
                                         throw new BadRequestException('Invalid series Id');
                                     };
                                     if(!mongoose.Types.ObjectId.isValid(moveDataMeta.to)) {
                                         throw new BadRequestException('Invalid series Id');
                                     };
-                                    const fromFolder = await this.FolderModel.findById(moveDataMeta.folderId);
+                                    const fromFolder = await this.FolderModel.findById(moveDataMeta.seriesId);
                                     const toFolder = await this.FolderModel.findById(moveDataMeta.to);
                                     if (fromFolder && toFolder) {
-                                        toUpdate.folderId = moveDataMeta.to;
-                                        const removeRes = await this.updateFolder(moveDataMeta.folderId, JSON.parse(moveDataMeta.data), 'delete');
+                                        toUpdate.seriesId = moveDataMeta.to;
+                                        const removeRes = await this.updateSeries(moveDataMeta.seriesId, JSON.parse(moveDataMeta.data), 'delete');
                                         if (removeRes == 'series updated successfully') {
-                                            const addRes = await this.updateFolder(moveDataMeta.to, JSON.parse(moveDataMeta.data), 'add');
+                                            const addRes = await this.updateSeries(moveDataMeta.to, JSON.parse(moveDataMeta.data), 'add');
                                             if (addRes !== 'series updated successfully') {
                                                 throw new InternalServerErrorException('Could not move sermon to new series');   
                                             }
@@ -249,15 +249,15 @@ export class SermonsService {
         }
     }
 
-    async updateFolder(folderId, data, state) {
+    async updateSeries(seriesId, data, state) {
         try {
-            if(!mongoose.Types.ObjectId.isValid(folderId)) {
+            if(!mongoose.Types.ObjectId.isValid(seriesId)) {
                 throw new BadRequestException('Invalid Series Id');
             };
-            const toUpdate = await this.FolderModel.findById(folderId);
+            const toUpdate = await this.FolderModel.findById(seriesId);
             if (toUpdate) {
                 if (state == 'add') {
-                    const possibleUpdates = _lodash.pick(data, ['title', 'coverImg', 'files']);
+                    const possibleUpdates = _lodash.pick(data, ['title', 'coverImg', 'files', 'desc']);
                     for(const item in possibleUpdates) {
                         if(item == 'files') {
                             for(const item of possibleUpdates['files']) {
@@ -325,10 +325,10 @@ export class SermonsService {
                     ]
                 };
                 const deleteDataMeta = {
-                    folderId: mongoose.Types.ObjectId(toDelete.folderId),
+                    seriesId: mongoose.Types.ObjectId(toDelete.seriesId),
                     data: JSON.stringify(deleteData)
                 };
-                const deleteFolderRes = await this.updateFolder(deleteDataMeta.folderId, JSON.parse(deleteDataMeta.data), 'delete');
+                const deleteFolderRes = await this.updateSeries(deleteDataMeta.seriesId, JSON.parse(deleteDataMeta.data), 'delete');
                 if (deleteFolderRes === 'series updated successfully') {
                     const delSermon = await this.SermonModel.findByIdAndRemove(sermonId);
                     if (delSermon) {
@@ -351,22 +351,24 @@ export class SermonsService {
         }
     }
 
-    async deleteSermonFolder(folderId) {
+    async deleteSeries(seriesId) {
         try {
-            if(!mongoose.Types.ObjectId.isValid(folderId)) {
+            if(!mongoose.Types.ObjectId.isValid(seriesId)) {
                 throw new BadRequestException('Invalid folder Id');
             };
-            const toDelete = await this.FolderModel.findById(folderId);
+            const toDelete = await this.FolderModel.findById(seriesId);
             if(toDelete) {
-                toDelete.files.forEach(async file => {
-                    const fileId = mongoose.Types.ObjectId(file);
-                    const deleteFile = await this.SermonModel.findByIdAndRemove(fileId);
-                    if(!deleteFile) {
-                        throw new InternalServerErrorException('Could not delete sermon series');
-                    }
-                });
+                if (toDelete.files.length > 0) {
+                    toDelete.files.forEach(async file => {
+                        const fileId = mongoose.Types.ObjectId(file);
+                        const deleteFile = await this.SermonModel.findByIdAndRemove(fileId);
+                        if(!deleteFile) {
+                            throw new InternalServerErrorException('Could not all delete sermon series');
+                        };
+                    });
+                };
                 await toDelete.remove();
-                return 'Series deleted succesfully';
+                return 'Series deleted succesfully';             
             } else {
                 throw new NotFoundException('Series not found');
             }
