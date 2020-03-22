@@ -6,15 +6,10 @@ import { ArticlesModule } from './articles/articles.module';
 import { FeedsModule } from './feeds/feeds.module';
 import { AnnouncementModule } from './announcements/announcements.module';
 import { EventModule } from './events/events.module';
+import { UsersModule } from './users/users.module';
 
 import { HelpSupportController } from './help-support/help-support.controller';
 import { HelpSupportService } from './help-support/helpSupport.service';
-
-import { UsersController } from './users/users.controller';
-import { UsersService } from './users/users.service';
-
-import { AdminsController } from './admins/admins.controller';
-import { AdminsService } from './admins/admins.service';
 
 @Module({
     imports: [
@@ -23,17 +18,14 @@ import { AdminsService } from './admins/admins.service';
       ArticlesModule,
       FeedsModule,
       AnnouncementModule,
-      EventModule
+      EventModule,
+      UsersModule
     ],
     controllers: [
-      HelpSupportController,
-      UsersController,
-      AdminsController
+      HelpSupportController
     ],
     providers: [
-      HelpSupportService,
-      UsersService,
-      AdminsService
+      HelpSupportService
     ]
 })
 export class ResourcesModule { }

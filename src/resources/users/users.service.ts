@@ -1,18 +1,126 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Inject } from '@nestjs/common';
+import { Model } from 'mongoose';
 
-import { users, userDetails } from '../../demo-database/resources(all are tables)/users-data';
+import { 
+    NotFoundException,
+    BadRequestException,
+    CustomException,
+    InternalServerErrorException
+} from '../shared/exceptions';
+
+import * as mongoose from 'mongoose';
+import * as _lodash from 'lodash';
+
+import { User } from './schema/user.interface';
 
 @Injectable()
 export class UsersService {
-  getUsers() {
-      return users;
+  constructor(
+    @Inject('USER_MODEL')
+    private userModel: Model<User>,
+  ) { }
+
+  async getUsers(type, pageNumber) {
+    try {
+      if (type == 'users') {
+        const users = await this.userModel.find({});
+        if (users.length > 0) {
+          const usersList = [];
+          users.forEach(users => {
+              const listData = _lodash.pick(users, ['_id', 'userName', 'fullName', 'email', 'phone', 'avatarUrl', 'address', 'group']);
+              usersList.push(listData);
+          });
+          return usersList;
+        } else {
+            throw new NotFoundException('Users not found');
+        }
+      } else {
+        const admins = await this.userModel.find({'type':'admin'});
+        if (admins.length > 0) {
+          const adminsList = [];
+          admins.forEach(admins => {
+              const listData = _lodash.pick(admins, ['_id', 'userName', 'fullName', 'email', 'phone', 'avatarUrl', 'address', 'group', 'role', 'type']);
+              adminsList.push(listData);
+          });
+          return adminsList;
+        } else {
+            throw new NotFoundException('Admins not found');
+        }
+      }
+    } catch(ex) {
+        if(ex.message) {
+            throw new NotFoundException(ex.message);
+        } else {
+            throw new BadRequestException('Could not retrieve data');
+        };
+    }
   }
 
-  getUserDetails(id) {
-      return userDetails;
+  // @TO-DO: hash users password -- think of third party services
+  async addUser(data) {
+    try {
+      let newUser = await this.userModel.findOne({ 'email': data.email });
+      if(newUser) {
+          throw new BadRequestException('User already exit');
+      } else {
+          newUser = await new this.userModel(data);
+          await newUser.save();
+          return 'User created successfully';
+      };
+    } catch(ex) {
+        if (ex.message) {
+            throw new BadRequestException(ex.message);
+        } else {
+            console.log(ex.message);
+            throw new BadRequestException('Could not create new user');
+        }
+    }
   }
 
-  addUser(data) {
-    return ['user added succssfully', data]
+  async updateUser(userId, data) {
+    try {
+      if(!mongoose.Types.ObjectId.isValid(userId)) {
+          throw new BadRequestException('Invalid user Id');
+      };
+      const toUpdate = await this.userModel.findById(userId);
+      if (toUpdate) {
+          const possibleUpdates = _lodash.pick(data, ['type', 'role']);
+          for(const item in possibleUpdates) {
+            toUpdate[item] = possibleUpdates[item];
+          }
+          await toUpdate.save();
+          return 'User updated successfully';
+        } else {
+            throw new NotFoundException('User not found');
+        }
+    } catch(ex) {
+        if (ex.message) {
+            throw new CustomException(ex.message, ex.status);
+        } else {
+            throw new BadRequestException('Could not update user');
+        }
+    }
   }
+
+  async deleteUser(userId) {
+    try {
+      if(!mongoose.Types.ObjectId.isValid(userId)) {
+          throw new BadRequestException('Invalid user Id');
+      };
+      const toDelete = await this.userModel.findById(userId);
+      if(toDelete) {
+          await toDelete.remove();
+          return 'User deleted successfully';
+      } else {
+          throw new InternalServerErrorException('User not found');
+      }
+  } catch (ex) {
+      if (ex.message) {
+          throw new CustomException(ex.message, ex.status);
+      } else {
+          throw new BadRequestException('Could not delete user');
+      }
+    }
+  }
+  
 }

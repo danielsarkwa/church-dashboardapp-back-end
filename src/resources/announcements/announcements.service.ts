@@ -26,7 +26,7 @@ export class AnnouncementsService {
             if (announcements.length > 0) {
                 const announcementsList = [];
                 announcements.forEach(article => {
-                    const listData = _lodash.pick(article, ['_id', 'title', 'coverImg', 'tags', 'details.from', 'stats', 'createdAt', 'commentsData.totalCmts']);
+                    const listData = _lodash.pick(article, ['_id', 'title', 'coverImg', 'details.from', 'stats', 'createdAt', 'commentsData.totalCmts']);
                     announcementsList.push(listData);
                 });
                 return announcementsList;

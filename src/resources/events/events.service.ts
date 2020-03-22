@@ -72,7 +72,7 @@ export class EventsService {
                 throw new BadRequestException(ex.message);
             } else {
                 console.log(ex.message);
-                throw new BadRequestException('Could not add event');
+                throw new BadRequestException('Could not add new event');
             }
         }
     }

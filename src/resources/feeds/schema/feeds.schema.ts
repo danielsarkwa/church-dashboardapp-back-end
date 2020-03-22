@@ -24,8 +24,14 @@ export const FeedsSchema = new mongoose.Schema({
         },
         media: {
             type: [{
-                heading: String,
-                link: String
+                heading: {
+                    type: String,
+                    required: true
+                }, 
+                link: {
+                    type: String,
+                    required: true
+                }
             }]
         },
         attachments: {

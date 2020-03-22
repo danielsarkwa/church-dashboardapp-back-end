@@ -3,10 +3,10 @@ import { Document } from 'mongoose';
 export interface Event extends Document {
     title: string;
     coverImg: string;
+    viewColor: string;
     date: string;
     time: string;
     desc: string;
-    viewColor: string;
     tags: string[];
     details: {
         autuorId: string,

@@ -9,11 +9,11 @@ export const EventSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    viewColor: String,
     date: {
         type: String,
         required: true
     },
-    viewColor: String,
     time: {
         type: String,
         required: true
