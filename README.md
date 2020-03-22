@@ -42,7 +42,6 @@ $ npm run test:cov
 ## TODO - 2 (Drivers)
     - Implement the database on aws to hold live data
         (
-            [USERS Model] --- TAG (User & Admin)
             [APP-REVIEW Model] --- tag(users feedback, suggestions, faq)
             [MESSAGES Model] -- will always reference to the entity using the id
             [COMMENTS Model] -- will always reference to the entity using the id
@@ -56,7 +55,6 @@ $ npm run test:cov
     
     - Implement the service class that gets data from database
         (
-            [USERS Model] --- TAG (User & Admin)
             [APP-REVIEW Model] --- tag(users feedback, suggestions, faq)
             [MESSAGES Model] -- will always reference to the entity using the id
             [COMMENTS Model] -- will always reference to the entity using the id
@@ -65,8 +63,8 @@ $ npm run test:cov
         (non-predictable things ----- with comments, replys, messages, they will be loaded in the lastest five and then be loaded as more in the form of pages -- therefore the front-end will send the page number)
 
         - Entity
-            * entity list (messages, comments, users, admins, helpandSupport)
-            * entity details(message, comment, users, admins, helpandSupport)
+            * entity list (messages, comments, helpandSupport)
+            * entity details(message, comment, helpandSupport)
 
 
 ## TODO -3 (Documentation)

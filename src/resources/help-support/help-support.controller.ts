@@ -1,69 +1,51 @@
-import { Controller, Get, Param, Post, Body, Put, Delete } from '@nestjs/common';
+import { Controller, Get, Param, Post, Body, Put, Delete, Query } from '@nestjs/common';
 import { CreateFaqDto } from '../../data-info/entry-dto/faq.dto';
-import { HelpSupportService } from './helpSupport.service';
+import { HelpSupportService } from './help-support.service';
 
 @Controller('helpSupport')
 export class HelpSupportController {
   constructor(private helpSupportService: HelpSupportService) { }
 
-  // Feedback
   @Get('feedbacks')
-  loadUserFeedbacks() {
-    return this.helpSupportService.getUsersFeedbacks();
+  loadUserFeedbacks(@Query('pageNumber') pageNumber) {
+    return this.helpSupportService.getUsersFeedbacks(pageNumber);
+  }
+  
+  @Get('faqs')
+  async loadFaqs(@Query('pageNumber') pageNumber) {
+    return await this.helpSupportService.getFaqs(pageNumber);
   }
 
-  @Get('one/feedback/:feedbackId')
-  loadFeedback(@Param('feedbackId') id) {
-    return this.helpSupportService.getUserFeedback(id);
+  @Get('suggestFeatures')
+  loadSuggestedFeatures(@Query('pageNumber') pageNumber) {
+    return this.helpSupportService.getSuggestedFeatures(pageNumber);
+  }
+
+  @Post('faqs')
+  async addFaq(@Body() createFaqDto: CreateFaqDto) {
+    return await this.helpSupportService.addFaq(createFaqDto);
+  }
+
+  @Put('one/faqs/:faqId')
+  async updateFaq(
+    @Param('faqId') id,
+    @Body() updateFaqDto: CreateFaqDto) {
+    return await this.helpSupportService.updateFaq(id, updateFaqDto);
   }
 
   @Delete('one/feedback/:feedbackId')
   deleteFeedback(@Param('feedbackId') id) {
-    return this.helpSupportService.deleteFeedback(id);
-  }
-
-  // suggestFeatures
-  @Get('suggestFeatures')
-  loadSuggestedFeatures() {
-    return this.helpSupportService.getSuggestedFeatures();
-  }  
-
-  @Get('one/suggestFeatures/:suggestFeatureId')
-  loadSuggestedFeature(@Param('suggestFeatureId') id) {
-    return this.helpSupportService.getSuggestedFeature(id);
+    return this.helpSupportService.deleteEntity(id);
   }
   
   @Delete('one/suggestFeatures/:suggestFeatureId')
   deleteSuggestFeatures(@Param('suggestFeatureId') id) {
-    return this.helpSupportService.deleteSuggestFeature(id);
+    return this.helpSupportService.deleteEntity(id);
   }
-
-  // Faq
-  @Get('faqs')
-  loadFaqs() {
-    return this.helpSupportService.getFaqs();
-  } 
-
-  @Get('one/faqs/:faqId')
-  loadFaq(@Param('faqId') id) {
-    return this.helpSupportService.getFaq(id);
-  }
-
-  @Post('faqs')
-  addFaq(@Body() createFaqDto: CreateFaqDto) {
-    return this.helpSupportService.addFaq(createFaqDto);
-  }
-
-  @Put('one/faqs/:faqId')
-  updateFaq(
-    @Param('faqId') id,
-    @Body() updateFaqDto: CreateFaqDto) {
-    return this.helpSupportService.updateFaq(id, updateFaqDto);
-  }
-
+  
   @Delete('one/faqs/:faqId')
-  deleteFaq(@Param('faqId') id) {
-    return this.helpSupportService.deleteFaq(id);
+  async deleteFaq(@Param('faqId') id) {
+    return await this.helpSupportService.deleteEntity(id);
   }
 
 }

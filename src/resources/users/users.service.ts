@@ -114,13 +114,13 @@ export class UsersService {
       } else {
           throw new InternalServerErrorException('User not found');
       }
-  } catch (ex) {
-      if (ex.message) {
-          throw new CustomException(ex.message, ex.status);
-      } else {
-          throw new BadRequestException('Could not delete user');
+    } catch (ex) {
+        if (ex.message) {
+            throw new CustomException(ex.message, ex.status);
+        } else {
+            throw new BadRequestException('Could not delete user');
+        }
       }
-    }
   }
   
 }
