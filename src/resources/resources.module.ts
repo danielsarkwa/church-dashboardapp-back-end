@@ -8,6 +8,8 @@ import { AnnouncementModule } from './announcements/announcements.module';
 import { EventModule } from './events/events.module';
 import { UsersModule } from './users/users.module';
 import { HelpSupportModule } from './help-support/help-support.module';
+import { CommentsModule } from './shared/controllers/comments/comments.module';
+import { MessagesModule } from './shared/controllers/messages/messages.module';
 
 @Module({
     imports: [
@@ -18,7 +20,9 @@ import { HelpSupportModule } from './help-support/help-support.module';
       AnnouncementModule,
       EventModule,
       UsersModule,
-      HelpSupportModule
+      HelpSupportModule,
+      CommentsModule,
+      MessagesModule
     ]
 })
 export class ResourcesModule { }
