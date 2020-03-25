@@ -1,5 +1,5 @@
 import { Controller, Get, Param, Post, Body, Put, Delete, Query } from '@nestjs/common';
-import { CreateFeedDto } from '../../data-info/entry-dto/feed.dto';
+import { CreateFeedDto } from '../../adapter/entry-dto/feed.dto';
 import { FeedsService } from './feeds.service';
 
 @Controller('feeds')

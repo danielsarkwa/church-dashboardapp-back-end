@@ -1,6 +1,6 @@
 import { Controller, Get, Param, Post, Body, Query, Delete, Put } from '@nestjs/common';
 
-import { CreateUserDto } from '../../data-info/entry-dto/user.dto';
+import { CreateUserDto } from '../../adapter/entry-dto/user.dto';
 
 import { UsersService } from './users.service';
 
@@ -14,6 +14,11 @@ export class UsersController {
     @Query('type') type 
   ) {
     return await this.usersService.getUsers(type, pageNumber);
+  }
+
+  @Get(':userId/snap')
+  async loadUserSnap(@Param('userId') id) {
+    return await this.usersService.loadUserSnap(id);
   }
 
   @Post()

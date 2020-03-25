@@ -8,13 +8,14 @@ export class MessagesController {
   @Get(':entity/:entityId')
   async loadMessages(
       @Param('entity') entity,
+      @Param('entityId') entityId,
       @Query('pageNumber') pageNumber
       ) {
-    return await this.messagesService.getMessages(entity, pageNumber);
+    return await this.messagesService.getMessages(entity, entityId, pageNumber);
   }
 
   @Delete(':commentId')
-  async deleteMessage(@Param('sermonId') id) {
+  async deleteMessage(@Param('commentId') id) {
     return await this.messagesService.deleteMessages(id);
   }
 

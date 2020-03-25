@@ -1,6 +1,6 @@
 import { Controller, Get, Param, Delete, Body, Put, Post, Query } from '@nestjs/common';
-import { CreateArticleDto } from '../../data-info/entry-dto/article.dto';
-import { CreateFolder } from '../../data-info/entry-dto/folder.dto';
+import { CreateArticleDto } from '../../adapter/entry-dto/article.dto';
+import { CreateFolder } from '../../adapter/entry-dto/folder.dto';
 import { ArticlesService } from './articles.service';
 
 @Controller('articles')

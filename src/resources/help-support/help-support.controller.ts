@@ -1,5 +1,5 @@
 import { Controller, Get, Param, Post, Body, Put, Delete, Query } from '@nestjs/common';
-import { CreateFaqDto } from '../../data-info/entry-dto/faq.dto';
+import { CreateFaqDto } from '../../adapter/entry-dto/faq.dto';
 import { HelpSupportService } from './help-support.service';
 
 @Controller('helpSupport')

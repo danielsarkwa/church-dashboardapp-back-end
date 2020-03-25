@@ -25,24 +25,14 @@ export class UsersService {
       if (type == 'users') {
         const users = await this.userModel.find({});
         if (users.length > 0) {
-          const usersList = [];
-          users.forEach(users => {
-              const listData = _lodash.pick(users, ['_id', 'userName', 'fullName', 'email', 'phone', 'avatarUrl', 'address', 'group']);
-              usersList.push(listData);
-          });
-          return usersList;
+          return users;
         } else {
             throw new NotFoundException('Users not found');
         }
       } else {
         const admins = await this.userModel.find({'type':'admin'});
         if (admins.length > 0) {
-          const adminsList = [];
-          admins.forEach(admins => {
-              const listData = _lodash.pick(admins, ['_id', 'userName', 'fullName', 'email', 'phone', 'avatarUrl', 'address', 'group', 'role', 'type']);
-              adminsList.push(listData);
-          });
-          return adminsList;
+          return admins;
         } else {
             throw new NotFoundException('Admins not found');
         }
@@ -53,6 +43,25 @@ export class UsersService {
         } else {
             throw new BadRequestException('Could not retrieve data');
         };
+    }
+  }
+
+  async loadUserSnap(id) {
+    try {
+      const userSnap = await this.userModel.findById(id);
+      if(userSnap) {
+        const snapData = _lodash.pick(userSnap, ['avatarUrl', 'userName']);
+        return snapData;
+      } else {
+        throw new NotFoundException('User not found');
+      }
+    } catch(ex) {
+      if (ex.message) {
+        throw new BadRequestException(ex.message);
+      } else {
+          console.log(ex.message);
+          throw new BadRequestException('Could not create new user');
+      }
     }
   }
 

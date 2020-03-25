@@ -1,6 +1,6 @@
 import { Controller, Get, Param, Post, Body, Put, Delete, Query } from '@nestjs/common';
-import { CreatePodcastDto } from '../../data-info/entry-dto/podcast.dto';
-import { CreateFolder } from '../../data-info/entry-dto/folder.dto';
+import { CreatePodcastDto } from '../../adapter/entry-dto/podcast.dto';
+import { CreateFolder } from '../../adapter/entry-dto/folder.dto';
 import { PodcastsService } from './podcasts.service';
 
 @Controller('podcasts')

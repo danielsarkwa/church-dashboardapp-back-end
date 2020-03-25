@@ -35,45 +35,52 @@ $ npm run test:cov
 ```
 
 
-## TODO - 1 (Use case and entity)
+## TODO - (Use case and entity)
     - Done
 
 
-## TODO - 2 (Drivers)
-    - Implement the database on aws to hold live data
-        (
-            [APP-REVIEW Model] --- tag(users feedback, suggestions, faq)
-            [MESSAGES Model] -- will always reference to the entity using the id
-            [COMMENTS Model] -- will always reference to the entity using the id
-        ) 
-
-    - Implement the SERVICE class that writes data to database
-        * Post data to database
-        * Put data on database
-        * delete data from database
-        * get data from database
-    
-    - Implement the service class that gets data from database
-        (
-            [APP-REVIEW Model] --- tag(users feedback, suggestions, faq)
-            [MESSAGES Model] -- will always reference to the entity using the id
-            [COMMENTS Model] -- will always reference to the entity using the id
-        ) 
-        (data will be loaded in pacs to the front-end -- and so the front-end will have to provide the last item for the app to load another pac from there)
-        (non-predictable things ----- with comments, replys, messages, they will be loaded in the lastest five and then be loaded as more in the form of pages -- therefore the front-end will send the page number)
-
-        - Entity
-            * entity list (messages, comments)
-            * entity details(message, comment)
+## TODO - (Drivers)
+    - Done
 
 
-## TODO -3 (Documentation)
+## TODO - (Data Manipulation)
+    - querying data
+        - pagination - get all
+            * comments
+            * messages
+            * users
+            * articles
+            * sermons
+            * podcasts
+            * feeds
+            * events
+            * announcements
+            * help-support
+        - search
+            * users
+            * articles
+            * sermons
+            * podcasts
+            * events
+            * announcements
+            * help-support
+            * folders
+            * messages
+    - involves working with streams and websockets like feature
+    - set up application logging system for exceptions
+
+
+## TODO - (Cloud Functions & AWS)
+    - add authentication with cognito
+    - deploy database (aws documentDB || mongodb atlas)
+    - add push notification on uploading item
+        - working with lambda function
+        - working with SNS || aws polifil (use sms for testing purpose and connect to mobile app later)
+    - email notification on creating account
+        - working with SES
+    - app configuration
+
+
+## TODO - (Documentation)
     - Creata a personal documentation for future projects
     - Create a business documentation for this application
-
-
-## TODO - 4 (Cloud Functions)
-    - app configuration
-    - add push notification on uploading item
-    - add authentication
-    - email notification on creating account

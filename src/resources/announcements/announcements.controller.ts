@@ -1,5 +1,5 @@
 import { Controller, Get, Param, Post, Body, Put, Delete } from '@nestjs/common';
-import { CreateAnnouncementDto } from '../../data-info/entry-dto/announcement.dto';
+import { CreateAnnouncementDto } from '../../adapter/entry-dto/announcement.dto';
 import { AnnouncementsService } from './announcements.service';
 
 @Controller('announcements')

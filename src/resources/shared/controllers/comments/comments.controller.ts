@@ -8,15 +8,14 @@ export class CommentsController {
   @Get(':entity/:entityId')
   async loadComments(
       @Param('entity') entity,
-      @Param('entityId') id,
+      @Param('entityId') entityId,
       @Query('pageNumber') pageNumber
       ) {
-    return await this.commentsService.getComments(entity, id, pageNumber);
+    return await this.commentsService.getComments(entity, entityId, pageNumber);
   }
 
   @Delete(':commentId')
-  async deleteSermon(@Param('sermonId') id) {
-    return await this.commentsService.deleteComments(id);
+  async deleteSermon(@Param('commentId') commentId) {
+    return await this.commentsService.deleteComment(commentId);
   }
-
 }

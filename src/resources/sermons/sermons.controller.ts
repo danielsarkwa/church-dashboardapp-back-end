@@ -1,6 +1,6 @@
 import { Controller, Get, Param, Post, Body, Put, Delete, Query } from '@nestjs/common';
-import { CreateSermonDto } from '../../data-info/entry-dto/sermon.dto';
-import { CreateFolder } from '../../data-info/entry-dto/folder.dto';
+import { CreateSermonDto } from '../../adapter/entry-dto/sermon.dto';
+import { CreateFolder } from '../../adapter/entry-dto/folder.dto';
 import { SermonsService } from './sermons.service';
 
 @Controller('sermons')
