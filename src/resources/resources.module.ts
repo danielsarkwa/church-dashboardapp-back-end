@@ -10,6 +10,7 @@ import { UsersModule } from './users/users.module';
 import { HelpSupportModule } from './help-support/help-support.module';
 import { CommentsModule } from './shared/controllers/comments/comments.module';
 import { MessagesModule } from './shared/controllers/messages/messages.module';
+import { SharedModule } from './shared/shared.module';
 
 @Module({
     imports: [
@@ -22,7 +23,8 @@ import { MessagesModule } from './shared/controllers/messages/messages.module';
       UsersModule,
       HelpSupportModule,
       CommentsModule,
-      MessagesModule
+      MessagesModule,
+      SharedModule
     ]
 })
 export class ResourcesModule { }

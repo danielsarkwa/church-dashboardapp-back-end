@@ -63,8 +63,8 @@ $ npm run test:cov
         (non-predictable things ----- with comments, replys, messages, they will be loaded in the lastest five and then be loaded as more in the form of pages -- therefore the front-end will send the page number)
 
         - Entity
-            * entity list (messages, comments, helpandSupport)
-            * entity details(message, comment, helpandSupport)
+            * entity list (messages, comments)
+            * entity details(message, comment)
 
 
 ## TODO -3 (Documentation)

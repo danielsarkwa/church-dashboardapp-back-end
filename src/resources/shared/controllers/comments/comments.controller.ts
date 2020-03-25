@@ -8,9 +8,10 @@ export class CommentsController {
   @Get(':entity/:entityId')
   async loadComments(
       @Param('entity') entity,
+      @Param('entityId') id,
       @Query('pageNumber') pageNumber
       ) {
-    return await this.commentsService.getComments(entity, pageNumber);
+    return await this.commentsService.getComments(entity, id, pageNumber);
   }
 
   @Delete(':commentId')

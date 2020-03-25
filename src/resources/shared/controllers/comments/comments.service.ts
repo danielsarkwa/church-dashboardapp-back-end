@@ -3,8 +3,8 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class CommentsService {
         
-    getComments(entity, pageNumber) {
-        return 'all comments';
+    async getComments(entity, entityId, pageNumber) {
+       return 'some comments form db';
     }
 
     deleteComments(commentId) {
