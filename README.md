@@ -67,20 +67,16 @@ $ npm run test:cov
             * folders
             * messages
     - involves working with streams and websockets like feature
-    - set up application logging system for exceptions
 
 
 ## TODO - (Cloud Functions & AWS)
-    - add authentication with cognito
     - deploy database (aws documentDB || mongodb atlas)
-    - add push notification on uploading item
+    - add push notification on uploaded items
         - working with lambda function
         - working with SNS || aws polifil (use sms for testing purpose and connect to mobile app later)
-    - email notification on creating account
-        - working with SES
+        - email notification
+            - working with SES
+            - on creating admin account
+            - on all users email notification
+    - add authentication with cognito
     - app configuration
-
-
-## TODO - (Documentation)
-    - Creata a personal documentation for future projects
-    - Create a business documentation for this application

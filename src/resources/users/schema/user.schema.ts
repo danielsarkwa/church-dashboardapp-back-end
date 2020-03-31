@@ -35,20 +35,23 @@ export const UserSchema = new mongoose.Schema({
             town: ''
         }
     },
-    groups: {
-        type: [String],
-        default: []
-    },
     password: {
         type: String,
         required: true
     },
-    type: {
+    type: { // this is the type of user (admin / user)
         type: String,
         required: true
     },
-    role: {
-        type: String,
-        required: true
+    role: { // only when the user is an admin, empty when the user is a mobile user -- so as to help easily make users admins and admin users
+        type: {
+            groups: [String],
+            roleType: String
+        },
+        required: true,
+        default: {
+            groups: [],
+            roleType: ''
+        }
     }
 });

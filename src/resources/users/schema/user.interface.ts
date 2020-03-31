@@ -14,8 +14,10 @@ export interface User extends Document {
             town: string
         }
     };
-    readonly groups: string[]; // this is channels(podcast and articles), communities of the user
     readonly password: string;
     type: 'user' | 'admin';
-    role: string;
+    role: {
+        groups: string[]; // this is channels(podcast and articles), communities of the user
+        roleType: string;
+    };
 }

@@ -14,6 +14,8 @@ import * as _lodash from 'lodash';
 import { Sermon } from '././schema/sermon.interface';
 import { Folder } from '../shared/schemas/folder.interface';
 
+import { DhbNotificationService } from 'src/system/push-notification/dashboard/dhb.service';
+
 @Injectable()
 export class SermonsService {
     constructor(
@@ -21,6 +23,7 @@ export class SermonsService {
         private SermonModel: Model<Sermon>,
         @Inject('FOLDER_MODEL')
         private FolderModel: Model<Folder>,
+        private adminNotificationService: DhbNotificationService,
         ) { }
         
     async getSeries() {
@@ -130,6 +133,16 @@ export class SermonsService {
             const updateSeriesRes = await this.updateSeries(updateDataMeta.seriesId, JSON.parse(updateDataMeta.data), 'add');
             if (updateSeriesRes == 'series updated successfully') {
                 await newSermon.save();
+                // add notification to database
+                const notificationData = {
+                    // test admin user, this is creating the sermon from his point to create notification for all 
+                    // other admin members in the sermon notes group to see
+                    userId: '5e837091d245d142b8d92e2a', // this will come from the auth-middleware
+                    action: 'Added sermon',
+                    title: newSermon.title,
+                    group: 'sermon notes' // this is the group the user is performing from -- data will come from the middleware
+                };
+                this.adminNotificationService.addNotification(notificationData);
                 return 'Sermon created successfully';
             } else {
                 throw new InternalServerErrorException('Could not add sermon to series');
@@ -273,7 +286,6 @@ export class SermonsService {
                         } else {
                             if (item == 'title') {
                                 const another = await this.FolderModel.findOne({ 'title': possibleUpdates.title });
-        
                                 if(another) {
                                     throw new BadRequestException('Series already exit');
                                 } else {

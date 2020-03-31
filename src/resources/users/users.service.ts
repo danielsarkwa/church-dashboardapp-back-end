@@ -46,11 +46,54 @@ export class UsersService {
     }
   }
 
+  async getGroupMembers(groupData) {
+    try {
+      const posMembers = await this.userModel.find({'type': groupData.type});
+      if (posMembers.length > 0) {
+        const groupMembers = [];
+        for(const member of posMembers) {
+          if(member.role.groups.indexOf(groupData.groupName) > -1) {
+            groupMembers.push(member._id);
+          }
+        }
+        return groupMembers;
+      } else {
+        throw new NotFoundException('no users found');
+      }
+    } catch(ex) {
+      if(ex.message) {
+        throw new NotFoundException(ex.message);
+      } else {
+          throw new BadRequestException('Could not retrieve data');
+      };
+    }
+  }
+
+  async getUserDetails(userId) {
+    try {
+      if(!mongoose.Types.ObjectId.isValid(userId)) {
+        throw new BadRequestException('Invalid user Id');
+      };
+      const userDetails = await this.userModel.findById(userId);
+      if (userDetails) {
+        return userDetails;
+      } else {
+        throw new NotFoundException('User not found');
+      }
+    } catch(ex) {
+      if(ex.message) {
+        throw new NotFoundException(ex.message);
+      } else {
+          throw new BadRequestException('Could not retrieve data');
+      };
+    }
+  }
+
   async loadUserSnap(id) {
     try {
       const userSnap = await this.userModel.findById(id);
       if(userSnap) {
-        const snapData = _lodash.pick(userSnap, ['avatarUrl', 'userName']);
+        const snapData = _lodash.pick(userSnap, ['_id', 'avatarUrl', 'userName']);
         return snapData;
       } else {
         throw new NotFoundException('User not found');

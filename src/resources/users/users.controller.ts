@@ -21,6 +21,11 @@ export class UsersController {
     return await this.usersService.loadUserSnap(id);
   }
 
+  @Get('/groupMembers')
+  async getGroupMembers(@Body() groupData: {groupName: string, type: string}) {
+    return await this.usersService.getGroupMembers(groupData);
+  }
+
   @Post()
   async addUser(@Body() createUserDto: CreateUserDto) {
     return await this.usersService.addUser(createUserDto);

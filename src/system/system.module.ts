@@ -1,11 +1,13 @@
 import { Module } from '@nestjs/common';
+import { PushNotificationModule } from './push-notification/pushNotification.module';
 import { AuthController } from './auth/auth.controller';
-import { PushNotificationController } from './push-notification/push-notification.controller';
 
 @Module({
+    imports: [
+      PushNotificationModule
+    ],
     controllers: [
-      AuthController, 
-      PushNotificationController
+      AuthController
     ]
 })
 export class SystemModule { }
