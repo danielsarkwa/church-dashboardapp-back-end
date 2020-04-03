@@ -14,7 +14,7 @@ import * as _lodash from 'lodash';
 import { Sermon } from '././schema/sermon.interface';
 import { Folder } from '../shared/schemas/folder.interface';
 
-import { DhbNotificationService } from 'src/system/push-notification/dashboard/dhb.service';
+import { DhbNotificationService } from '../../system/push-notification/dashboard/dhb.service';
 
 @Injectable()
 export class SermonsService {
@@ -138,9 +138,9 @@ export class SermonsService {
                     // test admin user, this is creating the sermon from his point to create notification for all 
                     // other admin members in the sermon notes group to see
                     userId: '5e837091d245d142b8d92e2a', // this will come from the auth-middleware
-                    action: 'Added sermon',
+                    action: 'Posted sermon',
                     title: newSermon.title,
-                    group: 'sermon notes' // this is the group the user is performing from -- data will come from the middleware
+                    group: 'basic admin' // this is the group the user is performing from -- data will come from the middleware
                 };
                 this.adminNotificationService.addNotification(notificationData);
                 return 'Sermon created successfully';
@@ -165,6 +165,16 @@ export class SermonsService {
             } else {
                 newSeries = await new this.FolderModel(data);
                 await newSeries.save();
+                // add notification to database
+                const notificationData = {
+                    // test admin user, this is creating the sermon from his point to create notification for all 
+                    // other admin members in the sermon notes group to see
+                    userId: '5e837091d245d142b8d92e2a', // this will come from the auth-middleware
+                    action: 'Added sermon series',
+                    title: newSeries.title,
+                    group: 'basic admin' // this is the group the user is performing from -- data will come from the middleware
+                };
+                this.adminNotificationService.addNotification(notificationData);
                 return 'Series created successfully';
             };
         } catch(ex) {
@@ -254,6 +264,16 @@ export class SermonsService {
                     }
                 };
                 await toUpdate.save();
+                // add notification to database
+                const notificationData = {
+                    // test admin user, this is creating the sermon from his point to create notification for all 
+                    // other admin members in the sermon notes group to see
+                    userId: '5e837091d245d142b8d92e2a', // this will come from the auth-middleware
+                    action: 'Edited sermon',
+                    title: toUpdate.title,
+                    group: 'basic admin' // this is the group the user is performing from -- data will come from the middleware
+                };
+                this.adminNotificationService.addNotification(notificationData);
                 return 'Sermon updated successfully';
             } else {
                 throw new NotFoundException('Sermon not found');
@@ -313,6 +333,16 @@ export class SermonsService {
                     }
                 }
                 await toUpdate.save();
+                // add notification to database
+                const notificationData = {
+                    // test admin user, this is creating the sermon from his point to create notification for all 
+                    // other admin members in the sermon notes group to see
+                    userId: '5e837091d245d142b8d92e2a', // this will come from the auth-middleware
+                    action: 'Edited sermon series',
+                    title: toUpdate.title,
+                    group: 'basic admin' // this is the group the user is performing from -- data will come from the middleware
+                };
+                this.adminNotificationService.addNotification(notificationData);
                 return 'series updated successfully';
             } else {
                 throw new NotFoundException('Series not found');
@@ -349,6 +379,16 @@ export class SermonsService {
                 if (deleteSeriesRes === 'series updated successfully') {
                     const delSermon = await this.SermonModel.findByIdAndRemove(sermonId);
                     if (delSermon) {
+                        // add notification to database
+                        const notificationData = {
+                            // test admin user, this is creating the sermon from his point to create notification for all 
+                            // other admin members in the sermon notes group to see
+                            userId: '5e837091d245d142b8d92e2a', // this will come from the auth-middleware
+                            action: 'Deleted sermon',
+                            title: delSermon.title,
+                            group: 'basic admin' // this is the group the user is performing from -- data will come from the middleware
+                        };
+                        this.adminNotificationService.addNotification(notificationData);
                         return 'sermon deleted successfully';
                     } else {
                        throw new InternalServerErrorException('Could not delete sermon');
@@ -385,6 +425,16 @@ export class SermonsService {
                     });
                 };
                 await toDelete.remove();
+                // add notification to database
+                const notificationData = {
+                    // test admin user, this is creating the sermon from his point to create notification for all 
+                    // other admin members in the sermon notes group to see
+                    userId: '5e837091d245d142b8d92e2a', // this will come from the auth-middleware
+                    action: 'Deleted sermon series',
+                    title: toDelete.title,
+                    group: 'basic admin' // this is the group the user is performing from -- data will come from the middleware
+                };
+                this.adminNotificationService.addNotification(notificationData);
                 return 'Series deleted succesfully';             
             } else {
                 throw new NotFoundException('Series not found');

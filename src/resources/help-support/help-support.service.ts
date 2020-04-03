@@ -13,11 +13,14 @@ import * as _lodash from 'lodash';
 
 import { Faq } from './schema/help-support.interface';
 
+import { DhbNotificationService } from '../../system/push-notification/dashboard/dhb.service';
+
 @Injectable()
 export class HelpSupportService {
   constructor(
       @Inject('HELP_SUPPORT_MODEL')
       private helpSupportsModel: Model<Faq>,
+      private adminNotificationService: DhbNotificationService,
   ) { }
     
   // User Feedback
@@ -82,7 +85,17 @@ export class HelpSupportService {
       } else {
           newFaq = await new this.helpSupportsModel(data);
           await newFaq.save();
-          return 'Faq created successfully';
+           // add notification to database
+           const notificationData = {
+              // test admin user, this is creating the sermon from his point to create notification for all 
+              // other admin members in the sermon notes group to see
+              userId: '5e837091d245d142b8d92e2a', // this will come from the auth-middleware
+              action: 'Posted FAQ',
+              title: newFaq.title,
+              group: 'basic admin' // this is the group the user is performing from -- data will come from the middleware
+            };
+            this.adminNotificationService.addNotification(notificationData);
+            return 'Faq created successfully';
       }
     } catch(ex) {
         if (ex.message) {
@@ -106,7 +119,17 @@ export class HelpSupportService {
             toUpdate[item] = possibleUpdates[item];
           }
           await toUpdate.save();
-          return 'Faq updated successfully';
+           // add notification to database
+           const notificationData = {
+              // test admin user, this is creating the sermon from his point to create notification for all 
+              // other admin members in the sermon notes group to see
+              userId: '5e837091d245d142b8d92e2a', // this will come from the auth-middleware
+              action: 'Updated FAQ',
+              title: toUpdate.title,
+              group: 'basic admin' // this is the group the user is performing from -- data will come from the middleware
+            };
+            this.adminNotificationService.addNotification(notificationData);
+            return 'Faq updated successfully';
         } else {
             throw new NotFoundException('faq not found');
         }
@@ -127,6 +150,16 @@ export class HelpSupportService {
       const toDelete = await this.helpSupportsModel.findById(faqId);
       if(toDelete) {
           await toDelete.remove();
+           // add notification to database
+           const notificationData = {
+            // test admin user, this is creating the sermon from his point to create notification for all 
+            // other admin members in the sermon notes group to see
+            userId: '5e837091d245d142b8d92e2a', // this will come from the auth-middleware
+            action: 'Deleted FAQ',
+            title: toDelete.title,
+            group: 'basic admin' // this is the group the user is performing from -- data will come from the middleware
+          };
+          this.adminNotificationService.addNotification(notificationData);
           return 'Entity deleted successfully';
       } else {
           throw new InternalServerErrorException('Entity not found');

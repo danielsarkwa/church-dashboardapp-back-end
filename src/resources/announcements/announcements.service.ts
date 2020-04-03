@@ -13,11 +13,14 @@ import * as _lodash from 'lodash';
 
 import { Announcement } from './schema/announcement.interface';
 
+import { DhbNotificationService } from '../../system/push-notification/dashboard/dhb.service';
+
 @Injectable()
 export class AnnouncementsService {
     constructor(
         @Inject('ANNOUNCEMENT_MODEL')
         private announcementModel: Model<Announcement>,
+        private adminNotificationService: DhbNotificationService,
     ) { }
     
     async getAnnouncements() {
@@ -66,6 +69,16 @@ export class AnnouncementsService {
         try {
             const newAnnouncement = await new this.announcementModel(data);
             await newAnnouncement.save();
+            // add notification to database
+            const notificationData = {
+                // test admin user, this is creating the sermon from his point to create notification for all 
+                // other admin members in the sermon notes group to see
+                userId: '5e837091d245d142b8d92e2a', // this will come from the auth-middleware
+                action: 'Posted announcement',
+                title: newAnnouncement.title,
+                group: 'basic admin' // this is the group the user is performing from -- data will come from the middleware
+            };
+            this.adminNotificationService.addNotification(notificationData);
             return 'Announcement created successfully';
         } catch(ex) {
             if (ex.message) {
@@ -95,6 +108,16 @@ export class AnnouncementsService {
                     }
                 }
                 await toUpdate.save();
+                // add notification to database
+                const notificationData = {
+                    // test admin user, this is creating the sermon from his point to create notification for all 
+                    // other admin members in the sermon notes group to see
+                    userId: '5e837091d245d142b8d92e2a', // this will come from the auth-middleware
+                    action: 'Updated announcement',
+                    title: toUpdate.title,
+                    group: 'basic admin' // this is the group the user is performing from -- data will come from the middleware
+                };
+                this.adminNotificationService.addNotification(notificationData);
                 return 'Announcement updated successfully';
             } else {
                 throw new NotFoundException('Announcement not found');
@@ -116,6 +139,16 @@ export class AnnouncementsService {
             const toDelete = await this.announcementModel.findById(announcementId);
             if(toDelete) {
                 await toDelete.remove();
+                // add notification to database
+                const notificationData = {
+                    // test admin user, this is creating the sermon from his point to create notification for all 
+                    // other admin members in the sermon notes group to see
+                    userId: '5e837091d245d142b8d92e2a', // this will come from the auth-middleware
+                    action: 'Deleted announcement',
+                    title: toDelete.title,
+                    group: 'basic admin' // this is the group the user is performing from -- data will come from the middleware
+                };
+                this.adminNotificationService.addNotification(notificationData);
                 return 'Announcement deleted successfully';
             } else {
                 throw new InternalServerErrorException('Announcement not found');

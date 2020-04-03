@@ -13,11 +13,14 @@ import * as _lodash from 'lodash';
 
 import { Feed } from './schema/feeds.interface';
 
+import { DhbNotificationService } from '../../system/push-notification/dashboard/dhb.service';
+
 @Injectable()
 export class FeedsService {
     constructor(
         @Inject('FEEDS_MODEL')
         private feedsModel: Model<Feed>,
+        private adminNotificationService: DhbNotificationService,
     ) { }
 
     async getFeeds(pageNumber) {
@@ -65,6 +68,16 @@ export class FeedsService {
             } else {
                 newFeed = await new this.feedsModel(data);
                 await newFeed.save();
+                // add notification to database
+                const notificationData = {
+                    // test admin user, this is creating the sermon from his point to create notification for all 
+                    // other admin members in the sermon notes group to see
+                    userId: '5e837091d245d142b8d92e2a', // this will come from the auth-middleware
+                    action: 'Posted feed',
+                    title: newFeed.title,
+                    group: 'basic admin' // this is the group the user is performing from -- data will come from the middleware
+                };
+                this.adminNotificationService.addNotification(notificationData);
                 return 'Feed created successfully';
             }
         } catch(ex) {
@@ -104,6 +117,16 @@ export class FeedsService {
                     }
                 }
                 await toUpdate.save();
+                // add notification to database
+                const notificationData = {
+                    // test admin user, this is creating the sermon from his point to create notification for all 
+                    // other admin members in the sermon notes group to see
+                    userId: '5e837091d245d142b8d92e2a', // this will come from the auth-middleware
+                    action: 'Updated feed',
+                    title: toUpdate.title,
+                    group: 'basic admin' // this is the group the user is performing from -- data will come from the middleware
+                };
+                this.adminNotificationService.addNotification(notificationData);
                 return 'Feed updated successfully';
             } else {
                 throw new NotFoundException('Feed not found');
@@ -125,6 +148,16 @@ export class FeedsService {
             const toDelete = await this.feedsModel.findById(feedId);
             if(toDelete) {
                 await toDelete.remove();
+                // add notification to database
+                const notificationData = {
+                    // test admin user, this is creating the sermon from his point to create notification for all 
+                    // other admin members in the sermon notes group to see
+                    userId: '5e837091d245d142b8d92e2a', // this will come from the auth-middleware
+                    action: 'Deleted feed',
+                    title: toDelete.title,
+                    group: 'basic admin' // this is the group the user is performing from -- data will come from the middleware
+                };
+                this.adminNotificationService.addNotification(notificationData);
                 return 'Feed deleted successfully';
             } else {
                 throw new InternalServerErrorException('Feed not found');

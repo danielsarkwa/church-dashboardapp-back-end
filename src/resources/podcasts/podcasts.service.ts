@@ -14,6 +14,8 @@ import * as _lodash from 'lodash';
 import { Podcast } from './schema/podcast.interface';
 import { Folder } from '../shared/schemas/folder.interface';
 
+import { DhbNotificationService } from 'src/system/push-notification/dashboard/dhb.service';
+
 @Injectable()
 export class PodcastsService {
     constructor(
@@ -21,6 +23,7 @@ export class PodcastsService {
         private PodcastModel: Model<Podcast>,
         @Inject('FOLDER_MODEL')
         private FolderModel: Model<Folder>,
+        private adminNotificationService: DhbNotificationService,
     ) { }
 
     async PodcastChannels() {
@@ -108,6 +111,16 @@ export class PodcastsService {
             const updateChannelRes = await this.updateChannel(updateDataMeta.channelId, JSON.parse(updateDataMeta.data), 'add');
             if (updateChannelRes == 'channel updated successfully') {
                 await newPodcast.save();
+                // add notification to database
+                const notificationData = {
+                    // test admin user, this is creating the sermon from his point to create notification for all 
+                    // other admin members in the sermon notes group to see
+                    userId: '5e837091d245d142b8d92e2a', // this will come from the auth-middleware
+                    action: 'Posted podcast',
+                    title: newPodcast.title,
+                    group: 'basic admin' // this is the group the user is performing from -- data will come from the middleware
+                };
+                this.adminNotificationService.addNotification(notificationData);
                 return 'Podcast created successfully';
             } else {
                 throw new InternalServerErrorException('Could not add podcast to channel');
@@ -130,6 +143,16 @@ export class PodcastsService {
             } else {
                 newChannel = await new this.FolderModel(data);
                 await newChannel.save();
+                // add notification to database
+                const notificationData = {
+                    // test admin user, this is creating the sermon from his point to create notification for all 
+                    // other admin members in the sermon notes group to see
+                    userId: '5e837091d245d142b8d92e2a', // this will come from the auth-middleware
+                    action: 'Created channel',
+                    title: newChannel.title,
+                    group: 'basic admin' // this is the group the user is performing from -- data will come from the middleware
+                };
+                this.adminNotificationService.addNotification(notificationData);
                 return 'channel created successfully';
             };
         } catch(ex) {
@@ -219,6 +242,16 @@ export class PodcastsService {
                     }
                 };
                 await toUpdate.save();
+                // add notification to database
+                const notificationData = {
+                    // test admin user, this is creating the sermon from his point to create notification for all 
+                    // other admin members in the sermon notes group to see
+                    userId: '5e837091d245d142b8d92e2a', // this will come from the auth-middleware
+                    action: 'Updated podcast',
+                    title: toUpdate.title,
+                    group: 'basic admin' // this is the group the user is performing from -- data will come from the middleware
+                };
+                this.adminNotificationService.addNotification(notificationData);
                 return 'podcast updated successfully';
             } else {
                 throw new NotFoundException('Podcast not found');
@@ -279,6 +312,16 @@ export class PodcastsService {
                     }
                 }
                 await toUpdate.save();
+                // add notification to database
+                const notificationData = {
+                    // test admin user, this is creating the sermon from his point to create notification for all 
+                    // other admin members in the sermon notes group to see
+                    userId: '5e837091d245d142b8d92e2a', // this will come from the auth-middleware
+                    action: 'Updated channel',
+                    title: toUpdate.title,
+                    group: 'basic admin' // this is the group the user is performing from -- data will come from the middleware
+                };
+                this.adminNotificationService.addNotification(notificationData);
                 return 'channel updated successfully';
             } else {
                 throw new NotFoundException('Channel not found');
@@ -315,6 +358,16 @@ export class PodcastsService {
                 if (deleteFolderRes === 'channel updated successfully') {
                     const delSermon = await this.PodcastModel.findByIdAndRemove(podcastId);
                     if (delSermon) {
+                        // add notification to database
+                        const notificationData = {
+                            // test admin user, this is creating the sermon from his point to create notification for all 
+                            // other admin members in the sermon notes group to see
+                            userId: '5e837091d245d142b8d92e2a', // this will come from the auth-middleware
+                            action: 'Deleted podcast',
+                            title: toDelete.title,
+                            group: 'basic admin' // this is the group the user is performing from -- data will come from the middleware
+                        };
+                        this.adminNotificationService.addNotification(notificationData);
                         return 'podcast deleted successfully';
                     } else {
                        throw new InternalServerErrorException('Could not delete podcast');
@@ -351,6 +404,16 @@ export class PodcastsService {
                     });
                 };
                 await toDelete.remove();
+                // add notification to database
+                const notificationData = {
+                    // test admin user, this is creating the sermon from his point to create notification for all 
+                    // other admin members in the sermon notes group to see
+                    userId: '5e837091d245d142b8d92e2a', // this will come from the auth-middleware
+                    action: 'Deleted podcast Channel',
+                    title: toDelete.title,
+                    group: 'basic admin' // this is the group the user is performing from -- data will come from the middleware
+                };
+                this.adminNotificationService.addNotification(notificationData);
                 return 'Channel deleted succesfully';            
             } else {
                 throw new NotFoundException('Channel not found');

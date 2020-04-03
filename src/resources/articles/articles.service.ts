@@ -14,6 +14,8 @@ import * as _lodash from 'lodash';
 import { Article } from './schema/article.interface';
 import { Folder } from '../shared/schemas/folder.interface';
 
+import { DhbNotificationService } from '../../system/push-notification/dashboard/dhb.service';
+
 @Injectable()
 export class ArticlesService {
     constructor(
@@ -21,6 +23,7 @@ export class ArticlesService {
         private ArticleModel: Model<Article>,
         @Inject('FOLDER_MODEL')
         private FolderModel: Model<Folder>,
+        private adminNotificationService: DhbNotificationService,
     ) {}
 
     async getAccounts() {
@@ -130,6 +133,16 @@ export class ArticlesService {
             const updateSeriesRes = await this.updateAccount(updateDataMeta.accountId, JSON.parse(updateDataMeta.data), 'add');
             if (updateSeriesRes == 'account updated successfully') {
                 await newArticle.save();
+                // add notification to database
+                const notificationData = {
+                    // test admin user, this is creating the sermon from his point to create notification for all 
+                    // other admin members in the sermon notes group to see
+                    userId: '5e837091d245d142b8d92e2a', // this will come from the auth-middleware
+                    action: 'Posted article',
+                    title: newArticle.title,
+                    group: 'sermon notes' // this is the group the user is performing from -- data will come from the middleware
+                };
+                this.adminNotificationService.addNotification(notificationData);
                 return 'Article created successfully';
             } else {
                 throw new InternalServerErrorException('Could not add article to acount');
@@ -153,6 +166,16 @@ export class ArticlesService {
             } else {
                 newAccount = await new this.FolderModel(data);
                 await newAccount.save();
+                // add notification to database
+                const notificationData = {
+                    // test admin user, this is creating the sermon from his point to create notification for all 
+                    // other admin members in the sermon notes group to see
+                    userId: '5e837091d245d142b8d92e2a', // this will come from the auth-middleware
+                    action: 'Added article account',
+                    title: newAccount.title,
+                    group: 'sermon notes' // this is the group the user is performing from -- data will come from the middleware
+                };
+                this.adminNotificationService.addNotification(notificationData);
                 return 'Account created successfully';
             };
         } catch(ex) {
@@ -194,6 +217,16 @@ export class ArticlesService {
                     }
                 };
                 await toUpdate.save();
+                // add notification to database
+                const notificationData = {
+                    // test admin user, this is creating the sermon from his point to create notification for all 
+                    // other admin members in the sermon notes group to see
+                    userId: '5e837091d245d142b8d92e2a', // this will come from the auth-middleware
+                    action: 'Updated article',
+                    title: toUpdate.title,
+                    group: 'sermon notes' // this is the group the user is performing from -- data will come from the middleware
+                };
+                this.adminNotificationService.addNotification(notificationData);
                 return 'Article updated successfully';
             } else {
                 throw new NotFoundException('Article not found');
@@ -280,6 +313,16 @@ export class ArticlesService {
                 if (deleteArticleRes === 'account updated successfully') {
                     const delArticle = await this.ArticleModel.findByIdAndRemove(articleId);
                     if (delArticle) {
+                         // add notification to database
+                        const notificationData = {
+                            // test admin user, this is creating the sermon from his point to create notification for all 
+                            // other admin members in the sermon notes group to see
+                            userId: '5e837091d245d142b8d92e2a', // this will come from the auth-middleware
+                            action: 'Deleted article',
+                            title: delArticle.title,
+                            group: 'sermon notes' // this is the group the user is performing from -- data will come from the middleware
+                        };
+                        this.adminNotificationService.addNotification(notificationData);
                         return 'article deleted successfully';
                     } else {
                        throw new InternalServerErrorException('Could not delete article');
@@ -316,6 +359,16 @@ export class ArticlesService {
                     });
                 };
                 await toDelete.remove();
+                 // add notification to database
+                 const notificationData = {
+                    // test admin user, this is creating the sermon from his point to create notification for all 
+                    // other admin members in the sermon notes group to see
+                    userId: '5e837091d245d142b8d92e2a', // this will come from the auth-middleware
+                    action: 'Deleted article account',
+                    title: toDelete.title,
+                    group: 'sermon notes' // this is the group the user is performing from -- data will come from the middleware
+                };
+                this.adminNotificationService.addNotification(notificationData);
                 return 'Account deleted succesfully';             
             } else {
                 throw new NotFoundException('Account not found');

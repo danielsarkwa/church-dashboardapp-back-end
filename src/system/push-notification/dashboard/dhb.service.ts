@@ -9,6 +9,8 @@ import {
 import { DhbNotification } from "./schema/dhb.notification.interface";
 import { UsersService } from "src/resources/users/users.service";
 
+import * as _lodash from 'lodash';
+
 @Injectable()
 export class DhbNotificationService {
     constructor(
@@ -26,7 +28,8 @@ export class DhbNotificationService {
                     const groupNotification = await this.notificationModel.find({'group': group });
                     for(const notification of groupNotification) {
                         if (notification['viewers'].indexOf(userId) > -1) {
-                            notifications.push(notification);
+                            const notificationData = _lodash.pick(notification, ['_id', 'userId', 'title', 'action', 'group', 'createdAt']);
+                            notifications.push(notificationData);
                         }
                     }
                 }

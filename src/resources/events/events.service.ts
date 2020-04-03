@@ -13,11 +13,14 @@ import * as _lodash from 'lodash';
 
 import { Event } from './schema/event.interface';
 
+import { DhbNotificationService } from '../../system/push-notification/dashboard/dhb.service';
+
 @Injectable()
 export class EventsService {
     constructor(
         @Inject('EVENT_MODEL')
         private eventModel: Model<Event>,
+        private adminNotificationService: DhbNotificationService,
     ) { }
 
     async getEvents(start, end) {
@@ -66,6 +69,16 @@ export class EventsService {
         try {
             const newEvent = await new this.eventModel(data);
             await newEvent.save();
+            // add notification to database
+            const notificationData = {
+                // test admin user, this is creating the sermon from his point to create notification for all 
+                // other admin members in the sermon notes group to see
+                userId: '5e837091d245d142b8d92e2a', // this will come from the auth-middleware
+                action: 'Posted event',
+                title: newEvent.title,
+                group: 'basic admin' // this is the group the user is performing from -- data will come from the middleware
+            };
+            this.adminNotificationService.addNotification(notificationData);
             return 'Event created successfully';
         } catch(ex) {
             if (ex.message) {
@@ -95,6 +108,16 @@ export class EventsService {
                     }
                 }
                 await toUpdate.save();
+                // add notification to database
+                const notificationData = {
+                    // test admin user, this is creating the sermon from his point to create notification for all 
+                    // other admin members in the sermon notes group to see
+                    userId: '5e837091d245d142b8d92e2a', // this will come from the auth-middleware
+                    action: 'Updated event',
+                    title: toUpdate.title,
+                    group: 'basic admin' // this is the group the user is performing from -- data will come from the middleware
+                };
+                this.adminNotificationService.addNotification(notificationData);
                 return 'Announcement updated successfully';
             } else {
                 throw new NotFoundException('Announcement not found');
@@ -116,6 +139,16 @@ export class EventsService {
             const toDelete = await this.eventModel.findById(eventId);
             if(toDelete) {
                 await toDelete.remove();
+                // add notification to database
+                const notificationData = {
+                    // test admin user, this is creating the sermon from his point to create notification for all 
+                    // other admin members in the sermon notes group to see
+                    userId: '5e837091d245d142b8d92e2a', // this will come from the auth-middleware
+                    action: 'Deleted event',
+                    title: toDelete.title,
+                    group: 'basic admin' // this is the group the user is performing from -- data will come from the middleware
+                };
+                this.adminNotificationService.addNotification(notificationData);
                 return 'Event deleted successfully';
             } else {
                 throw new InternalServerErrorException('Event not found');
