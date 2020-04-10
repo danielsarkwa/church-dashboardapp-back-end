@@ -9,13 +9,20 @@ export const EventSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    viewColor: String,
-    date: {
+    viewColor: {
         type: String,
         required: true
     },
+    date: {
+        type: {
+            yr: String,
+            mon:String,
+            day: Number
+        },
+        required: true
+    },
     time: {
-        type: String,
+        type: [String],
         required: true
     },
     desc: {
@@ -67,18 +74,15 @@ export const EventSchema = new mongoose.Schema({
         type: {
             views: {
                 type: Number,
-                required: true,
-                default: 0,
+                required: true
             },
             likes: {
                 type: Number,
-                required: true,
-                default: 0,
+                required: true
             },
             shared: {
                 type: Number,
-                required: true,
-                default: 0
+                required: true
             }
         },
         required: true,
@@ -92,13 +96,11 @@ export const EventSchema = new mongoose.Schema({
         type: {
             totalCmts: {
                 type: Number,
-                required: true,
-                default: 0,
+                required: true
             },
             comments: {
                 type: [String],
-                required: true,
-                default: []
+                required: true
             }
         },
         required: true,
@@ -111,13 +113,11 @@ export const EventSchema = new mongoose.Schema({
         type: {
             totalMsgs: {
                 type: Number,
-                required: true,
-                default: 0,
+                required: true
             },
             messages: {
                 type: [String],
-                required: true,
-                default: []
+                required: true
             }
         },
         required: true,

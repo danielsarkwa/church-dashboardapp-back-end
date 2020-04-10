@@ -23,9 +23,13 @@ export class EventsService {
         private adminNotificationService: DhbNotificationService,
     ) { }
 
-    async getEvents(start, end) {
+    async getEvents(getData) {
         try {
-            const events = await this.eventModel.find({});
+            const events = await this.eventModel.find({
+                'date.yr': { $eq: getData.from.yr },
+                'date.mon': { $eq: getData.from.mon },
+                'date.day': { $gte: getData.from.day, $lte: getData.to.day }
+            });
             if (events.length > 0) {
                 const eventsList = [];
                 events.forEach(article => {
@@ -162,3 +166,11 @@ export class EventsService {
         }
     }
 }
+
+// db.inventory.find( { qty: { $gte: 20 } } )
+// db.inventory.find( { qty: { $lte: 20 } } )
+// db.inventory.find( { $and: [ { price: { $ne: 1.99 } }, { price: { $exists: true } } ] }
+// $and: [ 
+//     { 'date.yr': { $eq: getData.from.yr } }, { 'date.mon': { $eq: getData.from.mon } } 
+// ]
+// { price: { $ne: 1.99, $exists: true } }

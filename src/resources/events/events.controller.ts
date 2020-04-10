@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post, Body, Put, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Param, Post, Body, Put, Delete } from '@nestjs/common';
 import { CreateEventDto } from '../../adapter/entry-dto/event.dto';
 import { EventsService } from './events.service';
 
@@ -7,11 +7,8 @@ export class EventsController {
   constructor(private eventsService: EventsService) { }
   
   @Get()
-  async loadEvents(
-    @Query('from') start,
-    @Query('to') end
-  ) {
-    return await this.eventsService.getEvents(start, end);
+  async loadEvents(@Body() getData) {
+    return await this.eventsService.getEvents(getData);
   }
 
   @Get(':eventId')

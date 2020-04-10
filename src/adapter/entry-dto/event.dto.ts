@@ -3,8 +3,12 @@ export class CreateEventDto {
     title?: string;
     coverImg?: string;
     viewColor: string;
-    date?: string;
-    time?: string;
+    date?: {
+        yr: string,
+        mon: string,
+        day: number
+    };
+    time?: string[];
     desc?: string;
     tags?: string[];
     details?: {
