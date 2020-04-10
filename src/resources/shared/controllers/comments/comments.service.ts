@@ -20,7 +20,10 @@ export class CommentsService {
         
     async getComments(entity, entityId, pageNumber) {
        try {
-            const comments = await this.CommentModel.find({'cmtType': entity, 'cmtTypeId': entityId});
+            const perPage = 10;
+            const page = pageNumber ? pageNumber : 1;
+            const comments = await this.CommentModel
+                .find({'cmtType': entity, 'cmtTypeId': entityId}).skip((perPage * page) - perPage).limit(perPage);
             if (comments.length > 0) {
                 return comments;
             } else {

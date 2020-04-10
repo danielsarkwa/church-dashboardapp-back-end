@@ -26,9 +26,12 @@ export class SermonsService {
         private adminNotificationService: DhbNotificationService,
         ) { }
         
-    async getSeries() {
+    async getSeries(pageNumber) {
         try {
-            const series = await this.FolderModel.find({'belongsTo': 'sermon'});
+            const perPage = 10;
+            const page = pageNumber ? pageNumber : 1;
+            const series = await this.FolderModel
+                .find({'belongsTo': 'sermon'}).skip((perPage * page) - perPage).limit(perPage);
             if (series.length > 0) {
                 return series;
             } else {
@@ -63,9 +66,12 @@ export class SermonsService {
         };
     }
 
-    async getAllSermons() {
+    async getAllSermons(pageNumber) {
         try {
-            const sermons = await this.SermonModel.find({});
+            const perPage = 10;
+            const page = pageNumber ? pageNumber : 1;
+            const sermons = await this.SermonModel
+                .find({}).skip((perPage * page) - perPage).limit(perPage);
             if (sermons.length > 0) {
                 const sermonsList = [];
                 sermons.forEach(article => {
@@ -250,9 +256,9 @@ export class SermonsService {
                                             if (addRes !== 'series updated successfully') {
                                                 throw new InternalServerErrorException('Could not move sermon to new series');   
                                             }
-                                        } else {
-                                            throw new InternalServerErrorException('Could not move sermon');
-                                        }
+                                            } else {
+                                                throw new InternalServerErrorException('Could not move sermon');
+                                            }
                                         } else {
                                             throw new BadRequestException('one of the series not found');
                                         }
@@ -448,3 +454,14 @@ export class SermonsService {
         }
     }
 }
+
+// //Page 1
+// db.users.find().limit (10)
+// //Page 2
+// db.users.find().skip(10).limit(10)
+// //Page 3
+// db.users.find().skip(20).limit(10)
+
+
+// lasted values
+//Questions.findOne({}, { sort: { _id: -1 }, limit: 1 });

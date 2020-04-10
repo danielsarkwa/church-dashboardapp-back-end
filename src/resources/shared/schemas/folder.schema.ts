@@ -48,6 +48,7 @@ export const FolderSchema = new mongoose.Schema({
     },
 });
 
+// @TO-DO: check if this schema is being used, else remove
 export const FolderAccountSchema = new mongoose.Schema({ // this will be for channels and accounts
     title: {
         type: String,
@@ -71,7 +72,6 @@ export const FolderAccountSchema = new mongoose.Schema({ // this will be for cha
         default: 0
     },
     files: [String],
-    
     createdAt: { 
         type: Date,
         required: true,

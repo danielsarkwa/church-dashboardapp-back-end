@@ -22,15 +22,19 @@ export class UsersService {
 
   async getUsers(type, pageNumber) {
     try {
+      const perPage = 10;
+      const page = pageNumber ? pageNumber : 1;
       if (type == 'users') {
-        const users = await this.userModel.find({});
+        const users = await this.userModel
+          .find({}).skip((perPage * page) - perPage).limit(perPage);
         if (users.length > 0) {
           return users;
         } else {
             throw new NotFoundException('Users not found');
         }
       } else {
-        const admins = await this.userModel.find({'type':'admin'});
+        const admins = await this.userModel
+          .find({'type':'admin'}).skip((perPage * page) - perPage).limit(perPage);
         if (admins.length > 0) {
           return admins;
         } else {

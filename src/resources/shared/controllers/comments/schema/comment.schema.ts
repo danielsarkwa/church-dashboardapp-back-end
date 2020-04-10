@@ -18,10 +18,14 @@ export const CommentSchema = new mongoose.Schema({
                 type: [{
                     commentAutour: String,
                     commentContent: String,
-                    createAt: Date
+                    createAt: String
                 }]
             }
         }
     },
-    createdAt: Date
+    createdAt: {
+        type: Date,
+        required: true,
+        default: Date.now
+    }
 });

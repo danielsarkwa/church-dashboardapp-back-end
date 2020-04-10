@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post, Body, Put, Delete } from '@nestjs/common';
+import { Controller, Get, Param, Post, Body, Put, Delete, Query } from '@nestjs/common';
 import { CreateAnnouncementDto } from '../../adapter/entry-dto/announcement.dto';
 import { AnnouncementsService } from './announcements.service';
 
@@ -7,8 +7,8 @@ export class AnnouncementsController {
   constructor(private readonly announcementsService: AnnouncementsService) { }
   
   @Get()
-  async loadAnnouncements() {
-     return await this.announcementsService.getAnnouncements();
+  async loadAnnouncements(@Query('pageNumber') pageNumber) {
+     return await this.announcementsService.getAnnouncements(pageNumber);
   }
 
   @Get(':announcementId')

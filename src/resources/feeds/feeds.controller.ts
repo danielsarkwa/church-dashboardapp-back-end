@@ -7,7 +7,7 @@ export class FeedsController {
   constructor(private feedsService: FeedsService) { }
 
   @Get()
-  loadFeeds(@Query('pageNumber') pageNumber ) {
+  loadFeeds(@Query('pageNumber') pageNumber) {
     return this.feedsService.getFeeds(pageNumber);
   }
   

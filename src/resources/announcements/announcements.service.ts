@@ -23,9 +23,12 @@ export class AnnouncementsService {
         private adminNotificationService: DhbNotificationService,
     ) { }
     
-    async getAnnouncements() {
+    async getAnnouncements(pageNumber) {
         try {
-            const announcements = await this.announcementModel.find({});
+            const perPage = 10;
+            const page = pageNumber ? pageNumber : 1;
+            const announcements = await this.announcementModel
+                .find({}).skip((perPage * page) - perPage).limit(perPage);
             if (announcements.length > 0) {
                 const announcementsList = [];
                 announcements.forEach(article => {

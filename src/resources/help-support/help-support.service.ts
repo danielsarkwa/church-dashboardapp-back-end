@@ -26,7 +26,10 @@ export class HelpSupportService {
   // User Feedback
   async getUsersFeedbacks(pageNumber) {
     try {
-      const feedback = await this.helpSupportsModel.find({'type':'feedback'});
+      const perPage = 10;
+      const page = pageNumber ? pageNumber : 1;
+      const feedback = await this.helpSupportsModel
+        .find({'type':'feedback'}).skip((perPage * page) - perPage).limit(perPage);
       if (feedback.length > 0) {
         return feedback;
       } else {
@@ -44,7 +47,10 @@ export class HelpSupportService {
   // SuggestedFeatures
   async getSuggestedFeatures(pageNumber) {
     try {
-      const SuggestedFeature = await this.helpSupportsModel.find({'type':'feature'});
+      const perPage = 10;
+      const page = pageNumber ? pageNumber : 1;
+      const SuggestedFeature = await this.helpSupportsModel
+        .find({'type':'feature'}).skip((perPage * page) - perPage).limit(perPage);
         if (SuggestedFeature.length > 0) {
           return SuggestedFeature;
         } else {
@@ -62,7 +68,10 @@ export class HelpSupportService {
   // Faqs
   async getFaqs(pageNumber) {
     try {
-      const faqs = await this.helpSupportsModel.find({'type':'faq'});
+      const perPage = 10;
+      const page = pageNumber ? pageNumber : 1;
+      const faqs = await this.helpSupportsModel
+        .find({'type':'faq'}).skip((perPage * page) - perPage).limit(perPage);
         if (faqs.length > 0) {
           return faqs;
         } else {

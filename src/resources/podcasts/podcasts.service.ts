@@ -26,9 +26,12 @@ export class PodcastsService {
         private adminNotificationService: DhbNotificationService,
     ) { }
 
-    async PodcastChannels() {
+    async PodcastChannels(pageNumber) {
         try {
-            const channel = await this.FolderModel.find({'belongsTo': 'podcast'});
+            const perPage = 10;
+            const page = pageNumber ? pageNumber : 1;
+            const channel = await this.FolderModel
+                .find({'belongsTo': 'podcast'}).skip((perPage * page) - perPage).limit(perPage);
             if (channel.length > 0) {
                 return channel;
             } else {

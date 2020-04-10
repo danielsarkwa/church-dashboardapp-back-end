@@ -8,8 +8,8 @@ export class ArticlesController {
   constructor(private readonly articlesService: ArticlesService) { }
 
   @Get('accounts')
-  async loadAccounts() {
-      return await this.articlesService.getAccounts();
+  async loadAccounts(@Query('pageNumber') pageNumber) {
+      return await this.articlesService.getAccounts(pageNumber);
   }
 
   @Get(':accountId')
@@ -18,8 +18,8 @@ export class ArticlesController {
   }
 
   @Get()
-  async loadAllArticles() {
-    return await this.articlesService.getAllArticles();
+  async loadAllArticles(@Query('pageNumber') pageNumber) {
+    return await this.articlesService.getAllArticles(pageNumber);
   }
 
   @Get('one/:articleId')

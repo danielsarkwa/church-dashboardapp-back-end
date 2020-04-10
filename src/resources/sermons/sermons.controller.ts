@@ -8,8 +8,8 @@ export class SermonsController {
   constructor(private readonly sermonsService: SermonsService) { }
 
   @Get('series')
-  async loadSeries() {
-    return await this.sermonsService.getSeries();
+  async loadSeries(@Query('pageNumber') pageNumber) {
+    return await this.sermonsService.getSeries(pageNumber);
   }
 
   @Get(':seriesId')
@@ -18,8 +18,8 @@ export class SermonsController {
   }
 
   @Get()
-  async loadAllSermons() {
-    return await this.sermonsService.getAllSermons();
+  async loadAllSermons(@Query('pageNumber') pageNumber) {
+    return await this.sermonsService.getAllSermons(pageNumber);
   }
 
   @Get('one/:sermonId')

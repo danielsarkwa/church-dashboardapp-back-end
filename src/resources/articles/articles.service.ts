@@ -26,9 +26,12 @@ export class ArticlesService {
         private adminNotificationService: DhbNotificationService,
     ) {}
 
-    async getAccounts() {
+    async getAccounts(pageNumber) {
         try {
-            const account = await this.FolderModel.find({'belongsTo': 'article'});
+            const perPage = 10;
+            const page = pageNumber ? pageNumber : 1;
+            const account = await this.FolderModel
+                .find({'belongsTo': 'article'}).skip((perPage * page) - perPage).limit(perPage);
             if (account.length > 0) {
                 return account;
             } else {
@@ -63,9 +66,12 @@ export class ArticlesService {
         };
     }
 
-    async getAllArticles() {
+    async getAllArticles(pageNumber) {
         try {
-            const articles = await this.ArticleModel.find({});
+            const perPage = 10;
+            const page = pageNumber ? pageNumber : 1;
+            const articles = await this.ArticleModel
+                .find({}).skip((perPage * page) - perPage).limit(perPage);
             if (articles.length > 0) {
                 const articlesList = [];
                 articles.forEach(article => {

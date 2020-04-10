@@ -25,9 +25,20 @@ export class FeedsService {
 
     async getFeeds(pageNumber) {
         try {
-            const feeds = await this.feedsModel.find({});
+            const perPage = 10;
+            const page = pageNumber ? pageNumber : 1;
+            const feeds = await this.feedsModel
+                .find({})
+                .sort({ _id: -1 })
+                .skip((perPage * page) - perPage)
+                .limit(perPage);
             if (feeds.length > 0) {
-                return feeds;
+                const feedsList = [];
+                feeds.forEach(feed => {
+                    const listData = _lodash.pick(feed, ['_id', 'title', 'coverImg', 'details.autuorId', 'details.to', 'createdAt', 'stats']);
+                    feedsList.push(listData);
+                });
+                return feedsList;
             } else {
                 throw new NotFoundException('Feeds not found');
             }

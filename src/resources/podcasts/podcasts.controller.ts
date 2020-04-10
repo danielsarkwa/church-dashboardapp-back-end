@@ -8,8 +8,8 @@ export class PodcastsController {
   constructor(private readonly podcastsService: PodcastsService) { }
 
   @Get('channels')
-  async loadPodcastChannels() {
-      return await this.podcastsService.PodcastChannels();
+  async loadPodcastChannels(@Query('pageNumber') pageNumber) {
+      return await this.podcastsService.PodcastChannels(pageNumber);
   }
 
   @Get(':channelId')

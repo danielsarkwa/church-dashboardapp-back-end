@@ -20,7 +20,10 @@ export class MessagesService {
         
     async getMessages(entity, entityId, pageNumber) {
         try {
-            const message = await this.MessageModel.find({'msgType': entity, 'msgTypeId': entityId});
+            const perPage = 10;
+            const page = pageNumber ? pageNumber : 1;
+            const message = await this.MessageModel
+                .find({'msgType': entity, 'msgTypeId': entityId}).skip((perPage * page) - perPage).limit(perPage);
             if (message.length > 0) {
                 return message;
             } else {
