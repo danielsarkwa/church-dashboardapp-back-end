@@ -38,7 +38,9 @@ export class FeedsService {
                     const listData = _lodash.pick(feed, ['_id', 'title', 'coverImg', 'details.autuorId', 'details.to', 'createdAt', 'stats']);
                     feedsList.push(listData);
                 });
-                return feedsList;
+                return {
+                    results: feedsList
+                };
             } else {
                 throw new NotFoundException('Feeds not found');
             }

@@ -33,7 +33,9 @@ export class SermonsService {
             const series = await this.FolderModel
                 .find({'belongsTo': 'sermon'}).skip((perPage * page) - perPage).limit(perPage);
             if (series.length > 0) {
-                return series;
+                return {
+                    results: series
+                };
             } else {
                 throw new NotFoundException('Series not found');
             };
@@ -73,12 +75,14 @@ export class SermonsService {
             const sermons = await this.SermonModel
                 .find({}).skip((perPage * page) - perPage).limit(perPage);
             if (sermons.length > 0) {
-                const sermonsList = [];
+                const sermonsLists = [];
                 sermons.forEach(article => {
                     const listData = _lodash.pick(article, ['_id', 'title', 'seriesId', 'coverImg', 'details.desc', 'stats', 'details.speaker','commentsData.totalCmts', 'messagesData.totalMsgs']);
-                    sermonsList.push(listData);
+                    sermonsLists.push(listData);
                 });
-                return sermonsList;
+                return {
+                    results: sermonsLists
+                };
             } else {
                 throw new NotFoundException('Sermons not found');
             }

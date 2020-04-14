@@ -36,7 +36,9 @@ export class EventsService {
                     const listData = _lodash.pick(article, ['_id', 'viewColor', 'title', 'coverImg', 'date', 'time', 'stats', 'commentsData.totalCmts', 'messagesData.totalMsgs']);
                     eventsList.push(listData);
                 });
-                return eventsList;
+                return {
+                    results: eventsList
+                };
             } else {
                 throw new NotFoundException('Events not found');
             }

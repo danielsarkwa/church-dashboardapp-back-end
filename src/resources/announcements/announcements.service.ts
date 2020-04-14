@@ -35,7 +35,10 @@ export class AnnouncementsService {
                     const listData = _lodash.pick(article, ['_id', 'title', 'coverImg', 'details.from', 'stats', 'createdAt', 'commentsData.totalCmts']);
                     announcementsList.push(listData);
                 });
-                return announcementsList;
+
+                return {
+                    results: announcementsList
+                };
             } else {
                 throw new NotFoundException('Announcements not found');
             }

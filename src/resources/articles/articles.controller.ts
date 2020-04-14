@@ -8,7 +8,9 @@ export class ArticlesController {
   constructor(private readonly articlesService: ArticlesService) { }
 
   @Get('accounts')
-  async loadAccounts(@Query('pageNumber') pageNumber) {
+  async loadAccounts(
+    @Query('pageNumber') pageNumber,
+    ) {
       return await this.articlesService.getAccounts(pageNumber);
   }
 

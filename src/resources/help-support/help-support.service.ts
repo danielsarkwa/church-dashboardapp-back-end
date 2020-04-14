@@ -28,10 +28,12 @@ export class HelpSupportService {
     try {
       const perPage = 10;
       const page = pageNumber ? pageNumber : 1;
-      const feedback = await this.helpSupportsModel
+      const feedbacks = await this.helpSupportsModel
         .find({'type':'feedback'}).skip((perPage * page) - perPage).limit(perPage);
-      if (feedback.length > 0) {
-        return feedback;
+      if (feedbacks.length > 0) {
+        return {
+          results: feedbacks
+        };
       } else {
           throw new NotFoundException('Feedback not found');
       }
@@ -49,10 +51,12 @@ export class HelpSupportService {
     try {
       const perPage = 10;
       const page = pageNumber ? pageNumber : 1;
-      const SuggestedFeature = await this.helpSupportsModel
+      const SuggestedFeatures = await this.helpSupportsModel
         .find({'type':'feature'}).skip((perPage * page) - perPage).limit(perPage);
-        if (SuggestedFeature.length > 0) {
-          return SuggestedFeature;
+        if (SuggestedFeatures.length > 0) {
+          return {
+            results: SuggestedFeatures
+          };
         } else {
             throw new NotFoundException('Suggested feature not found');
         }
@@ -73,7 +77,9 @@ export class HelpSupportService {
       const faqs = await this.helpSupportsModel
         .find({'type':'faq'}).skip((perPage * page) - perPage).limit(perPage);
         if (faqs.length > 0) {
-          return faqs;
+          return {
+            results: faqs
+          };
         } else {
             throw new NotFoundException('Faqs not found');
         }

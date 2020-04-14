@@ -30,10 +30,12 @@ export class PodcastsService {
         try {
             const perPage = 10;
             const page = pageNumber ? pageNumber : 1;
-            const channel = await this.FolderModel
+            const channels = await this.FolderModel
                 .find({'belongsTo': 'podcast'}).skip((perPage * page) - perPage).limit(perPage);
-            if (channel.length > 0) {
-                return channel;
+            if (channels.length > 0) {
+                return {
+                    results: channels
+                };
             } else {
                 throw new NotFoundException('Channels not found');
             };

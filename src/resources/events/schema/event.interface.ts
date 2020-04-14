@@ -9,7 +9,10 @@ export interface Event extends Document {
         mon: string,
         day: number
     };
-    time: string[];
+    time: {
+        start: string,
+        end: string
+    };
     desc: string;
     tags: string[];
     details: {

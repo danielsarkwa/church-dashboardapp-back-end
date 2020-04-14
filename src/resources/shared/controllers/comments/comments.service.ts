@@ -23,9 +23,13 @@ export class CommentsService {
             const perPage = 10;
             const page = pageNumber ? pageNumber : 1;
             const comments = await this.CommentModel
-                .find({'cmtType': entity, 'cmtTypeId': entityId}).skip((perPage * page) - perPage).limit(perPage);
+                .find({'cmtType': entity, 'cmtTypeId': entityId})
+                .skip((perPage * page) - perPage)
+                .limit(perPage);
             if (comments.length > 0) {
-                return comments;
+                return {
+                    results: comments
+                };
             } else {
                 throw new NotFoundException('Comments not found');
             };

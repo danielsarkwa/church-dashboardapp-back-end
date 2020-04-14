@@ -28,7 +28,9 @@ export class UsersService {
         const users = await this.userModel
           .find({}).skip((perPage * page) - perPage).limit(perPage);
         if (users.length > 0) {
-          return users;
+          return {
+            results: users
+          };
         } else {
             throw new NotFoundException('Users not found');
         }

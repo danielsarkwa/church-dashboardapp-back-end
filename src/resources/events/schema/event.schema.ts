@@ -22,7 +22,10 @@ export const EventSchema = new mongoose.Schema({
         required: true
     },
     time: {
-        type: [String],
+        type: {
+            start: String,
+            end: String
+        },
         required: true
     },
     desc: {

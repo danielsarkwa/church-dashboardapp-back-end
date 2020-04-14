@@ -7,7 +7,9 @@ export class AnnouncementsController {
   constructor(private readonly announcementsService: AnnouncementsService) { }
   
   @Get()
-  async loadAnnouncements(@Query('pageNumber') pageNumber) {
+  async loadAnnouncements(
+    @Query('pageNumber') pageNumber
+    ) {
      return await this.announcementsService.getAnnouncements(pageNumber);
   }
 

@@ -22,12 +22,16 @@ export class MessagesService {
         try {
             const perPage = 10;
             const page = pageNumber ? pageNumber : 1;
-            const message = await this.MessageModel
-                .find({'msgType': entity, 'msgTypeId': entityId}).skip((perPage * page) - perPage).limit(perPage);
-            if (message.length > 0) {
-                return message;
+            const messages = await this.MessageModel
+                .find({'msgType': entity, 'msgTypeId': entityId})
+                .skip((perPage * page) - perPage)
+                .limit(perPage);
+            if (messages.length > 0) {
+                return {
+                    results: messages
+                };
             } else {
-                throw new NotFoundException('Mesdage not found');
+                throw new NotFoundException('Message not found');
             };
        } catch (ex) {
             if(ex.message) {

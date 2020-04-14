@@ -30,10 +30,12 @@ export class ArticlesService {
         try {
             const perPage = 10;
             const page = pageNumber ? pageNumber : 1;
-            const account = await this.FolderModel
+            const accounts = await this.FolderModel
                 .find({'belongsTo': 'article'}).skip((perPage * page) - perPage).limit(perPage);
-            if (account.length > 0) {
-                return account;
+            if (accounts.length > 0) {
+                return {
+                    results: accounts
+                };
             } else {
                 throw new NotFoundException('Account not found');
             };
