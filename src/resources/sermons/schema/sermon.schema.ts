@@ -54,7 +54,7 @@ export const SermonSchema = new mongoose.Schema({
                 } 
             }]
         },
-        attachments: {
+        attachments: { // deprecated
             type: [{
                 heading: {
                     type: String,
@@ -72,7 +72,7 @@ export const SermonSchema = new mongoose.Schema({
         required: true,
         default: Date.now
     },
-    stats: {
+    stats: { // removed as a single document
         type: {
             views: {
                 type: Number,
